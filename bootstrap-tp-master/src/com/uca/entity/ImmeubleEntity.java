@@ -8,7 +8,7 @@ public class ImmeubleEntity {
     private ArrayList<AppartementEntity> appartements=new ArrayList<AppartementEntity>();
     
     public ImmeubleEntity(int idImmeuble){
-        this.idImmeuble=idImmeuble;
+        
        
     }
 
@@ -29,6 +29,9 @@ public class ImmeubleEntity {
         return this.appartements;
     }
     // Liste des setters
+    public void setIdImmeuble(int idImmeuble){
+        this.idImmeuble=idImmeuble;
+    }
     public void setNom(String nom){
         this.nom=nom;
     }
