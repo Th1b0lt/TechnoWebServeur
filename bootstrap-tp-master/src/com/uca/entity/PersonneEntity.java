@@ -11,7 +11,7 @@ public class PersonneEntity {
     }
     //Liste des getteurs
     public String getNom(){
-        return this.nom
+        return this.nom;
     }
     public String getPrenom(){
         return this.prenom;

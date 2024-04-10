@@ -9,7 +9,7 @@ public class AppartementEntity {
 
     public AppartementEntity(int id){
         this.idAppartement=id;
-        personneLiee= new ArrayList<PersonneEntity>;
+        personneLiee= new ArrayList<PersonneEntity>();
     }
 
     //Liste des getters
