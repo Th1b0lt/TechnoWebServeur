@@ -6,7 +6,7 @@ public class ImmeubleEntity {
     private SyndicatEntity syndicat;
     private ArrayList<AppartementEntity> appartements;
     
-    public ImmeubleEntity(int idImmeuble){
+    public ImmeubleEntity(String idImmeuble){
         this.idImmeuble=idImmeuble;
         this.appartements=new ArrayList<AppartementEntity>();
     }
