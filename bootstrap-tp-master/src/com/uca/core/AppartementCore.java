@@ -1,4 +1,4 @@
-package src.com.uca.core;
+package com.uca.core;
 
 public class AppartementCore {
     
