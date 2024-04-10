@@ -1,5 +1,6 @@
-package src.com.uca.entity;
-
+package com.uca.entity;
+import java.sql.*;
+import java.util.ArrayList;
 public class AppartementEntity {
     private final int idAppartement;
     private int etage;
@@ -9,7 +10,7 @@ public class AppartementEntity {
 
     public AppartementEntity(int id){
         this.idAppartement=id;
-        personneLiee= new ArrayList<PersonneEntity>;
+        this.personneLiee= new ArrayList<PersonneEntity>();
     }
 
     //Liste des getters

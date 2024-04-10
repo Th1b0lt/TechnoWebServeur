@@ -1,5 +1,6 @@
-package src.com.uca.entity;
-
+package com.uca.entity;
+import java.sql.*;
+import java.util.ArrayList;
 public class SyndicatEntity {
     private final int idSyndicat;
     private String name;
