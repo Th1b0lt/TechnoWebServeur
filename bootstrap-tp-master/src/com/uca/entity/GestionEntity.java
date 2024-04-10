@@ -1,10 +1,11 @@
 package com.uca.entity;
 import java.sql.*;
 import java.util.ArrayList;
+
 public class GestionEntity{
-    private ArrayList<ImmeubleEntity> immeubles;
+    private ArrayList<ImmeubleEntity> immeubles=new ArrayList<ImmeubleEntity>();
     public GestionEntity(){
-        this.immeubles=new ArrayList<ImmeubleEntity>();
+        //void
     }
     public ArrayList<ImmeubleEntity> getImmeubles(){
         return this.immeubles;

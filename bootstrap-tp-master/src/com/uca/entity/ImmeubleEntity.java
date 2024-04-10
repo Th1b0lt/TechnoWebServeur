@@ -2,18 +2,18 @@ package com.uca.entity;
 import java.sql.*;
 import java.util.ArrayList;
 public class ImmeubleEntity {
-    private final String idImmeuble;
+    private final int idImmeuble;
     private String nom;
     private SyndicatEntity syndicat;
-    private ArrayList<AppartementEntity> appartements;
+    private ArrayList<AppartementEntity> appartements=new ArrayList<AppartementEntity>();
     
-    public ImmeubleEntity(String idImmeuble){
+    public ImmeubleEntity(int idImmeuble){
         this.idImmeuble=idImmeuble;
-        this.appartements=new ArrayList<AppartementEntity>();
+       
     }
 
     //Liste des getters
-    public String getIdImmeuble(){
+    public int getIdImmeuble(){
         return this.idImmeuble;
     }
 
