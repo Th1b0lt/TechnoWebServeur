@@ -2,19 +2,23 @@ package com.uca.entity;
 import java.sql.*;
 import java.util.ArrayList;
 public class AppartementEntity {
-    private final int idAppartement;
+    private final String idAppartement;
     private int etage;
     private int superficie;
     private ArrayList<PersonneEntity> personneLiee;
     private Boolean estLoue;
 
-    public AppartementEntity(int id){
+    public AppartementEntity(String id){
         this.idAppartement=id;
+<<<<<<< HEAD
         this.personneLiee= new ArrayList<PersonneEntity>();
+=======
+        personneLiee= new ArrayList<PersonneEntity>();
+>>>>>>> 3a141731512bfdeccabc27f46f4e8bc9064bb618
     }
 
     //Liste des getters
-    public int getIdAppartement(){
+    public String getIdAppartement(){
         return this.idAppartement;
     }
 
