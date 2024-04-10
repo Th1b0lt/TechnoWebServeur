@@ -48,7 +48,7 @@ public class SyndicatEntity {
         this.numeroDeTelephone=numero;
     }
 
-    public void adresseEmail(String email){
+    public void setAdresseEmail(String email){
         this.adresseEmail=email;
     }
 
