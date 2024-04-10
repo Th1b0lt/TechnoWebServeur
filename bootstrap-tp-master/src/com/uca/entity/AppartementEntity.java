@@ -1,19 +1,19 @@
 package src.com.uca.entity;
 
 public class AppartementEntity {
-    private final int idAppartement;
+    private final String idAppartement;
     private int etage;
     private int superficie;
     private ArrayList<PersonneEntity> personneLiee;
     private Boolean estLoue;
 
-    public AppartementEntity(int id){
+    public AppartementEntity(String id){
         this.idAppartement=id;
         personneLiee= new ArrayList<PersonneEntity>();
     }
 
     //Liste des getters
-    public int getIdAppartement(){
+    public String getIdAppartement(){
         return this.idAppartement;
     }
 

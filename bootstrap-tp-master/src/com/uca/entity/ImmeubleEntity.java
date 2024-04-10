@@ -1,7 +1,7 @@
 package src.com.uca.entity;
 
 public class ImmeubleEntity {
-    private final int idImmeuble;
+    private final String idImmeuble;
     private String nom;
     private SyndicatEntity syndicat;
     private ArrayList<AppartementEntity> appartements;
@@ -12,7 +12,7 @@ public class ImmeubleEntity {
     }
 
     //Liste des getters
-    public int getIdImmeuble(){
+    public String getIdImmeuble(){
         return this.idImmeuble;
     }
 

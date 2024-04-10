@@ -1,17 +1,20 @@
 package src.com.uca.entity;
 
 public class SyndicatEntity {
-    private final int idSyndicat;
+    private final String idSyndicat;
     private String name;
     private String adresse;
     private String personneReference;
-    private int numeroDeTelephone;
+    private String numeroDeTelephone;
     private String adresseEmail;
 
-    public SyndicatEntity(int idSyndicat){
+    public SyndicatEntity(String idSyndicat){
         this.idSyndicat=idSyndicat;
     }
     //Liste des getteur
+    public String getIdSyndicat(){
+        return this.idSyndicat;
+    }
     public String getName(){
         return this.name;
     }
@@ -23,7 +26,7 @@ public class SyndicatEntity {
         return this.personneReference;
     }
 
-    public int getNumeroDeTelephone(){
+    public String getNumeroDeTelephone(){
         return this.numeroDeTelephone;
     }
 
@@ -44,7 +47,7 @@ public class SyndicatEntity {
         this.personneReference=personne;
     }
 
-    public void setNumeroDeTelephone(int numero){
+    public void setNumeroDeTelephone(String numero){
         this.numeroDeTelephone=numero;
     }
 

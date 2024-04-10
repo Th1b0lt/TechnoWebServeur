@@ -1,12 +1,12 @@
 package src.com.uca.entity;
 
 public class PersonneEntity {
-    private final int idPersonne;
+    private final String idPersonne;
     private String nom;
     private String prenom;
-    private int numeroDeTelephone;
+    private String numeroDeTelephone;
 
-    public PersonneEntity(int id){
+    public PersonneEntity(String id){
         this.idPersonne=id;
     }
     //Liste des getteurs
@@ -16,10 +16,10 @@ public class PersonneEntity {
     public String getPrenom(){
         return this.prenom;
     }
-    public int getNumeroDeTelephone(){
+    public String getNumeroDeTelephone(){
         return this.numeroDeTelephone;
     }
-    public int getIdPersonne(){
+    public String getIdPersonne(){
         return this.idPersonne;
     }
 
@@ -31,7 +31,7 @@ public class PersonneEntity {
     public void setPrenom(String prenom){
         this.prenom=prenom;
     }
-    public void setNumeroDeTelephone(int numero){
+    public void setNumeroDeTelephone(String numero){
         this.numeroDeTelephone=numero;
     }
 
