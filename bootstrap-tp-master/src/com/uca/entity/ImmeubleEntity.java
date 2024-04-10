@@ -2,13 +2,13 @@ package com.uca.entity;
 import java.sql.*;
 import java.util.ArrayList;
 public class ImmeubleEntity {
-    private final int idImmeuble;
+    private int idImmeuble;
     private String nom;
     private SyndicatEntity syndicat;
     private ArrayList<AppartementEntity> appartements=new ArrayList<AppartementEntity>();
     
     public ImmeubleEntity(int idImmeuble){
-        this.idImmeuble=idImmeuble;
+        
        
     }
 
@@ -29,6 +29,9 @@ public class ImmeubleEntity {
         return this.appartements;
     }
     // Liste des setters
+    public void setIdImmeuble(int idImmeuble){
+        this.idImmeuble=idImmeuble;
+    }
     public void setNom(String nom){
         this.nom=nom;
     }
