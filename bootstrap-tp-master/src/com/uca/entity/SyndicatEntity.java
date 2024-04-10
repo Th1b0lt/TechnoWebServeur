@@ -9,8 +9,8 @@ public class SyndicatEntity {
     private String numeroDeTelephone;
     private String adresseEmail;
 
-    public SyndicatEntity(int idSyndicat){
-        this.idSyndicat=idSyndicat;
+    public SyndicatEntity(){
+        //void
     }
     //Liste des getteur
     public int getIdSyndicat(){
@@ -36,6 +36,9 @@ public class SyndicatEntity {
     }
 
     //Liste des Setteur
+    public void setIdSyndicat(int idSyndicat){
+        this.idSyndicat=idSyndicat;
+    }
     public void setName(String name){
         this.name=name;
     }

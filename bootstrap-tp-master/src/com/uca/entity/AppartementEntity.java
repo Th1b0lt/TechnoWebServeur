@@ -2,14 +2,14 @@ package com.uca.entity;
 import java.sql.*;
 import java.util.ArrayList;
 public class AppartementEntity {
-    private final int idAppartement;
+    private int idAppartement;
     private int etage;
     private int superficie;
     private ArrayList<PersonneEntity> personneLiee=new ArrayList<PersonneEntity>();;
     private Boolean estLoue;
 
-    public AppartementEntity(int id){
-        this.idAppartement=id;
+    public AppartementEntity(){
+        //empty
     }
 
     //Liste des getters
@@ -31,6 +31,9 @@ public class AppartementEntity {
         return this.estLoue;
     }
     //Liste des setters
+    public void setIdAppartement(int id){
+        this.idAppartement=id;
+    }
     public void setEtage(int etage){
         this.etage=etage;
     }
