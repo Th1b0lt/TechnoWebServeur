@@ -44,7 +44,7 @@ public class SyndicatEntity {
         this.personneReference=personne;
     }
 
-    public void setNumeroDeTelephone(String numero){
+    public void setNumeroDeTelephone(int numero){
         this.numeroDeTelephone=numero;
     }
 
