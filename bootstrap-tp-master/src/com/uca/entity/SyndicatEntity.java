@@ -2,18 +2,18 @@ package com.uca.entity;
 import java.sql.*;
 import java.util.ArrayList;
 public class SyndicatEntity {
-    private final String idSyndicat;
+    private final int idSyndicat;
     private String name;
     private String adresse;
     private String personneReference;
     private String numeroDeTelephone;
     private String adresseEmail;
 
-    public SyndicatEntity(String idSyndicat){
+    public SyndicatEntity(int idSyndicat){
         this.idSyndicat=idSyndicat;
     }
     //Liste des getteur
-    public String getIdSyndicat(){
+    public int getIdSyndicat(){
         return this.idSyndicat;
     }
     public String getName(){

@@ -2,12 +2,12 @@ package com.uca.entity;
 import java.sql.*;
 import java.util.ArrayList;
 public class PersonneEntity {
-    private final String idPersonne;
+    private final int idPersonne;
     private String nom;
     private String prenom;
     private String numeroDeTelephone;
 
-    public PersonneEntity(String id){
+    public PersonneEntity(int id){
         this.idPersonne=id;
     }
     //Liste des getteurs
@@ -20,7 +20,7 @@ public class PersonneEntity {
     public String getNumeroDeTelephone(){
         return this.numeroDeTelephone;
     }
-    public String getIdPersonne(){
+    public int getIdPersonne(){
         return this.idPersonne;
     }
 
