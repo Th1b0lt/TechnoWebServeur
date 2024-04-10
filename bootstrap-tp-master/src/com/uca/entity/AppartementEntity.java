@@ -10,11 +10,7 @@ public class AppartementEntity {
 
     public AppartementEntity(String id){
         this.idAppartement=id;
-<<<<<<< HEAD
         this.personneLiee= new ArrayList<PersonneEntity>();
-=======
-        personneLiee= new ArrayList<PersonneEntity>();
->>>>>>> 3a141731512bfdeccabc27f46f4e8bc9064bb618
     }
 
     //Liste des getters

@@ -1,5 +1,6 @@
-package src.com.uca.entity;
-
+package com.uca.entity;
+import java.sql.*;
+import java.util.ArrayList;
 public class GestionEntity{
     private ArrayList<ImmeubleEntity> immeubles;
     public GestionEntity(){

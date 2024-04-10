@@ -14,7 +14,8 @@ public class PersonneDao extends _Generic<PersonneEntity> {
             PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM personne ORDER BY id ASC;");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                PersonneEntity entity = new PersonneEntity(resultSet.getString("id_personne"));
+                PersonneEntity entity = new PersonneEntity();
+                entity.setIdPersonne(resultSet.getInt("id_personne"));
                 entity.setNumeroDeTelephone(resultSet.getString("num_tel_pers"));
                 entity.setNom(resultSet.getString("nom_pers"));
                 entity.setPrenom(resultSet.getString("prenom_pers"));
