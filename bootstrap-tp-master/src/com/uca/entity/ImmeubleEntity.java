@@ -2,7 +2,7 @@ package com.uca.entity;
 import java.sql.*;
 import java.util.ArrayList;
 public class ImmeubleEntity {
-    private final int idImmeuble;
+    private int idImmeuble;
     private String nom;
     private SyndicatEntity syndicat;
     private ArrayList<AppartementEntity> appartements=new ArrayList<AppartementEntity>();
