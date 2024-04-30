@@ -18,10 +18,10 @@ public class PersonneGUI {
 
         Map<String, Object> input = new HashMap<>();
 
-        input.put("Personnes", PersonneCore.getAllPersonnes());
+        input.put("personnes", PersonneCore.getAllPersonnes());
 
         Writer output = new StringWriter();
-        Template template = configuration.getTemplate("Personnes/Personnes.ftl");
+        Template template = configuration.getTemplate("users/personne.ftl");
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
 
