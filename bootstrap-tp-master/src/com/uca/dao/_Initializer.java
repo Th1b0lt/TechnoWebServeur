@@ -89,6 +89,7 @@ public class _Initializer {
                                 "FOREIGN KEY (id_personne) REFERENCES locataire(id_personne) )");
             statement.executeUpdate();
 
+<<<<<<< HEAD
               //Init articles table
               statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS users (id int primary key auto_increment, firstname varchar(100), lastname varchar(100)); ");
               statement.executeUpdate();
@@ -107,6 +108,8 @@ public class _Initializer {
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
 
+=======
+>>>>>>> 66b42355d80a6d8c053e79f0df8981b964c7aa27
 
         } catch (SQLException e) {
             System.out.println(e.toString());
