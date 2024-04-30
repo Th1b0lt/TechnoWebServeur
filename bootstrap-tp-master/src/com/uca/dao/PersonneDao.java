@@ -31,7 +31,7 @@ public class PersonneDao extends _Generic<PersonneEntity> {
     }
 
     @Override
-    
+
     public PersonneEntity create(PersonneEntity obj) {
         //TODO !
         Connection connection = null;
@@ -54,13 +54,27 @@ public class PersonneDao extends _Generic<PersonneEntity> {
                 throw new SQLException("Creating personne failed, no ID obtained.");
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle or log the exception as needed
+            e.printStackTrace(); 
         }
         return obj;
     }
 
     @Override
     public void delete(PersonneEntity obj) {
-        //TODO !
+        Connection connection = null;
+    PreparedStatement statement = null;
+    try {
+        connection = _Connector.getInstance().getConnection();
+        statement = connection.prepareStatement("DELETE FROM personne WHERE id_personne = ?");
+        statement.setInt(1, obj.getIdPersonne());
+        int rowsAffected = statement.executeUpdate();
+        if (rowsAffected == 0) {
+            System.out.println("Aucune ligne supprimée.");
+        } else {
+            System.out.println("Suppression réussie.");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // Gérer ou journaliser l'exception selon les besoins
+    }
     }
 }
