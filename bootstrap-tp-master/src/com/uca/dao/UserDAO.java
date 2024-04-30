@@ -30,11 +30,7 @@ public class UserDAO extends _Generic<UserEntity> {
     @Override
     public UserEntity create(UserEntity obj) {
         //TODO !
-        statement = connection.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers) VALUES (?, ?, ?)");
-        statement.setString(1, obj.getNumeroDeTelephone());
-        statement.setString(2, obj.getNom());
-        statement.setString(3, obj.getPrenom());
-        statement.executeUpdate();
+    
     }
 
     @Override
