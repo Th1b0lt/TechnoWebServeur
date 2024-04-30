@@ -4,7 +4,7 @@
 
     <h1>List of Personnes</h1>
     <ul>
-        <#list personnes as personne >
+        <#list personne as personne >
             <li>${personne.id_personne} - ${personne.num_tel_pers} - ${personne.nom_pers} ${personne.prenom_pers}</li>
         </#list>
     </ul>

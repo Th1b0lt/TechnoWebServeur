@@ -33,7 +33,14 @@ public class PersonneDao extends _Generic<PersonneEntity> {
     @Override
     public PersonneEntity create(PersonneEntity obj) {
         //TODO !
-        return null;
+        Connection connection = _Connector.getInstance();
+        statement = connection.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers) VALUES (?, ?, ?)");
+        statement.setString(1, obj.getNumeroDeTelephone());
+        statement.setString(2, obj.getNom());
+        statement.setString(3, obj.getPrenom());
+        statement.executeUpdate();
+        ResultSet resultSet=statement.getGeneratedKeys();
+        obj.setIdPersonne(getInt(resultSet [0]));
     }
 
     @Override
