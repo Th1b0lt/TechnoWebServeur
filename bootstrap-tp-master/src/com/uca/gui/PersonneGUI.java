@@ -18,7 +18,8 @@ public class PersonneGUI {
 
         Map<String, Object> input = new HashMap<>();
 
-        input.put("personnes", PersonneCore.getAllPersonnes());
+        input.put("personne", PersonneCore.getAllPersonnes());
+        if 
 
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("users/personne.ftl");
