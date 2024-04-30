@@ -65,7 +65,7 @@ public class _Initializer {
                                 "id_appartement INT PRIMARY KEY auto_increment, " +
                                 "etage INT, " +
                                 "superficie INT, " +
-                                "id_immeuble VARCHAR(50) NOT NULL, " +
+                                "id_immeuble INT NOT NULL, " +
                                 "FOREIGN KEY (id_immeuble) REFERENCES immeuble(id_immeuble) )");
             statement.executeUpdate();
 

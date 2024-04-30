@@ -62,19 +62,19 @@ public class PersonneDao extends _Generic<PersonneEntity> {
     @Override
     public void delete(PersonneEntity obj) {
         Connection connection = null;
-    PreparedStatement statement = null;
-    try {
-        connection = _Connector.getInstance().getConnection();
-        statement = connection.prepareStatement("DELETE FROM personne WHERE id_personne = ?");
-        statement.setInt(1, obj.getIdPersonne());
-        int rowsAffected = statement.executeUpdate();
-        if (rowsAffected == 0) {
-            System.out.println("Aucune ligne supprimée.");
-        } else {
-            System.out.println("Suppression réussie.");
+        PreparedStatement statement = null;
+        try {
+            connection = _Connector.getInstance();
+            statement = connection.prepareStatement("DELETE FROM personne WHERE id_personne = ?");
+            statement.setInt(1, obj.getIdPersonne());
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune ligne supprimée.");
+            } else {
+                System.out.println("Suppression réussie.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Gérer ou journaliser l'exception selon les besoins
         }
-    } catch (SQLException e) {
-        e.printStackTrace(); // Gérer ou journaliser l'exception selon les besoins
-    }
     }
 }
