@@ -3,10 +3,8 @@ package com.uca.dao;
 import com.uca.entity.PersonneEntity;
 
 
+import java.sql.*;
 import java.util.ArrayList;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class PersonneDao extends _Generic<PersonneEntity> {
 
@@ -15,7 +13,7 @@ public class PersonneDao extends _Generic<PersonneEntity> {
         try {
             PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM personne ORDER BY id ASC;");
             ResultSet resultSet = preparedStatement.executeQuery();
-           while (resultSet.next()) {
+            while (resultSet.next()) {
                 PersonneEntity entity = new PersonneEntity();
                 entity.setIdPersonne(resultSet.getInt("id_personne"));
                 entity.setNumeroDeTelephone(resultSet.getString("num_tel_pers"));
@@ -24,18 +22,16 @@ public class PersonneDao extends _Generic<PersonneEntity> {
 
 
                 entities.add(entity);
-            
-            
-            }}
-         catch (SQLException e) {
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-    
+
         return entities;
     }
 
     @Override
-    public PersonneEntity create(PersonneEntity obj) {
+    public PersonneEntity create(PersonneEntity oSbj) {
         //TODO !
         Connection connection = _Connector.getInstance();
         statement = connection.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers) VALUES (?, ?, ?)");
@@ -45,6 +41,7 @@ public class PersonneDao extends _Generic<PersonneEntity> {
         statement.executeUpdate();
         ResultSet resultSet=statement.getGeneratedKeys();
         obj.setIdPersonne(getInt(resultSet [0]));
+        return obj;
     }
 
     @Override
