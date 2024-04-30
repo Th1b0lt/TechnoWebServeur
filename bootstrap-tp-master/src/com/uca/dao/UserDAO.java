@@ -30,7 +30,7 @@ public class UserDAO extends _Generic<UserEntity> {
     @Override
     public UserEntity create(UserEntity obj) {
         //TODO !
-    
+        return null;
     }
 
     @Override
