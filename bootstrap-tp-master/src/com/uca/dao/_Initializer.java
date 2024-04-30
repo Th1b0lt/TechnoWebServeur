@@ -88,11 +88,13 @@ public class _Initializer {
             statement.executeUpdate();
 
             // Insert a record into Personne table
-            statement = connection.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers) VALUES (?, ?, ?)");
+            statement = connection.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers) VALUES (?, ?, ?);",PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, "0612537625");
             statement.setString(2, "Mure");
             statement.setString(3, "Thibault");
             statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+
 
         } catch (SQLException e) {
             System.out.println(e.toString());

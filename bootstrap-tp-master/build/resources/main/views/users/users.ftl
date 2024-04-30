@@ -10,4 +10,8 @@
 
 </body>
 
+<<<<<<< HEAD
 </html>
+=======
+
+>>>>>>> 2ae993b0ac3c3f04e4ff6434b3c64cdf5d058b7e
