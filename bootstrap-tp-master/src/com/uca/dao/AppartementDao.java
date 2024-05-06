@@ -27,6 +27,26 @@ public class AppartementDao extends _Generic<AppartementEntity> {
 
         return entities;
     }
+    
+    public AppartementEntity getOneAppartement(int id) {
+        AppartementEntity appartement = null;
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM appartement WHERE id_appartement = ?;");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                appartement = new AppartementEntity();
+                appartement.setIdAppartement(resultSet.getInt("id_appartement"));
+                appartement.setEtage(resultSet.getInt("etage"));
+                appartement.setSuperficie(resultSet.getInt("superficie"));
+                appartement.setIdImmeuble(resultSet.getInt("id_immeuble"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return appartement;
+    }
 
     @Override
 

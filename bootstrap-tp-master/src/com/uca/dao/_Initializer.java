@@ -6,22 +6,11 @@ public class _Initializer {
 
     public static void Init() {
         Connection connection = _Connector.getInstance();
-        Connection connection2 = _Connector.getInstance();
+    
 
         try {
             PreparedStatement statement;
-        Statement statement2= connection2.createStatement();
-
-            statement2.executeUpdate("DROP TABLE IF EXISTS loue");
-            statement2.executeUpdate("DROP TABLE IF EXISTS possede");
-            statement2.executeUpdate("DROP TABLE IF EXISTS appartement");
-            statement2.executeUpdate("DROP TABLE IF EXISTS proprietaire");
-            statement2.executeUpdate("DROP TABLE IF EXISTS locataire");
-            statement2.executeUpdate("DROP TABLE IF EXISTS immeuble");
-            statement2.executeUpdate("DROP TABLE IF EXISTS syndicat");
-            statement2.executeUpdate("DROP TABLE IF EXISTS personne");
-            statement2.executeUpdate("DROP TABLE IF EXISTS users");
-
+       
             
             // Create Personne table
             statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS personne ( " +
@@ -111,6 +100,7 @@ public class _Initializer {
         } catch (SQLException e) {
             System.out.println(e.toString());
             throw new RuntimeException("Could not create database!");
-        }
+        } 
+        
     }
 }
