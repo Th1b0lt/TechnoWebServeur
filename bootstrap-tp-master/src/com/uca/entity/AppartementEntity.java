@@ -7,7 +7,7 @@ public class AppartementEntity {
     private int superficie;
     private Boolean estLoue;
     private int idImmeuble;
-
+    private ArrayList<PersonneEntity > personneLiee;
     public AppartementEntity(){
         //empty
     }
@@ -27,11 +27,11 @@ public class AppartementEntity {
     public int getSuperficie(){
         return this.superficie;
     }
-    /* 
+    
     public ArrayList<PersonneEntity> getPersonneLiee(){
         return this.personneLiee;
     }
-    */
+    
     public Boolean getEstLoue(){
         return this.estLoue;
     }
@@ -52,7 +52,7 @@ public class AppartementEntity {
     public void setIdImmeuble(int idImmeuble){
         this.idImmeuble=idImmeuble;
     }
-    /* 
+    /
     //Ajout et suppression de personneLiee
     public void ajoutePersonneLiee(PersonneEntity personne){
         if (! this.personneLiee.contains(personne))
@@ -61,7 +61,7 @@ public class AppartementEntity {
     public void supprimePersonneLiee(PersonneEntity personne){
         this.personneLiee.remove(personne);
     }
-    */
+    
 
 
 }
