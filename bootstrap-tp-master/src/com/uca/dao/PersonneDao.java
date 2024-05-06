@@ -12,7 +12,7 @@ public class PersonneDao extends _Generic<PersonneEntity> {
     public ArrayList<PersonneEntity> getAllPersonnes() {
         ArrayList<PersonneEntity> entities = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM personne ORDER BY id ASC;");
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM personne ORDER BY id_personne ASC;");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 PersonneEntity entity = new PersonneEntity();
