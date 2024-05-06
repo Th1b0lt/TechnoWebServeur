@@ -67,7 +67,7 @@ public class _Initializer {
                                 "id_appartement INT PRIMARY KEY auto_increment, " +
                                 "etage INT, " +
                                 "superficie INT, " +
-                                "id_immeuble VARCHAR(50) NOT NULL, " +
+                                "id_immeuble INT NOT NULL, " +
                                 "FOREIGN KEY (id_immeuble) REFERENCES immeuble(id_immeuble) )");
             statement.executeUpdate();
 
@@ -89,7 +89,6 @@ public class _Initializer {
                                 "FOREIGN KEY (id_personne) REFERENCES locataire(id_personne) )");
             statement.executeUpdate();
 
-<<<<<<< HEAD
               //Init articles table
               statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS users (id int primary key auto_increment, firstname varchar(100), lastname varchar(100)); ");
               statement.executeUpdate();
@@ -108,21 +107,10 @@ public class _Initializer {
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
 
-=======
->>>>>>> 66b42355d80a6d8c053e79f0df8981b964c7aa27
 
         } catch (SQLException e) {
             System.out.println(e.toString());
             throw new RuntimeException("Could not create database!");
-        } finally {
-            // Close connection (recommended in a finally block)
-            try {
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.toString());
-            }
         }
     }
 }

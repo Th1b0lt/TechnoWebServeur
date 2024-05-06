@@ -18,7 +18,7 @@ public class PersonneGUI {
 
         Map<String, Object> input = new HashMap<>();
 
-        input.put("personne", PersonneCore.getAllPersonnes());
+        input.put("personnes", PersonneCore.getAllPersonnes());
         
 
         Writer output = new StringWriter();

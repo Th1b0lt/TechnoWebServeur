@@ -7,6 +7,7 @@ public class AppartementEntity {
     private int superficie;
     private ArrayList<PersonneEntity> personneLiee=new ArrayList<PersonneEntity>();;
     private Boolean estLoue;
+    private int idImmeuble;
 
     public AppartementEntity(){
         //empty
@@ -15,6 +16,9 @@ public class AppartementEntity {
     //Liste des getters
     public int getIdAppartement(){
         return this.idAppartement;
+    }
+    public int getIdImmeuble(){
+        return this.idImmeuble;
     }
 
     public int getEtage(){
@@ -31,6 +35,7 @@ public class AppartementEntity {
         return this.estLoue;
     }
     //Liste des setters
+
     public void setIdAppartement(int id){
         this.idAppartement=id;
     }
@@ -42,6 +47,9 @@ public class AppartementEntity {
     }
     public  void setEstLoue(Boolean estLoue){
         this.estLoue=estLoue;
+    }
+    public void setIdImmeuble(int idImmeuble){
+        this.idImmeuble=idImmeuble;
     }
 
     //Ajout et suppression de personneLiee
