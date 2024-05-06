@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class PersonneDao extends _Generic<PersonneEntity> {
+  
 
     public ArrayList<PersonneEntity> getAllPersonnes() {
         ArrayList<PersonneEntity> entities = new ArrayList<>();
@@ -20,26 +21,42 @@ public class PersonneDao extends _Generic<PersonneEntity> {
                 entity.setNom(resultSet.getString("nom_pers"));
                 entity.setPrenom(resultSet.getString("prenom_pers"));
 
-
                 entities.add(entity);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return entities;
+    }
+    
+    public PersonneEntity getOnePersonne(int id) {
+        PersonneEntity personne = null;
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM personne WHERE id_personne = ?;");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                personne = new PersonneEntity();
+                personne.setIdPersonne(resultSet.getInt("id_personne"));
+                personne.setNumeroDeTelephone(resultSet.getString("num_tel_pers"));
+                personne.setNom(resultSet.getString("nom_pers"));
+                personne.setPrenom(resultSet.getString("prenom_pers"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return personne;
     }
 
     @Override
-
     public PersonneEntity create(PersonneEntity obj) {
         //TODO !
-        Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = _Connector.getInstance();
-            statement = connection.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+
+            statement = this.connect.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, obj.getNumeroDeTelephone());
             statement.setString(2, obj.getNom());
             statement.setString(3, obj.getPrenom());
@@ -61,11 +78,9 @@ public class PersonneDao extends _Generic<PersonneEntity> {
 
     @Override
     public void delete(PersonneEntity obj) {
-        Connection connection = null;
         PreparedStatement statement = null;
         try {
-            connection = _Connector.getInstance();
-            statement = connection.prepareStatement("DELETE FROM personne WHERE id_personne = ?");
+            statement = this.connect.prepareStatement("DELETE FROM personne WHERE id_personne = ?");
             statement.setInt(1, obj.getIdPersonne());
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected == 0) {
