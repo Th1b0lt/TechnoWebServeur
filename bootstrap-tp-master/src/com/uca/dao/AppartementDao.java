@@ -52,12 +52,11 @@ public class AppartementDao extends _Generic<AppartementEntity> {
 
     public AppartementEntity create(AppartementEntity obj) {
         //TODO !
-        Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            connection = _Connector.getInstance();
-            statement = connection.prepareStatement("INSERT INTO appartement( etage, superficie, id_immeuble) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+           
+            statement = this.connect.prepareStatement("INSERT INTO appartement( etage, superficie, id_immeuble) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, obj.getEtage());
             statement.setInt(2, obj.getSuperficie());
             statement.setInt(3, obj.getIdImmeuble());
@@ -80,11 +79,11 @@ public class AppartementDao extends _Generic<AppartementEntity> {
     @Override
     public void delete(AppartementEntity obj) {
         
-        Connection connection = null;
+        
         PreparedStatement statement = null;
         try {
-            connection = _Connector.getInstance();
-            statement = connection.prepareStatement("DELETE FROM appartement WHERE id_appartement = ?");
+           
+            statement = this.connect.prepareStatement("DELETE FROM appartement WHERE id_appartement = ?");
             statement.setInt(1, obj.getIdAppartement());
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected == 0) {
