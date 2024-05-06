@@ -16,7 +16,9 @@ public class StartServer {
         _Initializer.Init();
 
         //Defining our routes
-        
+        get("/users", (req, res) -> {
+            return UserGUI.getAllUsers();
+        });
         get("/personne", (req, res) -> {
             return PersonneGUI.getAllPersonnes();
         });

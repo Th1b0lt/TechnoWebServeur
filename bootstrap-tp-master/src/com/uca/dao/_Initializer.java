@@ -78,6 +78,24 @@ public class _Initializer {
                                 "FOREIGN KEY (id_personne) REFERENCES locataire(id_personne) )");
             statement.executeUpdate();
 
+              //Init articles table
+              statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS users (id int primary key auto_increment, firstname varchar(100), lastname varchar(100)); ");
+              statement.executeUpdate();
+  
+              //Todo Remove me !
+              statement = connection.prepareStatement("INSERT INTO users(firstname, lastname) VALUES(?, ?);");
+              statement.setString(1, "Theodore");
+              statement.setString(2, "Muillerez");
+              statement.executeUpdate();
+
+            // Insert a record into Personne table
+            statement = connection.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers) VALUES (?, ?, ?);",PreparedStatement.RETURN_GENERATED_KEYS);
+            statement.setString(1, "0612537625");
+            statement.setString(2, "Mure");
+            statement.setString(3, "Thibault");
+            statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+
 
         } catch (SQLException e) {
             System.out.println(e.toString());
