@@ -17,7 +17,8 @@ public class _Initializer {
                                 "id_personne INT PRIMARY KEY auto_increment, " +
                                 "num_tel_pers VARCHAR(50), " +
                                 "nom_pers CHAR(50), " +
-                                "prenom_pers CHAR(50) )");
+                                "prenom_pers CHAR(50) "+
+                                "proprietaire BOOLEAN )");
             statement.executeUpdate();
 
             // Create Syndicat table
@@ -39,17 +40,7 @@ public class _Initializer {
                                 "FOREIGN KEY (id_syndicat) REFERENCES syndicat(id_syndicat) )");
             statement.executeUpdate();
 
-            // Create Locataire table
-            statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS locataire ( " +
-                                "id_personne INT PRIMARY KEY auto_increment, " +
-                                "FOREIGN KEY (id_personne) REFERENCES personne(id_personne) )");
-            statement.executeUpdate();
-
-            // Create Proprietaire table
-            statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS proprietaire ( " +
-                                "id_personne INT PRIMARY KEY auto_increment, " +
-                                "FOREIGN KEY (id_personne) REFERENCES personne(id_personne) )");
-            statement.executeUpdate();
+           
 
             // Create Appartement table
             statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS appartement ( " +
@@ -60,29 +51,16 @@ public class _Initializer {
                                 "FOREIGN KEY (id_immeuble) REFERENCES immeuble(id_immeuble) )");
             statement.executeUpdate();
 
-            // Create Possede table
-            statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS possede ( " +
-                                "id_appartement INT auto_increment, " +
-                                "id_personne VARCHAR(50), " +
-                                "PRIMARY KEY (id_appartement, id_personne), " +
-                                "FOREIGN KEY (id_appartement) REFERENCES appartement(id_appartement), " +
-                                "FOREIGN KEY (id_personne) REFERENCES proprietaire(id_personne) )");
+            statement=connection.prepareStatement("CREATE TABLE IF NOT EXISTS LienPersonneAppartement (" +
+                "id_lien INT AUTO_INCREMENT PRIMARY KEY," +
+                "id_personne INT," +
+                "id_appartement INT," +
+                "FOREIGN KEY (id_personne) REFERENCES personne(id_personne)," +
+                "FOREIGN KEY (id_appartement) REFERENCES Appartement(id_appartement) )" );
             statement.executeUpdate();
+            
+              
 
-            // Create Loue table
-            statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS loue ( " +
-                                "id_appartement INT auto_increment, " +
-                                "id_personne VARCHAR(50), " +
-                                "PRIMARY KEY (id_appartement, id_personne), " +
-                                "FOREIGN KEY (id_appartement) REFERENCES appartement(id_appartement), " +
-                                "FOREIGN KEY (id_personne) REFERENCES locataire(id_personne) )");
-            statement.executeUpdate();
-
-              //Init articles table
-              statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS users (id int primary key auto_increment, firstname varchar(100), lastname varchar(100)); ");
-              statement.executeUpdate();
-  
-              //Todo Remove me !
               statement = connection.prepareStatement("INSERT INTO users(firstname, lastname) VALUES(?, ?);");
               statement.setString(1, "Theodore");
               statement.setString(2, "Muillerez");

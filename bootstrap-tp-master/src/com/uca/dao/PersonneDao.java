@@ -20,6 +20,7 @@ public class PersonneDao extends _Generic<PersonneEntity> {
                 entity.setNumeroDeTelephone(resultSet.getString("num_tel_pers"));
                 entity.setNom(resultSet.getString("nom_pers"));
                 entity.setPrenom(resultSet.getString("prenom_pers"));
+                entity.setEstPropriétaire(resultSet.getBoolean("proprietaire"));
 
                 entities.add(entity);
             }
@@ -41,12 +42,83 @@ public class PersonneDao extends _Generic<PersonneEntity> {
                 personne.setNumeroDeTelephone(resultSet.getString("num_tel_pers"));
                 personne.setNom(resultSet.getString("nom_pers"));
                 personne.setPrenom(resultSet.getString("prenom_pers"));
+                personne.setEstPropriétaire(resultSet.getBoolean("proprietaire"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     
         return personne;
+    }
+
+    public ArrayListList<PersonneEntity> getPersonnesByAppartement(int idAppartement) {
+        ArrayList<PersonneEntity> personnes = new ArrayList<>();
+        String sql = "SELECT p.* FROM Personne p " +
+                     "INNER JOIN LienPersonneAppartement l ON p.id_personne = l.id_personne " +
+                     "WHERE l.ID_Appartement = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, idAppartement);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Personne personne = new Personne();
+                personne.setIdPersonne(resultSet.getInt("id_personne"));
+                personne.setNom(resultSet.getString("nom_pers"));
+                personne.setNumeroDeTelephone(resultSet.getString("num_tel_pers"));
+                personne.setPrenom(resultSet.getString("prenom_pers"));
+                personne.setEstPropriétaire(resultSet.getBooleane("proprietaire"));
+                
+                personnes.add(personne);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return personnes;
+    }
+
+    public ArrayList<PersonneEntity> getProprietairesByAppartement(int idAppartement) {
+        ArrayList<PersonneEntity> proprietaires = new ArrayList<>();
+        String sql = "SELECT p.* FROM Personne p " +
+                     "INNER JOIN LienPersonneAppartement l ON p.id_personne = l.id_personne " +
+                     "WHERE l.id_appartement = ? AND p.proprietaire = TRUE";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, idAppartement);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                PersonneEntity personne = new PersonneEntity();
+                personne.setIdPersonne(resultSet.getInt("id_personne"));
+                personne.setNom(resultSet.getString("nom_pers"));
+                personne.setNumeroDeTelephone(resultSet.getString("num_tel_pers"));
+                personne.setPrenom(resultSet.getString("prenom_pers"));
+                personne.setEstPropriétaire(resultSet.getBooleane("proprietaire"));
+                proprietaires.add(personne);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return proprietaires;
+    }
+    
+    public ArrayList<PersonneEntity> getLocatairesByAppartement(int idAppartement) {
+        ArrayList<PersonneEntity> locataires = new ArrayList<>();
+        String sql = "SELECT p.* FROM Personne p " +
+                     "INNER JOIN LienPersonneAppartement l ON p.id_personne = l.id_personne " +
+                     "WHERE l.id_appartement = ? AND p.proprietaire = FALSE";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, idAppartement);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                PersonneEntity personne = new PersonneEntity();
+                personne.setIdPersonne(resultSet.getInt("id_personne"));
+                personne.setNom(resultSet.getString("nom_pers"));
+                personne.setNumeroDeTelephone(resultSet.getString("num_tel_pers"));
+                personne.setPrenom(resultSet.getString("prenom_pers"));
+                personne.setEstPropriétaire(resultSet.getBooleane("proprietaire"));
+                locataires.add(personne);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return locataires;
     }
 
     @Override
@@ -56,10 +128,11 @@ public class PersonneDao extends _Generic<PersonneEntity> {
         ResultSet resultSet = null;
         try {
 
-            statement = this.connect.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            statement = this.connect.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers,proprietaire) VALUES (?, ?, ?,?)", Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, obj.getNumeroDeTelephone());
             statement.setString(2, obj.getNom());
             statement.setString(3, obj.getPrenom());
+            statement.setString(4,onj.getEstPropriétaire());
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected == 0) {
                 throw new SQLException("Creating personne failed, no rows affected.");

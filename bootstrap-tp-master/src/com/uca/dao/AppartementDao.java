@@ -68,6 +68,27 @@ public class AppartementDao extends _Generic<AppartementEntity> {
     
         return entities;
     }
+    public ArrayList<AppartementEntity> getAppartementsByPersonne(int idPersonne) {
+        ArrayList<AppartementEntity> appartements = new ArrayList<>();
+        String sql = "SELECT a.* FROM appartement a " +
+                     "INNER JOIN LienPersonneAppartement l ON a.id_appartement = l.id_appartement " +
+                     "WHERE l.id_personne = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, idPersonne);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                AppartementEntity appartement = new AppartementEntity();
+                appartement.setIdAppartement(resultSet.getInt("id_appartement"));
+                appartement.setEtage(resultSet.getInt("etage"));
+                appartement.setSuperficie(resultSet.getInt("superficie"));
+                appartement.setIdImmeuble(resultSet.getInt("id_immeuble"));
+                appartements.add(appartement);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appartements;
+    }
 
     @Override
 
