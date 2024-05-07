@@ -13,20 +13,14 @@ public class _Initializer {
         try {
             PreparedStatement statement;
             
-            statement = connection.prepareStatement("ALTER TABLE LienPersonneAppartement DROP FOREIGN KEY CONSTRAINT_5E");
-            statement.executeUpdate();
-            statement = connection.prepareStatement("ALTER TABLE LienPersonneAppartement DROP FOREIGN KEY CONSTRAINT_A7");
-            statement.executeUpdate();
 
-            // Supprimer la table personne
-            statement = connection.prepareStatement("DROP TABLE IF EXISTS personne");
-            statement.executeUpdate();
-            
+          
+         
             
          
             
             // Create Personne table
-            statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS personne ( " +
+            statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS  personne ( " +
                                 "id_personne INT PRIMARY KEY auto_increment, " +
                                 "num_tel_pers VARCHAR(50), " +
                                 "nom_pers CHAR(50), " +
