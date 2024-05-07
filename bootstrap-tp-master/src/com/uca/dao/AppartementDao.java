@@ -73,7 +73,7 @@ public class AppartementDao extends _Generic<AppartementEntity> {
         String sql = "SELECT a.* FROM appartement a " +
                      "INNER JOIN LienPersonneAppartement l ON a.id_appartement = l.id_appartement " +
                      "WHERE l.id_personne = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        try (PreparedStatement statement = this.connect.prepareStatement(sql)) {
             statement.setInt(1, idPersonne);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {

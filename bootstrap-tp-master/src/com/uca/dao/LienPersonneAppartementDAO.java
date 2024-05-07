@@ -1,9 +1,13 @@
+package com.uca.dao;
+import com.uca.entity.LienPersonneAppartementEntity;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-package com.uca.dao;
-import com.uca.entity.LienPersonneAppartementEntity;
+
+
+
 
 public class LienPersonneAppartementDao extends _Generic<LienPersonneAppartementEntity> {
     

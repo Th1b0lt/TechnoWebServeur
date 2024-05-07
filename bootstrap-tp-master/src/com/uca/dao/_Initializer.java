@@ -6,18 +6,31 @@ public class _Initializer {
 
     public static void Init() {
         Connection connection = _Connector.getInstance();
-    
+        
+        
+        
 
         try {
             PreparedStatement statement;
-       
+            
+            statement = connection.prepareStatement("ALTER TABLE LienPersonneAppartement DROP FOREIGN KEY CONSTRAINT_5E");
+            statement.executeUpdate();
+            statement = connection.prepareStatement("ALTER TABLE LienPersonneAppartement DROP FOREIGN KEY CONSTRAINT_A7");
+            statement.executeUpdate();
+
+            // Supprimer la table personne
+            statement = connection.prepareStatement("DROP TABLE IF EXISTS personne");
+            statement.executeUpdate();
+            
+            
+         
             
             // Create Personne table
             statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS personne ( " +
                                 "id_personne INT PRIMARY KEY auto_increment, " +
                                 "num_tel_pers VARCHAR(50), " +
                                 "nom_pers CHAR(50), " +
-                                "prenom_pers CHAR(50) "+
+                                "prenom_pers CHAR(50), "+
                                 "proprietaire BOOLEAN )");
             statement.executeUpdate();
 
@@ -67,13 +80,13 @@ public class _Initializer {
               statement.executeUpdate();
 
             // Insert a record into Personne table
-            statement = connection.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers) VALUES (?, ?, ?);",PreparedStatement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers,proprietaire) VALUES (?, ?, ?,?);",PreparedStatement.RETURN_GENERATED_KEYS);
             statement.setString(1, "0612537625");
             statement.setString(2, "Mure");
             statement.setString(3, "Thibault");
+            statement.setBoolean(4,true);
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
-
 
         } catch (SQLException e) {
             System.out.println(e.toString());
