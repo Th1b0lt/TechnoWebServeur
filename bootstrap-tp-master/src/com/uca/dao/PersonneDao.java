@@ -51,7 +51,6 @@ public class PersonneDao extends _Generic<PersonneEntity> {
 
     @Override
     public PersonneEntity create(PersonneEntity obj) {
-        //TODO !
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
