@@ -32,16 +32,17 @@ public class SessionManager {
             .signWith(SignatureAlgorithm.HS256,TOKEN)
             .compact();
     }
-
+/* 
     public static String getUsernameFromSessionToken(String token) {
         try {
-            Jws<Claims> claims = Jwts.parser().setSigningKey(TOKEN).parseClaimsJws(token);
+            Jwts<Claims> claims = Jwts.parser().setSigningKey(TOKEN).parseClaimsJws(token);
             return claims.getBody().get("sub", String.class);
         } catch (Exception e) {
 
             return null;
         }
     }
+    */
     // Méthode pour générer un token de session unique 
     private static String generateUniqueToken() {
 
