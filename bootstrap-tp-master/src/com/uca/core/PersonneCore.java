@@ -37,9 +37,19 @@ public class PersonneCore {
         }
     }
 
-    public static ArrayList<PersonneEntity> getAllPersonnes() throws Exeption{
+    public static PersonneEntity getOnePersonnes(int id) throws Exeption{
         try{
-            return new PersonneDao().getAllPersonnes();
+            return new PersonneDao().getOnePersonne(id);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ArrayList<PersonneEntity> getAllPersonnesByAppartement(int idAppartement) throws Exeption{
+        try{
+            return new PersonneDao().getAllPersonnesByAppartement(idAppartement);
         }
         catch (Exception e) {
             e.printStackTrace();

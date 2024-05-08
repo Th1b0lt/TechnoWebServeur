@@ -3,9 +3,10 @@ package com.uca.entity;
 import java.sql.Timestamp;
 
 public class UserEntity {
-    private String firstName;
-    private String lastName;
+    private String username;
     private int id;
+    private String passwordHash;
+    private String password; // Mot de passe en clair non sauvegarder pour le hachage.
 
     public UserEntity() {
         //Ignored !
@@ -19,19 +20,26 @@ public class UserEntity {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getUsername(){
+        return this.username;
+    }
+    public void setUsername(String username){
+        this.username=username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getPassword(){
+        return this.password;
+    }
+    public void setPassword(String password){
+        this.password=password;
     }
 
-    public String getLastName() {
-        return lastName;
+
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 }
