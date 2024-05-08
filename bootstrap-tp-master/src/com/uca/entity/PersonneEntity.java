@@ -6,6 +6,7 @@ public class PersonneEntity {
     private String nom;
     private String prenom;
     private String numeroDeTelephone;
+    private Boolean estPropriétaire;
 
     public PersonneEntity(){
     }
@@ -22,6 +23,9 @@ public class PersonneEntity {
     public int getIdPersonne(){
         return this.idPersonne;
     }
+    public Boolean getEstPropriétaire(){
+        return this.estPropriétaire;
+    }
 
     //Liste des setters
 
@@ -36,6 +40,9 @@ public class PersonneEntity {
     }
     public void setIdPersonne(int id){
         this.idPersonne=id;
+    }
+    public void setEstPropriétaire(Boolean estPropriétaire){
+        this.estPropriétaire=estPropriétaire;
     }
 
 }

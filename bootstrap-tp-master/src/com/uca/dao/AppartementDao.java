@@ -47,6 +47,48 @@ public class AppartementDao extends _Generic<AppartementEntity> {
     
         return appartement;
     }
+    public ArrayList<AppartementEntity> getAppartementByImmeuble(int idImmeuble) {
+        ArrayList<AppartementEntity> entities = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM appartement WHERE id_immeuble = ?");
+            preparedStatement.setInt(1, idImmeuble);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                AppartementEntity entity = new AppartementEntity();
+                entity.setIdAppartement(resultSet.getInt("id_appartement"));
+                entity.setEtage(resultSet.getInt("etage"));
+                entity.setSuperficie(resultSet.getInt("superficie"));
+                entity.setIdImmeuble(resultSet.getInt("id_immeuble"));
+    
+                entities.add(entity);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return entities;
+    }
+    public ArrayList<AppartementEntity> getAppartementsByPersonne(int idPersonne) {
+        ArrayList<AppartementEntity> appartements = new ArrayList<>();
+        String sql = "SELECT a.* FROM appartement a " +
+                     "INNER JOIN LienPersonneAppartement l ON a.id_appartement = l.id_appartement " +
+                     "WHERE l.id_personne = ?";
+        try (PreparedStatement statement = this.connect.prepareStatement(sql)) {
+            statement.setInt(1, idPersonne);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                AppartementEntity appartement = new AppartementEntity();
+                appartement.setIdAppartement(resultSet.getInt("id_appartement"));
+                appartement.setEtage(resultSet.getInt("etage"));
+                appartement.setSuperficie(resultSet.getInt("superficie"));
+                appartement.setIdImmeuble(resultSet.getInt("id_immeuble"));
+                appartements.add(appartement);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return appartements;
+    }
 
     @Override
 

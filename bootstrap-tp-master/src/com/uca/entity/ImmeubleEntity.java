@@ -4,10 +4,11 @@ import java.util.ArrayList;
 public class ImmeubleEntity {
     private int idImmeuble;
     private String nom;
-    private SyndicatEntity syndicat;
-    private ArrayList<AppartementEntity> appartements=new ArrayList<AppartementEntity>();
+    private int idSyndicat;
+    private String adresse;
+   
     
-    public ImmeubleEntity(int idImmeuble){
+    public ImmeubleEntity(){
         
        
     }
@@ -17,17 +18,19 @@ public class ImmeubleEntity {
         return this.idImmeuble;
     }
 
+
     public String getNom(){
         return this.nom;
     }
 
-    public SyndicatEntity getSyndicat(){
-        return this.syndicat;
+    public int getIdSyndicat(){
+        return this.idSyndicat;
+    }
+    public String getAdresse(){
+        return this.adresse;
     }
 
-    public ArrayList<AppartementEntity> getAppartements(){
-        return this.appartements;
-    }
+   
     // Liste des setters
     public void setIdImmeuble(int idImmeuble){
         this.idImmeuble=idImmeuble;
@@ -36,9 +39,13 @@ public class ImmeubleEntity {
         this.nom=nom;
     }
    
-    public void setSyndicat(SyndicatEntity syndicat){
-        this.syndicat=syndicat;
+    public void setIdSyndicat(int syndicat){
+        this.idSyndicat=syndicat;
     }
+    public void setAdresse(String adresse){
+        this.adresse=adresse;
+    }
+    /* 
     //Ajout et suppression d'immeuble
     public void ajouteAppartement(AppartementEntity appartement){
         if (! this.appartements.contains(appartement))    
@@ -47,6 +54,7 @@ public class ImmeubleEntity {
     public void supprimeAppartement(AppartementEntity appartement){
         this.appartements.remove(appartement);
     }
+    */
 
 
 }

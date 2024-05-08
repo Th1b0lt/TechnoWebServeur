@@ -11,7 +11,8 @@ public class PersonneCore {
         return new PersonneDao().getAllPersonnes();
     }
 
-    public static PersonneEntity create(String nom,String prenom,String num_tel){
+    public static PersonneEntity create(String nom,String prenom,String num_tel) throws Exception{
+
         try{
             PersonneEntity newPersonne = new PersonneEntity();
             newPersonne.setNumeroDeTelephone(num_tel);
@@ -19,11 +20,51 @@ public class PersonneCore {
             newPersonne.setNom(nom);
             return new PersonneDao().create(newPersonne);
         }
-        catch(Exeption e){
+
+        catch(Exception e){
             e.printStackTrace();
             throw e;
         }
 
     }
-    
+
+    public static void delete(int personneId) throws Exeption {
+        try {
+            new PersonneDao().delete(personneId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ArrayList<PersonneEntity> getAllPersonnes() throws Exeption{
+        try{
+            return new PersonneDao().getAllPersonnes();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ArrayList<PersonneEntity getProprietairesByAppartement(int idAppartement) throws Exeption{
+        try{
+            return new PersonneDao().getPropietairesByAppartement(idAppartement);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public static ArrayList<PersonneEntity getLocatairesByAppartement(int idAppartement) throws Exeption{
+        try{
+            return new PersonneDao().getLocatairesByAppartement(idAppartement);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
 }
