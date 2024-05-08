@@ -2,7 +2,7 @@ package com.uca.core;
 
 import com.uca.dao.UserDAO;
 import com.uca.entity.UserEntity;
-import com.uca.util.PasswordUtil;
+import com.uca.Security.util.PasswordUtil;
 import java.util.ArrayList;
 
 public class UserCore {

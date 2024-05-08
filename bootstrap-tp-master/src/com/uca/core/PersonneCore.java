@@ -57,7 +57,7 @@ public class PersonneCore {
         }
     }
 
-    public static ArrayList<PersonneEntity getProprietairesByAppartement(int idAppartement) throws Exeption{
+    public static ArrayList<PersonneEntity> getProprietairesByAppartement(int idAppartement) throws Exeption{
         try{
             return new PersonneDao().getPropietairesByAppartement(idAppartement);
         }
@@ -67,7 +67,7 @@ public class PersonneCore {
         }
     }
 
-    public static ArrayList<PersonneEntity getLocatairesByAppartement(int idAppartement) throws Exeption{
+    public static ArrayList<PersonneEntity> getLocatairesByAppartement(int idAppartement) throws Exeption{
         try{
             return new PersonneDao().getLocatairesByAppartement(idAppartement);
         }
