@@ -17,8 +17,8 @@ public class _Initializer {
           
            
 
-        
-
+            statement=connection.prepareStatement("DROP TABLE user");
+            statement.executeUpdate();
             // Créer la nouvelle table user
             statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS user ( " +
                     "id INT PRIMARY KEY auto_increment, " +
