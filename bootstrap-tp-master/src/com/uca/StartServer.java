@@ -4,7 +4,7 @@ import com.uca.dao._Initializer;
 import com.uca.gui.*;
 import com.uca.core.*;
 import static spark.Spark.*;
-import spark.Session;
+
 
 public class StartServer {
 
@@ -16,7 +16,7 @@ public class StartServer {
 
         _Initializer.Init();
 
-        //Defining our routes
+      
         post("/users", (req, res) -> {
             String username = req.queryParams("username");
             String password = req.queryParams("password");
@@ -24,23 +24,30 @@ public class StartServer {
             return "Utilisateur créé avec succès !";
         });
 
-        // Route pour authentifier un utilisateur
+      
         post("/login", (req, res) -> {
             String username = req.queryParams("username");
             String password = req.queryParams("password");
             if (new UserCore().authenticateUser(username, password)) {
-                Session session = req.session(true);
-                session.attribute("username", username);  //TOut ça peut etre plus à ecrire dans le GUI
-                return "Authentification réussie !";
-            } else {
+                String token = SessionManager.generateSessionToken(username);
+                // Stocker le token de session dans un cookie côté client
+                res.cookie("token", token);
+                res.redirect("/main"); // Rediriger l'utilisateur vers la page principale
+                return "Authentification réussie !";}
+            else {
                 res.status(401); // Statut non autorisé
                 return "Authentification échouée !";
             }
-        });
+         });
 
         get("/logout", (req, res) -> {
-            req.session().invalidate(); // Invalide la session utilisateur
-            return "Déconnexion réussie !";
+            String token = req.cookie("token");
+            // Supprimer le token de session de la base de données
+            SessionManager.removeSessionToken(token);
+            res.removeCookie("sessionToken");
+            // Rediriger l'utilisateur vers la page de connexion ou une autre page
+            res.redirect("/login");
+            return null;
         });
 
         get("/personne", (req, res) -> {
