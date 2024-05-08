@@ -2,9 +2,9 @@ package com.uca;
 
 import com.uca.dao._Initializer;
 import com.uca.gui.*;
-import com.uca.core.*;
+import com.uca.util.*;
 import com.uca.entity.*;
-
+import com.uca.core.*;
 import static spark.Spark.*;
 
 
@@ -17,8 +17,11 @@ public class StartServer {
 
 
         _Initializer.Init();
-
-      
+        /* TEST DU SYSTEME DE SESSION EN STATELESS
+        String a=SessionManager.generateSessionToken("ThibaultLesagne");
+        System.out.println(a);
+        System.out.println(SessionManager.introspect(a));
+        */
         post("/users", (req, res) -> {
             String username = req.queryParams("username");
             String password = req.queryParams("password");
@@ -41,17 +44,8 @@ public class StartServer {
                 return "Authentification échouée !";
             }
          });
-
-        get("/logout", (req, res) -> {
-            String token = req.cookie("token");
-            // Supprimer le token de session de la base de données
-            SessionManager.removeSessionToken(token);
-            res.removeCookie("sessionToken");
-            // Rediriger l'utilisateur vers la page de connexion ou une autre page
-            res.redirect("/login");
-            return null;
-        });
-
+      
+    
         get("/personne", (req, res) -> {
             return PersonneGUI.getAllPersonnes();
         });
