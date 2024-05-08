@@ -15,7 +15,16 @@ public class _Initializer {
             
 
           
-         
+           
+
+        
+
+            // Créer la nouvelle table user
+            statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS user ( " +
+                    "id INT PRIMARY KEY auto_increment, " +
+                    "username VARCHAR(50) UNIQUE NOT NULL, " +
+                    "passwordHash VARCHAR(256) NOT NULL )");
+            statement.executeUpdate();
             
          
             
@@ -68,7 +77,7 @@ public class _Initializer {
             
               
 
-              statement = connection.prepareStatement("INSERT INTO users(firstname, lastname) VALUES(?, ?);");
+              statement = connection.prepareStatement("INSERT INTO user(username,passwordHAsh) VALUES(?, ?);");
               statement.setString(1, "Theodore");
               statement.setString(2, "Muillerez");
               statement.executeUpdate();
