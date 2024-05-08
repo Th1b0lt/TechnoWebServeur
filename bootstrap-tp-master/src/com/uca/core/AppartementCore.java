@@ -60,7 +60,7 @@ public class AppartementCore {
 
     public static void delete(AppartementEntity appartement) throws Exception{
         try{
-            return new AppartementDao().delete(appartement);
+            new AppartementDao().delete(appartement);
         }
         catch (Exception e) {
             e.printStackTrace();

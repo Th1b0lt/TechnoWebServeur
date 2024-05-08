@@ -2,12 +2,9 @@ package com.uca;
 
 import com.uca.dao._Initializer;
 import com.uca.gui.*;
-<<<<<<< HEAD
-import com.uca.core;
-import com.uca.entity;
-=======
 import com.uca.core.*;
->>>>>>> 2d960be204d48855909b1e701a7b04affdf45326
+import com.uca.entity.*;
+
 import static spark.Spark.*;
 
 
@@ -66,7 +63,7 @@ public class StartServer {
                 String numTel = req.queryParams("num_tel");        
                 // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
                 PersonneEntity nouvellePersonne = PersonneCore.create(nom, prenom, numTel);
-        
+                return "Personne créé avec succés";
               
             } catch (Exception e) {
                 e.printStackTrace();

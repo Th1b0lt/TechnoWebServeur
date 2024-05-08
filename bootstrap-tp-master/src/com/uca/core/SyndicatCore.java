@@ -11,7 +11,7 @@ public class SyndicatCore {
 
     public static ArrayList<SyndicatEntity> getAllSyndicat() throws Exception {
         try{
-            return new SyndicatDAO().getAllSyndicat();
+            return new SyndicatDao().getAllSyndicats();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -35,7 +35,7 @@ public class SyndicatCore {
         }
     }
 
-    public static void delete(SyndicatEntity syndicat) throws Exeption{
+    public static void delete(SyndicatEntity syndicat) throws Exception{
         try {
             new SyndicatDao().delete(syndicat);
         } catch (Exception e) {
@@ -44,7 +44,7 @@ public class SyndicatCore {
         }
     }
 
-    public static SyndicatEntity getSyndicatById(int idSyndicat) throws Exeption{
+    public static SyndicatEntity getSyndicatById(int idSyndicat) throws Exception{
         try{
             return new SyndicatDao().getSyndicatById(idSyndicat);
         }

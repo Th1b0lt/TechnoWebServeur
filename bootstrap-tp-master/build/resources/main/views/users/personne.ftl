@@ -11,13 +11,13 @@
 
     <form action="/ajouterPersonne" method="POST">
         <div id="Lastname_container">
-            <input name="lastname" id="lastname" class="initial" type="text" placeholder="Last Name" value="">
+            <input name="nom" id="nom" class="initial" type="text" placeholder="Last Name" value="">
         </div>
         <div id="Firstname_container">
-            <input name="firstname" id="firstname" class="initial" type="text" placeholder="First Name" value="">
+            <input name="prenom" id="prenom" class="initial" type="text" placeholder="First Name" value="">
         </div>
          <div id="Telephone container">
-            <input name="Telephone" id="firstname" class="initial" type="text" placeholder="Telephone" value="">
+            <input name="num_tem" id="num_tel" class="initial" type="text" placeholder="Telephone" value="">
         </div>
         <input type="submit" value="Ajouter">
 

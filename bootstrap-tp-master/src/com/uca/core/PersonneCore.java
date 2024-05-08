@@ -28,16 +28,16 @@ public class PersonneCore {
 
     }
 
-    public static void delete(int personneId) throws Exeption {
+    public static void delete(PersonneEntity personne) throws Exception {
         try {
-            new PersonneDao().delete(personneId);
+            new PersonneDao().delete(personne);
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
     }
 
-    public static PersonneEntity getOnePersonnes(int id) throws Exeption{
+    public static PersonneEntity getOnePersonnes(int id) throws Exception{
         try{
             return new PersonneDao().getOnePersonne(id);
         }
@@ -47,9 +47,9 @@ public class PersonneCore {
         }
     }
 
-    public static ArrayList<PersonneEntity> getAllPersonnesByAppartement(int idAppartement) throws Exeption{
+    public static ArrayList<PersonneEntity> getPersonnesByAppartement(int idAppartement) throws Exception{
         try{
-            return new PersonneDao().getAllPersonnesByAppartement(idAppartement);
+            return new PersonneDao().getPersonnesByAppartement(idAppartement);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -57,9 +57,9 @@ public class PersonneCore {
         }
     }
 
-    public static ArrayList<PersonneEntity getProprietairesByAppartement(int idAppartement) throws Exeption{
+    public static ArrayList<PersonneEntity> getProprietairesByAppartement(int idAppartement) throws Exception{
         try{
-            return new PersonneDao().getPropietairesByAppartement(idAppartement);
+            return new PersonneDao().getProprietairesByAppartement(idAppartement);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class PersonneCore {
         }
     }
 
-    public static ArrayList<PersonneEntity getLocatairesByAppartement(int idAppartement) throws Exeption{
+    public static ArrayList<PersonneEntity> getLocatairesByAppartement(int idAppartement) throws Exception{
         try{
             return new PersonneDao().getLocatairesByAppartement(idAppartement);
         }
