@@ -89,6 +89,53 @@ public class AppartementDao extends _Generic<AppartementEntity> {
         }
         return appartements;
     }
+    public void updateEtage(int idAppartement, int nouvelEtage) {
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE appartement SET etage = ? WHERE id_appartement = ?");
+            statement.setInt(1, nouvelEtage);
+            statement.setInt(2, idAppartement);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune ligne mise à jour.");
+            } else {
+                System.out.println("Mise à jour réussie.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateSuperficie(int idAppartement, int nouvelleSuperficie) {
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE appartement SET superficie = ? WHERE id_appartement = ?");
+            statement.setInt(1, nouvelleSuperficie);
+            statement.setInt(2, idAppartement);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune ligne mise à jour.");
+            } else {
+                System.out.println("Mise à jour réussie.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateIdImmeuble(int idAppartement, int nouvelIdImmeuble) {
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE appartement SET id_immeuble = ? WHERE id_appartement = ?");
+            statement.setInt(1, nouvelIdImmeuble);
+            statement.setInt(2, idAppartement);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune ligne mise à jour.");
+            } else {
+                System.out.println("Mise à jour réussie.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
 
