@@ -1,4 +1,4 @@
-package com.uca.core;
+package com.uca.Security;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.Claims;

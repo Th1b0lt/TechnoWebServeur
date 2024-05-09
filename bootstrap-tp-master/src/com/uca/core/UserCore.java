@@ -2,7 +2,7 @@ package com.uca.core;
 
 import com.uca.dao.UserDAO;
 import com.uca.entity.UserEntity;
-import com.uca.util.PasswordUtil;
+import com.uca.Security.util.PasswordUtil;
 import java.util.ArrayList;
 
 public class UserCore {
@@ -22,7 +22,7 @@ public class UserCore {
     // Méthode pour créer un nouvel utilisateur
     public void createUser(String username, String password) {
         // Hacher le mot de passe avant de l'ajouter à la base de données
-        String hashedPassword = PasswordUtil.hashPassword(password + "pourquoi");
+        String hashedPassword = new PasswordUtil().hashPassword(password + "pourquoi");
         UserEntity user = new UserEntity();
         user.setUsername(username);
         user.setPasswordHash(hashedPassword);

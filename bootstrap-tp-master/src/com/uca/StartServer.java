@@ -2,9 +2,11 @@ package com.uca;
 
 import com.uca.dao._Initializer;
 import com.uca.gui.*;
-import com.uca.util.*;
+
 import com.uca.entity.*;
 import com.uca.core.*;
+import com.uca.Security.*;
+import com.uca.Security.util.*;
 import static spark.Spark.*;
 import java.util.Map;
 
@@ -23,6 +25,17 @@ public class StartServer {
         System.out.println(a);
         System.out.println(SessionManager.introspect(a));
         */
+        //test du hachage mdp
+        String mdp="Bnsoir";
+        String faux="cacdqqda";
+        String hash =new PasswordUtil().hashPassword(mdp);
+        System.out.println("premier hachage : "+hash);
+        boolean test = new PasswordUtil().checkPassword(mdp,hash);
+        System.out.println("test" +test);
+        boolean testf = new PasswordUtil().checkPassword(faux,hash);
+        System.out.println("test" +testf);
+
+
         get("/users", (req, res) -> {
             return UserGUI.getAllUsers();
         });
