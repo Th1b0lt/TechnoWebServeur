@@ -15,7 +15,7 @@ public class SessionManager {
         Map <String,String> map = new HashMap<>();
         map.put("sub",claims.get("sub",String.class));
         map.put("uuid",claims.get("uuid",String.class));//Comme en bas
-        map.put("id",claims.get("id",String.class));
+       
         return map;
     }
     // Méthode pour ecrire le token pour un user.
