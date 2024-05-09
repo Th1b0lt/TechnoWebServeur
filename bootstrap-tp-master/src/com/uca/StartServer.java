@@ -35,7 +35,7 @@ public class StartServer {
                 String token = SessionManager.generateSessionToken(username);
                 // Stocker le token de session dans un cookie côté client
                 res.cookie("token", token);
-                res.redirect("/personne"); // Rediriger l'utilisateur vers la page principale
+                res.redirect("/main"); // Rediriger l'utilisateur vers la page principale
                 return null;}
             else {
                 res.status(401); // Statut non autorisé
@@ -50,7 +50,7 @@ public class StartServer {
             String username = req.queryParams("username");
             String password = req.queryParams("password");
             new UserCore().createUser(username, password);
-            res.redirect("/personne");
+            res.redirect("/main");
             return null;
             }
             catch(Exception e) {
@@ -82,11 +82,9 @@ public class StartServer {
         post("/supprimerPersonne",(req,res)->{
             try {
                 // Récupérer les paramètres de la requête
-                String nom = req.queryParams("nom");
-                String prenom = req.queryParams("prenom");
-                String numTel = req.queryParams("num_tel");        
+                String id = req.queryParams("id");
                 // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
-                PersonneEntity nouvellePersonne = PersonneCore.create(nom, prenom, numTel);
+                 PersonneCore.delete(id);
                 return "Personne supprimé avec succés";
               
             } catch (Exception e) {

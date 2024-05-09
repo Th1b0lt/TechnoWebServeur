@@ -42,7 +42,6 @@ public class SessionManager {
             return null;
         }
     }
-
     // Méthode pour générer un token de session unique 
     private static String generateUniqueToken() {
 
