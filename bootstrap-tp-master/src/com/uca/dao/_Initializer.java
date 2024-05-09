@@ -26,6 +26,16 @@ public class _Initializer {
         
          
             
+            // Requête SQL pour supprimer la table "personne"
+            String sql = "DROP TABLE IF EXISTS personne";
+            
+            // Préparation de la déclaration
+            PreparedStatement statement2 = connection.prepareStatement(sql);
+            
+            // Exécution de la requête SQL
+            statement2.executeUpdate();
+            
+            System.out.println("La table personne a été supprimée avec succès.");
 
             
             
@@ -85,12 +95,12 @@ public class _Initializer {
             statement.executeUpdate();
             
             //Premiere entrée test
-            
+            /* 
               statement = connection.prepareStatement("INSERT INTO user(username,passwordHash) VALUES(?, ?);");
               statement.setString(1, "ThiGoat");
               statement.setString(2, "mdp");
               statement.executeUpdate();
-            
+            */
 
             // Insert a record into Personne table
             statement = connection.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers,proprietaire) VALUES (?, ?, ?,?);",PreparedStatement.RETURN_GENERATED_KEYS);
