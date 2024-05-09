@@ -13,12 +13,11 @@ public class _Initializer {
         try {
             PreparedStatement statement;
             
+            
 
           
-           
-
-            statement=connection.prepareStatement("DROP TABLE IF EXISTS personne");
-            statement.executeUpdate();
+          
+            
             // Créer la nouvelle table user
             statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS user ( " +
                     "id INT PRIMARY KEY auto_increment, " +
@@ -78,9 +77,10 @@ public class _Initializer {
               
 
               statement = connection.prepareStatement("INSERT INTO user(username,passwordHAsh) VALUES(?, ?);");
-              statement.setString(1, "Theodore");
-              statement.setString(2, "Muillerez");
+              statement.setString(1, "ThiGoat");
+              statement.setString(2, "mdp");
               statement.executeUpdate();
+            ResultSet resultSet1 = statement.getGeneratedKeys();
 
             // Insert a record into Personne table
             statement = connection.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers,proprietaire) VALUES (?, ?, ?,?);",PreparedStatement.RETURN_GENERATED_KEYS);
@@ -89,7 +89,7 @@ public class _Initializer {
             statement.setString(3, "Thibault");
             statement.setBoolean(4,true);
             statement.executeUpdate();
-            ResultSet resultSet = statement.getGeneratedKeys();
+            ResultSet resultSet2 = statement.getGeneratedKeys();
 
         } catch (SQLException e) {
             System.out.println(e.toString());
@@ -97,4 +97,5 @@ public class _Initializer {
         } 
         
     }
+  
 }

@@ -35,8 +35,9 @@ public class SyndicatCore {
         }
     }
 
-    public static void delete(SyndicatEntity syndicat) throws Exception{
+    public static void delete(int id) throws Exception{
         try {
+            SyndicatEntity syndicat=getSyndicatById(id);
             new SyndicatDao().delete(syndicat);
         } catch (Exception e) {
             e.printStackTrace();

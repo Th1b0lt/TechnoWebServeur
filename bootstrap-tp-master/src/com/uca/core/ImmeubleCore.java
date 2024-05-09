@@ -41,8 +41,9 @@ public class ImmeubleCore {
         }
     }
 
-    public static void delete(ImmeubleEntity immeuble) throws Exception{
+    public static void delete(int id) throws Exception{
         try{
+            ImmeubleEntity immeuble=getImmeubleById(id);
             new ImmeubleDao().delete(immeuble);
         }
         catch (Exception e) {

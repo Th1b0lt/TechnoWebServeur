@@ -35,8 +35,8 @@ public class SessionManager {
 /* 
     public static String getUsernameFromSessionToken(String token) {
         try {
-            Jwts<Claims> claims = Jwts.parser().setSigningKey(TOKEN).parseClaimsJws(token);
-            return claims.getBody().get("sub", String.class);
+            Claims claims = Jwts.parser().setSigningKey(TOKEN).parseClaimsJws(token).getBody();
+            return claims.get("sub", String.class);
         } catch (Exception e) {
 
             return null;

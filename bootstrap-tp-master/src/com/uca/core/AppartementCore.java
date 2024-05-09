@@ -58,8 +58,9 @@ public class AppartementCore {
         }
     }
 
-    public static void delete(AppartementEntity appartement) throws Exception{
+    public static void delete(int id) throws Exception{
         try{
+            AppartementEntity appartement= getOneAppartement(id);
             new AppartementDao().delete(appartement);
         }
         catch (Exception e) {

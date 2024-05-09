@@ -28,8 +28,9 @@ public class PersonneCore {
 
     }
 
-    public static void delete(PersonneEntity personne) throws Exception {
+    public static void delete(int id) throws Exception {
         try {
+            PersonneEntity personne = getOnePersonnes(id);
             new PersonneDao().delete(personne);
         } catch (Exception e) {
             e.printStackTrace();
