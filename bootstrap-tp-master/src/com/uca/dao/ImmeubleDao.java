@@ -73,6 +73,66 @@ public class ImmeubleDao extends _Generic<ImmeubleEntity> {
         }
         return immeuble;
     }
+
+    public double[] getPourcentageLogementsLouesEtVacantsPourUtilisateurEtImmeuble(int idUtilisateur, int idImmeuble) {
+        double[] pourcentage = new double[2]; // pourcentage[0] pour les logements loués, pourcentage[1] pour les logements vacants
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT COUNT(*) FROM LienAppartementPersonne lap JOIN Appartement a ON lap.id_appartement = a.id_appartement WHERE lap.id_personne = ? AND a.id_immeuble = ?");
+            preparedStatement.setInt(1, idUtilisateur);
+            preparedStatement.setInt(2, idImmeuble);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int totalLogements = resultSet.getInt(1);
+                
+                // Compter le nombre de logements loués et vacants
+                preparedStatement = this.connect.prepareStatement("SELECT COUNT(*) FROM LienAppartementPersonne lap JOIN Appartement a ON lap.id_appartement = a.id_appartement WHERE lap.id_personne = ? AND a.id_immeuble = ? AND lap.est_proprietaire = true");
+                preparedStatement.setInt(1, idUtilisateur);
+                preparedStatement.setInt(2, idImmeuble);
+                resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    int logementsLoues = resultSet.getInt(1);
+                    int logementsVacants = totalLogements - logementsLoues;
+                    
+                    // Calculer les pourcentages
+                    pourcentage[0] = ((double) logementsLoues / totalLogements) * 100;
+                    pourcentage[1] = ((double) logementsVacants / totalLogements) * 100;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pourcentage;
+    }
+    public double[] getPourcentageLogementsLouesEtVacantsPourUtilisateur(int idUtilisateur) {
+        double[] pourcentage = new double[2]; // pourcentage[0] pour les logements loués, pourcentage[1] pour les logements vacants
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT COUNT(*) FROM LienAppartementPersonne lap JOIN Appartement a ON lap.id_appartement = a.id_appartement WHERE lap.id_personne = ?");
+            preparedStatement.setInt(1, idUtilisateur);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                int totalLogements = resultSet.getInt(1);
+                
+                // Compter le nombre de logements loués et vacants
+                preparedStatement = this.connect.prepareStatement("SELECT COUNT(*) FROM LienAppartementPersonne lap JOIN Appartement a ON lap.id_appartement = a.id_appartement WHERE lap.id_personne = ? AND lap.est_proprietaire = true");
+                preparedStatement.setInt(1, idUtilisateur);
+                resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    int logementsLoues = resultSet.getInt(1);
+                    int logementsVacants = totalLogements - logementsLoues;
+                    
+                    // Calculer les pourcentages
+                    pourcentage[0] = ((double) logementsLoues / totalLogements) * 100;
+                    pourcentage[1] = ((double) logementsVacants / totalLogements) * 100;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pourcentage;
+    }
+
+
+
     @Override
     public ImmeubleEntity create(ImmeubleEntity obj) {
         //TODO !

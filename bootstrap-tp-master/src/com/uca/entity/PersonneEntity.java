@@ -6,7 +6,7 @@ public class PersonneEntity {
     private String nom;
     private String prenom;
     private String numeroDeTelephone;
-    private Boolean estPropriétaire;
+    private Boolean estPropriétaire=false;
 
     public PersonneEntity(){
     }

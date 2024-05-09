@@ -31,7 +31,7 @@ public class PersonneCore {
 
     public static void delete(int id) throws Exception {
         try {
-            PersonneEntity personne = getOnePersonnes(id);
+            PersonneEntity personne = new PersonneDao().getOnePersonne(id);
             new PersonneDao().delete(personne);
         } catch (Exception e) {
             e.printStackTrace();

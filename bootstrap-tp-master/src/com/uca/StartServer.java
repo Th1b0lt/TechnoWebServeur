@@ -87,6 +87,7 @@ public class StartServer {
             }
         });
         post("/supprimerPersonne",(req,res)->{
+<<<<<<< HEAD
             String idString = req.queryParams("id");
             if (idString != null) {
                 try {
@@ -109,6 +110,20 @@ public class StartServer {
                 // Gérer le cas où idString est null
                 res.status(400); // Bad Request
                 return "L'ID est manquant dans la requête.";
+=======
+            try {
+                // Récupérer les paramètres de la requête
+                String id = req.queryParams("id");
+                // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                 PersonneCore.delete(id);
+                return "Personne supprimé avec succés";
+              
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Gérer l'exception selon les besoins
+                res.status(500); // Erreur interne du serveur
+                return "Une erreur s'est produite lors de la suppression de la personne.";
+>>>>>>> cfed056b66a4c11db684fff49811a8eb31ebb4ca
             }
         });
 
