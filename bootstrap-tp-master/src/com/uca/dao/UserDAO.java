@@ -11,13 +11,8 @@ public class UserDAO extends _Generic<UserEntity> {
     public UserEntity getUserByUsername(String username) {
         UserEntity user = null;
         try {
-<<<<<<< HEAD
-            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM user WHERE id = ?;");
-            preparedStatement.setInt(1, idUser);
-=======
             PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM user WHERE username = ?;");
             preparedStatement.setString(1, username);
->>>>>>> e599423c739af8ccdd05ad169953c348ed8f018a
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 user = new UserEntity();
@@ -53,7 +48,7 @@ public class UserDAO extends _Generic<UserEntity> {
         user.setPasswordHash(new PasswordUtil().hashPassword(user.getPassword() + "pourquoi"));
         // Insérer l'utilisateur dans la base de données
         try {
-            PreparedStatement statement = this.connect.prepareStatement("INSERT INTO users(username, passwordHash) VALUES (?, ?)");
+            PreparedStatement statement = this.connect.prepareStatement("INSERT INTO user(username, passwordHash) VALUES (?, ?)");
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPasswordHash());
             statement.executeUpdate();

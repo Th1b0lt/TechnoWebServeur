@@ -13,10 +13,10 @@ public class _Initializer {
         try {
             PreparedStatement statement;
             
-            
+            /* 
             statement=connection.prepareStatement("drop table user");
             statement.executeUpdate();
-
+*/
            
             
          

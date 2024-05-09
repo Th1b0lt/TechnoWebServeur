@@ -10,8 +10,8 @@ public class UserCore {
     public static ArrayList<UserEntity> getAllUsers() {
         return new UserDAO().getAllUsers();
     }
-    public boolean authenticateUser(int id, String password) {
-        UserEntity user = new UserDAO().getUserById(id);
+    public boolean authenticateUser(String username, String password) {
+        UserEntity user = new UserDAO().getUserByUsername(username);
         if (user != null) {
             // Vérifier si le mot de passe correspond
             return new PasswordUtil().checkPassword(password + "pourquoi", user.getPasswordHash());

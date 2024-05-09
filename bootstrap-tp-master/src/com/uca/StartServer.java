@@ -67,9 +67,16 @@ public class StartServer {
                 // Récupérer les paramètres de la requête
                 String nom = req.queryParams("nom");
                 String prenom = req.queryParams("prenom");
-                String numTel = req.queryParams("num_tel");        
+                String numTel = req.queryParams("num_tel"); 
+                String proprio = req.queryParams("proprietaire");  
+                boolean estproprio=false;
+
+                if (proprio != null && proprio.equalsIgnoreCase("oui")) {
+                    estproprio=true;
+                }
+
                 // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
-                PersonneEntity nouvellePersonne = PersonneCore.create(nom, prenom, numTel);
+                PersonneEntity nouvellePersonne = PersonneCore.create(nom, prenom, numTel,estproprio);
                 return "Personne créé avec succés";
               
             } catch (Exception e) {
@@ -80,18 +87,28 @@ public class StartServer {
             }
         });
         post("/supprimerPersonne",(req,res)->{
-            try {
-                // Récupérer les paramètres de la requête
-                String nom = req.queryParams("id");
-                // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
-                PersonneEntity nouvellePersonne = PersonneCore.delete(id);
-                return "Personne supprimé avec succés";
-              
-            } catch (Exception e) {
-                e.printStackTrace();
-                // Gérer l'exception selon les besoins
-                res.status(500); // Erreur interne du serveur
-                return "Une erreur s'est produite lors de la suppression de la personne.";
+            String idString = req.queryParams("id");
+            if (idString != null) {
+                try {
+                    int id = Integer.parseInt(idString);
+                    // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                    PersonneCore.delete(id);
+                    return null;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    // Gérer l'exception : la chaîne n'est pas un entier valide
+                    res.status(400); // Bad Request
+                    return "L'ID n'est pas un entier valide.";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de la suppression de la personne.";
+                }
+            } else {
+                // Gérer le cas où idString est null
+                res.status(400); // Bad Request
+                return "L'ID est manquant dans la requête.";
             }
         });
 

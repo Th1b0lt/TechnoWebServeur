@@ -42,19 +42,6 @@ public class SessionManager {
             return null;
         }
     }
-<<<<<<< HEAD
-    public static String getIdFromSessionToken(String token) {
-        try {
-            Claims claims = Jwts.parser().setSigningKey(TOKEN).parseClaimsJws(token).getBody();
-            return claims.get("id", String.class);
-        } catch (Exception e) {
-
-            return null;
-        }
-    }
-=======
-
->>>>>>> e599423c739af8ccdd05ad169953c348ed8f018a
     // Méthode pour générer un token de session unique 
     private static String generateUniqueToken() {
 
