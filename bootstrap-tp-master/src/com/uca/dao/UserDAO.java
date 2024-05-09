@@ -7,16 +7,22 @@ import java.util.ArrayList;
 
 public class UserDAO extends _Generic<UserEntity> {
 
-    public UserEntity getUserById(int idUser) {
+   
+    public UserEntity getUserByUsername(String username) {
         UserEntity user = null;
         try {
+<<<<<<< HEAD
             PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM user WHERE id = ?;");
             preparedStatement.setInt(1, idUser);
+=======
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM user WHERE username = ?;");
+            preparedStatement.setString(1, username);
+>>>>>>> e599423c739af8ccdd05ad169953c348ed8f018a
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 user = new UserEntity();
                 user.setUsername(resultSet.getString("username"));
-                user.setPasswordHash(resultSet.getString("password")); // Le mot de passe est déjà haché dans la base de données
+                user.setPasswordHash(resultSet.getString("passwordHash")); // Le mot de passe est déjà haché dans la base de données
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,7 +38,7 @@ public class UserDAO extends _Generic<UserEntity> {
             while (resultSet.next()) {
                 UserEntity user = new UserEntity();
                 user.setUsername(resultSet.getString("username"));
-                user.setPasswordHash(resultSet.getString("password")); // Le mot de passe est déjà haché dans la base de données
+                user.setPasswordHash(resultSet.getString("passwordHash")); // Le mot de passe est déjà haché dans la base de données
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -47,7 +53,7 @@ public class UserDAO extends _Generic<UserEntity> {
         user.setPasswordHash(new PasswordUtil().hashPassword(user.getPassword() + "pourquoi"));
         // Insérer l'utilisateur dans la base de données
         try {
-            PreparedStatement statement = this.connect.prepareStatement("INSERT INTO users(username, password) VALUES (?, ?)");
+            PreparedStatement statement = this.connect.prepareStatement("INSERT INTO users(username, passwordHash) VALUES (?, ?)");
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPasswordHash());
             statement.executeUpdate();

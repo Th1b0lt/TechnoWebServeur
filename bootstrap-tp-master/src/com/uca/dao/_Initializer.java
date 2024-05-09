@@ -14,18 +14,10 @@ public class _Initializer {
             PreparedStatement statement;
             
             
-
-          
-          
-            
-            // Créer la nouvelle table user
-            statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS user ( " +
-                    "id INT PRIMARY KEY auto_increment, " +
-                    "username VARCHAR(50) UNIQUE NOT NULL, " +
-                    "id_personne INT NOT NULL,"+
-                    "passwordHash VARCHAR(256) NOT NULL ,"+
-                    "FOREIGN KEY (id_personne) REFERENCES personne(id_personne))");
+            statement=connection.prepareStatement("drop table user");
             statement.executeUpdate();
+
+           
             
          
             
@@ -37,7 +29,15 @@ public class _Initializer {
                                 "prenom_pers CHAR(50), "+
                                 "proprietaire BOOLEAN )");
             statement.executeUpdate();
-
+            
+             // Créer la nouvelle table user
+             statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS user ( " +
+             "username VARCHAR(50) NOT NULL PRIMARY KEY, " +
+             "id_personne INT ,"+
+             "passwordHash VARCHAR(256) NOT NULL ,"+
+             "FOREIGN KEY (id_personne) REFERENCES personne(id_personne))");
+            statement.executeUpdate();
+     
             // Create Syndicat table
             statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS syndicat ( " +
                                 "id_syndicat INT PRIMARY KEY auto_increment, " +
@@ -77,12 +77,12 @@ public class _Initializer {
             statement.executeUpdate();
             
               
-
-              statement = connection.prepareStatement("INSERT INTO user(username,passwordHAsh) VALUES(?, ?);");
+            
+              statement = connection.prepareStatement("INSERT INTO user(username,passwordHash) VALUES(?, ?);");
               statement.setString(1, "ThiGoat");
               statement.setString(2, "mdp");
               statement.executeUpdate();
-            ResultSet resultSet1 = statement.getGeneratedKeys();
+            
 
             // Insert a record into Personne table
             statement = connection.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers,proprietaire) VALUES (?, ?, ?,?);",PreparedStatement.RETURN_GENERATED_KEYS);
@@ -91,8 +91,8 @@ public class _Initializer {
             statement.setString(3, "Thibault");
             statement.setBoolean(4,true);
             statement.executeUpdate();
-            ResultSet resultSet2 = statement.getGeneratedKeys();
-
+            
+            
         } catch (SQLException e) {
             System.out.println(e.toString());
             throw new RuntimeException("Could not create database!");

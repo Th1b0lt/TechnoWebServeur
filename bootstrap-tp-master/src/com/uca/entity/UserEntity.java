@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 
 public class UserEntity {
     private String username;
-    private int id;
     private String passwordHash;
     private String password; // Mot de passe en clair non sauvegarder pour le hachage.
 
@@ -12,13 +11,8 @@ public class UserEntity {
         //Ignored !
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
 
     public String getUsername(){
         return this.username;
