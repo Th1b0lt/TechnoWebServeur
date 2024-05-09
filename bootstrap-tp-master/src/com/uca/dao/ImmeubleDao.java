@@ -52,6 +52,27 @@ public class ImmeubleDao extends _Generic<ImmeubleEntity> {
         }
         return immeuble;
     }
+
+
+    public ImmeubleEntity getImmeubleByAppartementId(int idAppartement) {
+        ImmeubleEntity immeuble = null;
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT i.* FROM immeuble i INNER JOIN appartement a ON i.id_immeuble = a.id_immeuble WHERE a.id_appartement = ?");
+            preparedStatement.setInt(1, idAppartement);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                immeuble = new ImmeubleEntity();
+                immeuble.setIdImmeuble(resultSet.getInt("id_immeuble"));
+                immeuble.setNom(resultSet.getString("nom_immeuble"));
+                immeuble.setAdresse(resultSet.getString("adr_immeuble"));
+                immeuble.setIdSyndicat(resultSet.getInt("id_syndicat"));
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return immeuble;
+    }
     @Override
     public ImmeubleEntity create(ImmeubleEntity obj) {
         //TODO !
