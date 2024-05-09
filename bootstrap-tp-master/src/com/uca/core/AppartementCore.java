@@ -6,14 +6,10 @@ import com.uca.entity.AppartementEntity;
 import java.util.ArrayList;
 public class AppartementCore {
     
-    public static ArrayList<AppartementEntity> getAllAppartement() throws Exception{
-        try{
+    public static ArrayList<AppartementEntity> getAllAppartement(){
             return new AppartementDao().getAllAppartement();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
+        
+       
     }
 
     public static AppartementEntity getOneAppartement(int id) throws Exception{

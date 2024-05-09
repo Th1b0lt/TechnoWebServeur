@@ -23,6 +23,9 @@ public class StartServer {
         System.out.println(a);
         System.out.println(SessionManager.introspect(a));
         */
+        get("/main", (req, res) -> {
+            return UserGUI.main();
+        });
         get("/users", (req, res) -> {
             return UserGUI.getAllUsers();
         });
@@ -65,8 +68,7 @@ public class StartServer {
         });
         post("/ajouterPersonne", (req, res) -> {
             String token = req.cookie("token");
-            Map<String, String> introspectResult = SessionManager.introspect(token);
-            if (token!=null && introspectResult.containsKey("sub") && introspectResult != null ){
+            if (token!=null){
                 try {
                     // Récupérer les paramètres de la requête
                     String nom = req.queryParams("nom");
@@ -81,7 +83,8 @@ public class StartServer {
 
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
                     PersonneEntity nouvellePersonne = PersonneCore.create(nom, prenom, numTel,estproprio);
-                    return "Personne créé avec succés";
+                    res.redirect("/personne");
+                    return null;
                 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -90,7 +93,6 @@ public class StartServer {
                     return "Une erreur s'est produite lors de l'ajout de la personne.";
                 }
             }else{
-                   // Gérer le cas où idString est null
                    res.status(401); // Bad Request
                    return  "Vous devez etre admin.";
 
@@ -99,12 +101,12 @@ public class StartServer {
         post("/supprimerPersonne",(req,res)->{
             String idString = req.queryParams("id");
             String token = req.cookie("token");
-            Map<String, String> introspectResult = SessionManager.introspect(token);
-            if (token!=null && introspectResult.containsKey("sub") && introspectResult != null ){
+            if (token!=null  ){
                 try {
                     int id = Integer.parseInt(idString);
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
                     PersonneCore.delete(id);
+                    res.redirect("/personne");
                     return null;
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
@@ -119,13 +121,8 @@ public class StartServer {
                 }
             } else {
                 // Gérer le cas où idString est null
-<<<<<<< HEAD
                 res.status(401); // Bad Request
                 return  "Vous devez etre admin.";
-=======
-                res.status(400); // Bad Request
-                return "L'ID est manquant dans la requête.";
->>>>>>> 3eb48e34fe7583bfbcc398395f2126a53bba9e3e
             }
         });
 
