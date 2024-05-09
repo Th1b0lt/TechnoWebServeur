@@ -29,6 +29,7 @@ public class StartServer {
         get("/users", (req, res) -> {
             return UserGUI.getAllUsers();
         });
+        
         get("/login",(req,res)->{
             return UserGUI.login();
         });

@@ -27,6 +27,9 @@
     <div id="Telephone container">
         <input name="num_tel" id="num_tel" class="initial" type="text" placeholder="Telephone" value="">
     </div>
+    <div id="Proprio container">
+        <input name="proprio" id="proprio" class="initial" type="text" placeholder="etes vous proprietaire(oui ou non)" value="">
+    </div>
     <input type="submit" value="Ajouter">
 </form>
     <br>
@@ -36,7 +39,8 @@
     <p>Suppression d'une personne(seulement pour les admins)</p>
 
         <form action="/supprimerPersonne" method="post">
-            <input type"text" name="idPersonne" value="">
+            <input type="text" name="id" value="">
             <input type="submit" value="Supprimer">
         </form>
+
 </body>

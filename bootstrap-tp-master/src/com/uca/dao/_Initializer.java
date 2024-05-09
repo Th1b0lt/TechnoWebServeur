@@ -25,8 +25,7 @@ public class _Initializer {
             
         
          
-            
-
+           
             
             
             // Create Personne table
@@ -85,12 +84,12 @@ public class _Initializer {
             statement.executeUpdate();
             
             //Premiere entrée test
-            
+            /* 
               statement = connection.prepareStatement("INSERT INTO user(username,passwordHash) VALUES(?, ?);");
               statement.setString(1, "ThiGoat");
               statement.setString(2, "mdp");
               statement.executeUpdate();
-            
+            */
 
             // Insert a record into Personne table
             statement = connection.prepareStatement("INSERT INTO personne (num_tel_pers, nom_pers, prenom_pers,proprietaire) VALUES (?, ?, ?,?);",PreparedStatement.RETURN_GENERATED_KEYS);

@@ -1,7 +1,7 @@
 package com.uca.dao;
 
 import com.uca.entity.UserEntity;
-import com.uca.util.PasswordUtil;
+import com.uca.Security.util.PasswordUtil;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -61,7 +61,7 @@ public class UserDAO extends _Generic<UserEntity> {
     @Override
     public UserEntity create(UserEntity user) {
         // Hacher le mot de passe avant de l'ajouter à la base de données
-        user.setPasswordHash(new PasswordUtil().hashPassword(user.getPassword() + "pourquoi"));
+
         // Insérer l'utilisateur dans la base de données
         try {
             PreparedStatement statement = this.connect.prepareStatement("INSERT INTO user(username, passwordHash) VALUES (?, ?)");
