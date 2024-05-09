@@ -6,6 +6,7 @@ import com.uca.util.*;
 import com.uca.entity.*;
 import com.uca.core.*;
 import static spark.Spark.*;
+import java.util.Map;
 
 
 public class StartServer {
@@ -63,32 +64,43 @@ public class StartServer {
             return PersonneGUI.getAllPersonnes();
         });
         post("/ajouterPersonne", (req, res) -> {
-            try {
-                // Récupérer les paramètres de la requête
-                String nom = req.queryParams("nom");
-                String prenom = req.queryParams("prenom");
-                String numTel = req.queryParams("num_tel"); 
-                String proprio = req.queryParams("proprietaire");  
-                boolean estproprio=false;
+            String token = req.cookie("token");
+    
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")  ){
+                try {
+                    // Récupérer les paramètres de la requête
+                    String nom = req.queryParams("nom");
+                    String prenom = req.queryParams("prenom");
+                    String numTel = req.queryParams("num_tel"); 
+                    String proprio = req.queryParams("proprietaire");  
+                    boolean estproprio=false;
 
-                if (proprio != null && proprio.equalsIgnoreCase("oui")) {
-                    estproprio=true;
+                    if (proprio != null && proprio.equalsIgnoreCase("oui")) {
+                        estproprio=true;
+                    }
+
+                    // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                    PersonneEntity nouvellePersonne = PersonneCore.create(nom, prenom, numTel,estproprio);
+                    return "Personne créé avec succés";
+                
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de l'ajout de la personne.";
                 }
+            }else{
+                   // Gérer le cas où idString est null
+                   res.status(401); // Bad Request
+                   return  "Vous devez etre admin.";
 
-                // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
-                PersonneEntity nouvellePersonne = PersonneCore.create(nom, prenom, numTel,estproprio);
-                return "Personne créé avec succés";
-              
-            } catch (Exception e) {
-                e.printStackTrace();
-                // Gérer l'exception selon les besoins
-                res.status(500); // Erreur interne du serveur
-                return "Une erreur s'est produite lors de l'ajout de la personne.";
             }
         });
         post("/supprimerPersonne",(req,res)->{
             String idString = req.queryParams("id");
-            if (idString != null) {
+            String token = req.cookie("token");
+            Map<String, String> introspectResult = SessionManager.introspect(token);
+            if (token!=null && introspectResult.containsKey("sub") && introspectResult != null ){
                 try {
                     int id = Integer.parseInt(idString);
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
@@ -107,10 +119,13 @@ public class StartServer {
                 }
             } else {
                 // Gérer le cas où idString est null
-                res.status(400); // Bad Request
-                return "L'ID est manquant dans la requête.";
+                res.status(401); // Bad Request
+                return  "Vous devez etre admin.";
             }
         });
 
+
+        
     }
+
 }

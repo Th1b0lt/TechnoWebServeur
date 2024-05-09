@@ -25,18 +25,7 @@ public class _Initializer {
             
         
          
-            
-            // Requête SQL pour supprimer la table "personne"
-            String sql = "DROP TABLE IF EXISTS personne";
-            
-            // Préparation de la déclaration
-            PreparedStatement statement2 = connection.prepareStatement(sql);
-            
-            // Exécution de la requête SQL
-            statement2.executeUpdate();
-            
-            System.out.println("La table personne a été supprimée avec succès.");
-
+           
             
             
             // Create Personne table
