@@ -22,7 +22,9 @@ public class _Initializer {
             statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS user ( " +
                     "id INT PRIMARY KEY auto_increment, " +
                     "username VARCHAR(50) UNIQUE NOT NULL, " +
-                    "passwordHash VARCHAR(256) NOT NULL )");
+                    "id_personne INT NOT NULL,"+
+                    "passwordHash VARCHAR(256) NOT NULL ,"+
+                    "FOREIGN KEY (id_personne) REFERENCES personne(id_personne))");
             statement.executeUpdate();
             
          

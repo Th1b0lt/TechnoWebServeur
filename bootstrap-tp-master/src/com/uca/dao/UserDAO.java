@@ -7,11 +7,11 @@ import java.util.ArrayList;
 
 public class UserDAO extends _Generic<UserEntity> {
 
-    public UserEntity getUserByUsername(String username) {
+    public UserEntity getUserById(int idUser) {
         UserEntity user = null;
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM users WHERE username = ?;");
-            preparedStatement.setString(1, username);
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM user WHERE id = ?;");
+            preparedStatement.setString(1, idUser);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 user = new UserEntity();
@@ -27,7 +27,7 @@ public class UserDAO extends _Generic<UserEntity> {
     public ArrayList<UserEntity> getAllUsers() {
         ArrayList<UserEntity> users = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM users;");
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM user;");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 UserEntity user = new UserEntity();

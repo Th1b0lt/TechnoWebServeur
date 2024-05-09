@@ -15,19 +15,20 @@ public class SessionManager {
         Map <String,String> map = new HashMap<>();
         map.put("sub",claims.get("sub",String.class));
         map.put("uuid",claims.get("uuid",String.class));//Comme en bas
-
+        map.put("id",claims.get("id",String.class))
         return map;
     }
     // Méthode pour ecrire le token pour un user.
-    public static String generateSessionToken(String username) {
+    public static String generateSessionToken(String username,int idUser) {
         
         String token = generateUniqueToken();
         Map<String,String> content= new HashMap<>();
         content.put("sub",username);
+        content.put("id",idUser);
         content.put("uuid",token);//Si je veux ajouter des infos (probablement un id pour les users qui sera lié à une personne)
 
         return Jwts.builder().setClaims(content)
-            .setId(UUID.randomUUID().toString())
+            .setId(generateUniqueToken());
             .setExpiration(new Date(System.currentTimeMillis()+1000*60*60))
             .signWith(SignatureAlgorithm.HS256,TOKEN)
             .compact();
@@ -42,7 +43,19 @@ public class SessionManager {
             return null;
         }
     }
+<<<<<<< HEAD
     */
+=======
+    public static String getIdFromSessionToken(String token) {
+        try {
+            Claims claims = Jwts.parser().setSigningKey(TOKEN).parseClaimsJws(token).getBody();
+            return claims.get("id", String.class);
+        } catch (Exception e) {
+
+            return null;
+        }
+    }
+>>>>>>> 0530986bbd7911df4a3d050e877a4a00a2f0694e
     // Méthode pour générer un token de session unique 
     private static String generateUniqueToken() {
 

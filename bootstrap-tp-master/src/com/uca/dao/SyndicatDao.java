@@ -51,6 +51,32 @@ public class SyndicatDao extends _Generic<SyndicatEntity>{
         }
         return syndicat;
     }
+
+    public ArrayList<SyndicatEntity> getSyndicatsByPersonneID(int personneId) {
+        ArrayList<SyndicatEntity> syndicats = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT s.* FROM syndicat s " +
+                    "INNER JOIN immeuble i ON s.id_syndicat = i.id_syndicat " +
+                    "INNER JOIN appartement a ON i.id_immeuble = a.id_immeuble " +
+                    "INNER JOIN personne p ON a.id_personne = p.id_personne " +
+                    "WHERE p.id_personne = ?");
+            preparedStatement.setInt(1, personneId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                SyndicatEntity syndicat = new SyndicatEntity();
+                syndicat.setIdSyndicat(resultSet.getInt("id_syndicat"));
+                syndicat.setName(resultSet.getString("nom_syndicat"));
+                syndicat.setAdresse(resultSet.getString("adresse_syndicat"));
+                syndicat.setPersonneReference(resultSet.getString("nom_ref_syndicat"));
+                syndicat.setNumeroDeTelephone(resultSet.getString("num_tel_syndicat"));
+                syndicat.setAdresseEmail(resultSet.getString("adr_mail_syndicat"));
+                syndicats.add(syndicat);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return syndicats;
+    }
     @Override
     public SyndicatEntity create(SyndicatEntity obj) {
         PreparedStatement statement = null;
