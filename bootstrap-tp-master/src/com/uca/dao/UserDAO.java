@@ -11,7 +11,7 @@ public class UserDAO extends _Generic<UserEntity> {
         UserEntity user = null;
         try {
             PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM user WHERE id = ?;");
-            preparedStatement.setString(1, idUser);
+            preparedStatement.setInt(1, idUser);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 user = new UserEntity();
