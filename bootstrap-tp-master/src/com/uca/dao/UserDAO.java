@@ -64,7 +64,7 @@ public class UserDAO extends _Generic<UserEntity> {
         user.setPasswordHash(new PasswordUtil().hashPassword(user.getPassword() + "pourquoi"));
         // Insérer l'utilisateur dans la base de données
         try {
-            PreparedStatement statement = this.connect.prepareStatement("INSERT INTO users(username, passwordHash) VALUES (?, ?)");
+            PreparedStatement statement = this.connect.prepareStatement("INSERT INTO user(username, passwordHash) VALUES (?, ?)");
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPasswordHash());
             statement.executeUpdate();

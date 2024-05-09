@@ -1,7 +1,7 @@
 package com.uca.dao;
 
 import com.uca.entity.PersonneEntity;
-
+import com.uca.entity.AppartementEntity;
 
 import java.sql.*;
 import java.util.ArrayList;

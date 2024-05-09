@@ -11,13 +11,14 @@ public class PersonneCore {
         return new PersonneDao().getAllPersonnes();
     }
 
-    public static PersonneEntity create(String nom,String prenom,String num_tel) throws Exception{
+    public static PersonneEntity create(String nom,String prenom,String num_tel,boolean estPropriétaire) throws Exception{
 
         try{
             PersonneEntity newPersonne = new PersonneEntity();
             newPersonne.setNumeroDeTelephone(num_tel);
             newPersonne.setPrenom(prenom);
             newPersonne.setNom(nom);
+            newPersonne.setEstPropriétaire(estPropriétaire);
             return new PersonneDao().create(newPersonne);
         }
 
