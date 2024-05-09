@@ -77,6 +77,88 @@ public class SyndicatDao extends _Generic<SyndicatEntity>{
         }
         return syndicats;
     }
+
+    
+    public void updateNomSyndicat(int idSyndicat, String nouveauNom) {
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE syndicat SET nom_syndicat = ? WHERE id_syndicat = ?");
+            statement.setString(1, nouveauNom);
+            statement.setInt(2, idSyndicat);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune ligne mise à jour.");
+            } else {
+                System.out.println("Mise à jour réussie.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateAdresseSyndicat(int idSyndicat, String nouvelleAdresse) {
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE syndicat SET adr_syndicat = ? WHERE id_syndicat = ?");
+            statement.setString(1, nouvelleAdresse);
+            statement.setInt(2, idSyndicat);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune ligne mise à jour.");
+            } else {
+                System.out.println("Mise à jour réussie.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateTelephoneSyndicat(int idSyndicat, String nouveauTelephone) {
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE syndicat SET tel_syndicat = ? WHERE id_syndicat = ?");
+            statement.setString(1, nouveauTelephone);
+            statement.setInt(2, idSyndicat);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune ligne mise à jour.");
+            } else {
+                System.out.println("Mise à jour réussie.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateEmailSyndicat(int idSyndicat, String nouvelEmail) {
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE syndicat SET email_syndicat = ? WHERE id_syndicat = ?");
+            statement.setString(1, nouvelEmail);
+            statement.setInt(2, idSyndicat);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune ligne mise à jour.");
+            } else {
+                System.out.println("Mise à jour réussie.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void updateNomRefSyndicat(int idSyndicat, String nouveauNomRef) {
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE syndicat SET nom_ref = ? WHERE id_syndicat = ?");
+            statement.setString(1, nouveauNomRef);
+            statement.setInt(2, idSyndicat);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune ligne mise à jour.");
+            } else {
+                System.out.println("Mise à jour réussie.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Override
     public SyndicatEntity create(SyndicatEntity obj) {
         PreparedStatement statement = null;

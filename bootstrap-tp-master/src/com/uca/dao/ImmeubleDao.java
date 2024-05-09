@@ -131,6 +131,53 @@ public class ImmeubleDao extends _Generic<ImmeubleEntity> {
         return pourcentage;
     }
 
+    public void updateNomImmeuble(int idImmeuble, String nouveauNom) {
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE immeuble SET nom_immeuble = ? WHERE id_immeuble = ?");
+            statement.setString(1, nouveauNom);
+            statement.setInt(2, idImmeuble);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune ligne mise à jour.");
+            } else {
+                System.out.println("Mise à jour réussie.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateAdresseImmeuble(int idImmeuble, String nouvelleAdresse) {
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE immeuble SET adr_immeuble = ? WHERE id_immeuble = ?");
+            statement.setString(1, nouvelleAdresse);
+            statement.setInt(2, idImmeuble);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune ligne mise à jour.");
+            } else {
+                System.out.println("Mise à jour réussie.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateIdSyndicatImmeuble(int idImmeuble, int nouvelIdSyndicat) {
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE immeuble SET id_syndicat = ? WHERE id_immeuble = ?");
+            statement.setInt(1, nouvelIdSyndicat);
+            statement.setInt(2, idImmeuble);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune ligne mise à jour.");
+            } else {
+                System.out.println("Mise à jour réussie.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @Override

@@ -13,13 +13,21 @@ public class _Initializer {
         try {
             PreparedStatement statement;
             
-            /* 
-            statement=connection.prepareStatement("drop table user");
-            statement.executeUpdate();
-*/
            
+        
+           
+            //Drop de toutes les tables, commenté pour vrai serveur.
+
+
+
             
+            
+            
+        
          
+            
+
+            
             
             // Create Personne table
             statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS  personne ( " +
@@ -76,7 +84,7 @@ public class _Initializer {
                 "FOREIGN KEY (id_appartement) REFERENCES Appartement(id_appartement) )" );
             statement.executeUpdate();
             
-              
+            //Premiere entrée test
             
               statement = connection.prepareStatement("INSERT INTO user(username,passwordHash) VALUES(?, ?);");
               statement.setString(1, "ThiGoat");

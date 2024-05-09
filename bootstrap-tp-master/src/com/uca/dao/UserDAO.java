@@ -42,6 +42,22 @@ public class UserDAO extends _Generic<UserEntity> {
         return users;
     }
 
+    public void updatePasswordHash(String username, String newPasswordHash) {
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE users SET passwordHash = ? WHERE username = ?");
+            statement.setString(1, newPasswordHash);
+            statement.setString(2, username);
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected == 0) {
+                System.out.println("Aucune ligne mise à jour.");
+            } else {
+                System.out.println("Mise à jour réussie.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public UserEntity create(UserEntity user) {
         // Hacher le mot de passe avant de l'ajouter à la base de données

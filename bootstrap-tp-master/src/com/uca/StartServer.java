@@ -119,8 +119,13 @@ public class StartServer {
                 }
             } else {
                 // Gérer le cas où idString est null
+<<<<<<< HEAD
                 res.status(401); // Bad Request
                 return  "Vous devez etre admin.";
+=======
+                res.status(400); // Bad Request
+                return "L'ID est manquant dans la requête.";
+>>>>>>> 3eb48e34fe7583bfbcc398395f2126a53bba9e3e
             }
         });
 
