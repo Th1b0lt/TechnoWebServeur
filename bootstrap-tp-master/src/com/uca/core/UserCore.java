@@ -30,8 +30,8 @@ public class UserCore {
     }
 
     // Méthode pour supprimer un utilisateur
-    public void deleteUser(int id) {
-        UserEntity user = new UserDAO().getUserById(id);
+    public void deleteUser(String username) {
+        UserEntity user = new UserDAO().getUserByUsername(username);
         if (user != null) {
             new UserDAO().delete(user);
         }

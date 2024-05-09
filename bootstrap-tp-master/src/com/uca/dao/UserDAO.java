@@ -7,16 +7,17 @@ import java.util.ArrayList;
 
 public class UserDAO extends _Generic<UserEntity> {
 
-    public UserEntity getUserById(int idUser) {
+   
+    public UserEntity getUserByUsername(String username) {
         UserEntity user = null;
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM user WHERE id = ?;");
-            preparedStatement.setString(1, idUser);
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM user WHERE username = ?;");
+            preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 user = new UserEntity();
                 user.setUsername(resultSet.getString("username"));
-                user.setPasswordHash(resultSet.getString("password")); // Le mot de passe est déjà haché dans la base de données
+                user.setPasswordHash(resultSet.getString("passwordHash")); // Le mot de passe est déjà haché dans la base de données
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,7 +33,7 @@ public class UserDAO extends _Generic<UserEntity> {
             while (resultSet.next()) {
                 UserEntity user = new UserEntity();
                 user.setUsername(resultSet.getString("username"));
-                user.setPasswordHash(resultSet.getString("password")); // Le mot de passe est déjà haché dans la base de données
+                user.setPasswordHash(resultSet.getString("passwordHash")); // Le mot de passe est déjà haché dans la base de données
                 users.add(user);
             }
         } catch (SQLException e) {

@@ -4,7 +4,7 @@
 <h1>Liste des users</h1>
 <ul>
     <#list users as user>
-        <li>${user.id} - ${user.username}  ${user.password} ${user.passwordHash}</li>
+        <li>${user.username} ${user.passwordHash}</li>
     </#list>
 </ul>
 
