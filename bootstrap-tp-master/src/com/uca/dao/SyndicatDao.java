@@ -52,7 +52,7 @@ public class SyndicatDao extends _Generic<SyndicatEntity>{
         return syndicat;
     }
 
-    public ArrayList<SyndicatEntity> getSyndicatsByPersonneID(int personneId) {
+    public ArrayList<SyndicatEntity> getSyndicatsByPersonneId(int personneId) {
         ArrayList<SyndicatEntity> syndicats = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT s.* FROM syndicat s " +
@@ -157,7 +157,24 @@ public class SyndicatDao extends _Generic<SyndicatEntity>{
             e.printStackTrace();
         }
     }
-
+    //Test avant suppression
+    public boolean syndicatEstLieeImmeuble(int idSyndicat) {
+        boolean lien= false;
+        try {
+            PreparedStatement statement = this.connect.prepareStatement("SELECT COUNT(*) FROM immeuble WHERE id_syndicat = ?");
+            statement.setInt(1, idSyndicat);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                if (count > 0) {
+                    lien = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lien;
+    }
 
     @Override
     public SyndicatEntity create(SyndicatEntity obj) {

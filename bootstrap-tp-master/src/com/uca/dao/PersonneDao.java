@@ -121,41 +121,7 @@ public class PersonneDao extends _Generic<PersonneEntity> {
         return locataires;
     }
 
-    public ArrayList<PersonneEntity> getPersonnesByImmeuble(int idImmeuble) {
-        ArrayList<PersonneEntity> personnes = new ArrayList<>();
-        // Récupérer tous les appartements de l'immeuble
-        AppartementDao appartementDao = new AppartementDao();
-        ArrayList<AppartementEntity> appartements = appartementDao.getAppartementByImmeuble(idImmeuble);
-        // Pour chaque appartement, récupérer les personnes associées
-        for (AppartementEntity appartement : appartements) {
-            personnes.addAll(getPersonnesByAppartement(appartement.getIdAppartement()));
-        }
-        return personnes;
-    }
-    
-    public ArrayList<PersonneEntity> getProprietairesByImmeuble(int idImmeuble) {
-        ArrayList<PersonneEntity> proprietaires = new ArrayList<>();
-        // Récupérer tous les appartements de l'immeuble
-        AppartementDao appartementDao = new AppartementDao();
-        ArrayList<AppartementEntity> appartements = appartementDao.getAppartementByImmeuble(idImmeuble);
-        // Pour chaque appartement, récupérer les propriétaires associés
-        for (AppartementEntity appartement : appartements) {
-            proprietaires.addAll(getProprietairesByAppartement(appartement.getIdAppartement()));
-        }
-        return proprietaires;
-    }
-    
-    public ArrayList<PersonneEntity> getLocatairesByImmeuble(int idImmeuble) {
-        ArrayList<PersonneEntity> locataires = new ArrayList<>();
-        // Récupérer tous les appartements de l'immeuble
-        AppartementDao appartementDao = new AppartementDao();
-        ArrayList<AppartementEntity> appartements = appartementDao.getAppartementByImmeuble(idImmeuble);
-        // Pour chaque appartement, récupérer les locataires associés
-        for (AppartementEntity appartement : appartements) {
-            locataires.addAll(getLocatairesByAppartement(appartement.getIdAppartement()));
-        }
-        return locataires;
-    }
+   
 
 
     
