@@ -12,7 +12,7 @@ public class AppartementCore {
     
     }
 
-    public static AppartementEntity getOneAppartement(int id) throws Exception{
+    public static AppartementEntity getOneAppartement(int id) {
         try{
             return new AppartementDao().getOneAppartement(id);
         }
@@ -21,7 +21,7 @@ public class AppartementCore {
             throw e;
         }
     }
-    public static ArrayList<AppartementEntity> getAppartementByImmeuble(int idImmeuble) throws Exception{
+    public static ArrayList<AppartementEntity> getAppartementByImmeuble(int idImmeuble){
         try{
             return new AppartementDao().getAppartementByImmeuble(idImmeuble);
         }
@@ -30,7 +30,7 @@ public class AppartementCore {
             throw e;
         }
     }
-    public static ArrayList<AppartementEntity> getAppartementsByPersonne(int idPersonne) throws Exception{
+    public static ArrayList<AppartementEntity> getAppartementsByPersonne(int idPersonne) {
         try{
             return new AppartementDao().getAppartementsByPersonne(idPersonne);
         }
@@ -66,7 +66,7 @@ public class AppartementCore {
         }
     }
     
-    public static AppartementEntity create(int etage,int superficie,int idImmeuble) throws Exception{
+    public static AppartementEntity create(int etage,int superficie,int idImmeuble) {
         try{
             AppartementEntity newAppartement = new AppartementEntity();
             newAppartement.setEtage(etage);
@@ -80,7 +80,7 @@ public class AppartementCore {
         }
     }
 
-    public static void delete(int id) throws Exception{
+    public static void delete(int id) {
         try{
             LienPersonneAppartementDao lienPersonneAppartementDao = new LienPersonneAppartementDao();
             lienPersonneAppartementDao.deleteByAppartementId(id);

@@ -84,6 +84,19 @@ public class StartServer {
         get("/personne", (req, res) -> {
             return PersonneGUI.getAllPersonnes();
         });
+        get("/personne/:id",(req,res)->{
+            String idPersonneStr = req.queryParams("idPersonne");
+            int idPersonne = 0;
+            try {
+                // Tentative de conversion des chaînes en entiers
+                idPersonne = Integer.parseInt(idPersonneStr);
+            
+            } catch (NumberFormatException e) {
+                return "Erreur de conversion en entier";
+            }
+
+            return PersonneGUI.getPersonneById(idPersonne);
+        });
         post("/ajouterPersonne", (req, res) -> {
             String token = req.cookie("token");
            
@@ -165,6 +178,21 @@ public class StartServer {
                 res.status(401); // Bad Request
                 return null;
             }
+        });
+        get("/appartement/:id",(req,res)->{
+            String idAppartementStr = req.queryParams("idAppartement");
+            int idAppartement = 0;
+        
+        
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        idAppartement = Integer.parseInt(idAppartementStr);
+                    
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
+        
+            return AppartementGUI.getAppartementById(idAppartement);
         });
         post("/ajouterAppartement", (req, res) -> {
             String token = req.cookie("token");
@@ -253,6 +281,21 @@ public class StartServer {
                 return null;
             }
         });
+        get("/immeuble/:id",(req,res)->{
+            String idImmeubleStr = req.queryParams("idImmeuble");
+            int idImmeuble = 0;
+        
+        
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        idImmeuble = Integer.parseInt(idImmeubleStr);
+                    
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
+        
+            return ImmeubleGUI.getImmeubleById(idImmeuble);
+        });
         post("/ajouterImmeuble", (req, res) -> {
             String token = req.cookie("token");
             if (token!=null){
@@ -321,6 +364,21 @@ public class StartServer {
         });
         get("/syndicat", (req, res) -> {
             return SyndicatGUI.getAllSyndicat();
+        });
+        get("/syndicat/:id",(req,res)->{
+            String idSyndicatStr = req.queryParams("idSyndicat");
+            int idSyndicat = 0;
+        
+        
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        idSyndicat = Integer.parseInt(idSyndicatStr);
+                    
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
+        
+            return SyndicatGUI.getSyndicatById(idSyndicat);
         });
         get("/modifsyndicat", (req, res) -> {
             String token = req.cookie("token");

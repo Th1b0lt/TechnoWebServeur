@@ -13,14 +13,9 @@ public class ImmeubleCore {
        
     }
 
-    public static ImmeubleEntity getImmeubleById (int id) throws Exception{
-        try{
+    public static ImmeubleEntity getImmeubleById (int id){
             return new ImmeubleDao().getImmeubleById(id);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
+       
     }
     public static ImmeubleEntity getImmeubleByAppartementId(int idAppartement) {
         try {
@@ -73,7 +68,7 @@ public class ImmeubleCore {
         }
     }
 
-    public static ImmeubleEntity create(String Nom,int idSyndicat,String adresse) throws Exception{
+    public static ImmeubleEntity create(String Nom,int idSyndicat,String adresse) {
         try{
             ImmeubleEntity newImmeuble= new ImmeubleEntity();
             newImmeuble.setNom(Nom);

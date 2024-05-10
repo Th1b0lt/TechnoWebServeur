@@ -14,7 +14,7 @@ public class SyndicatCore {
         
     }
     
-    public static SyndicatEntity create(String name,String adresse, String personne,String numero,String email) throws Exception{
+    public static SyndicatEntity create(String name,String adresse, String personne,String numero,String email) {
         try{
             SyndicatEntity newSyndicat = new SyndicatEntity();
             newSyndicat.setName(name);
@@ -30,7 +30,7 @@ public class SyndicatCore {
         }
     }
 
-    public static String delete(int id) throws Exception{
+    public static String delete(int id) {
         try {
             SyndicatEntity syndicat=getSyndicatById(id);
             SyndicatDao syndicatDao= new SyndicatDao();
@@ -46,7 +46,7 @@ public class SyndicatCore {
         }
     }
 
-    public static SyndicatEntity getSyndicatById(int idSyndicat) throws Exception{
+    public static SyndicatEntity getSyndicatById(int idSyndicat) {
         try{
             return new SyndicatDao().getSyndicatById(idSyndicat);
         }

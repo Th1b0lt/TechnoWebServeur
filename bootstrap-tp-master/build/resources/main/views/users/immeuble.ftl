@@ -8,13 +8,13 @@
 
     <p>Liste des immeuble appartenant à notre groupe</p>
         <#list immeubles as immeuble >
-            <li>${immeuble.idImmeuble} - ${immeuble.nom} ${immeuble.idSyndicat} ${immeuble.adresse}</li>
+            <li><a href="/immeuble/${immeuble.idImmeuble}"> ${immeuble.idImmeuble}</a> - ${immeuble.nom} ${immeuble.idSyndicat} ${immeuble.adresse}</li>
         </#list>
 
     <br>
     <br>
 
-   
+<ul> 
 <li><a href="/modifimmeuble">Modif immeuble(admin only)</a></li>
 
 <li><a href="/main">Page d'accueil</a></li>

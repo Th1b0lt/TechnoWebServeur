@@ -13,7 +13,7 @@ public class PersonneCore {
         return new PersonneDao().getAllPersonnes();
     }
 
-    public static PersonneEntity create(String nom,String prenom,String num_tel,boolean estPropriétaire) throws Exception{
+    public static PersonneEntity create(String nom,String prenom,String num_tel,boolean estPropriétaire) {
 
         try{
             PersonneEntity newPersonne = new PersonneEntity();
@@ -44,7 +44,7 @@ public class PersonneCore {
         }
     }
 
-    public static PersonneEntity getOnePersonne(int id) throws Exception{
+    public static PersonneEntity getOnePersonne(int id) {
         try{
             return new PersonneDao().getOnePersonne(id);
         }
@@ -54,7 +54,7 @@ public class PersonneCore {
         }
     }
 
-    public static ArrayList<PersonneEntity> getPersonnesByAppartement(int idAppartement) throws Exception{
+    public static ArrayList<PersonneEntity> getPersonnesByAppartement(int idAppartement) {
         try{
             return new PersonneDao().getPersonnesByAppartement(idAppartement);
         }
@@ -64,7 +64,7 @@ public class PersonneCore {
         }
     }
 
-    public static ArrayList<PersonneEntity> getProprietairesByAppartement(int idAppartement) throws Exception{
+    public static ArrayList<PersonneEntity> getProprietairesByAppartement(int idAppartement) {
         try{
             return new PersonneDao().getProprietairesByAppartement(idAppartement);
         }
@@ -74,7 +74,7 @@ public class PersonneCore {
         }
     }
 
-    public static ArrayList<PersonneEntity> getLocatairesByAppartement(int idAppartement) throws Exception{
+    public static ArrayList<PersonneEntity> getLocatairesByAppartement(int idAppartement) {
         try{
             return new PersonneDao().getLocatairesByAppartement(idAppartement);
         }
