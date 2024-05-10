@@ -1,4 +1,4 @@
-package com.uca.Security.util;
+package com.uca.security.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
