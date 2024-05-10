@@ -132,30 +132,38 @@ public class PersonneCore {
         }
         return locataires;
     }
-    public static void updateTelephoneSyndicat(int idSyndicat, String nouveauTelephone) {
+    public static void updateNumeroTelephone(int idPersonne, String nouveauNumero) {
         try {
-            SyndicatDao syndicatDao = new SyndicatDao();
-            syndicatDao.updateTelephoneSyndicat(idSyndicat, nouveauTelephone);
+            PersonneDao personneDao = new PersonneDao();
+            personneDao.updateNumeroTelephone(idPersonne, nouveauNumero);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void updateNom(int idPersonne, String nouveauNom) {
+        try {
+            PersonneDao personneDao = new PersonneDao();
+            personneDao.updateNom(idPersonne, nouveauNom);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    public static void updateEmailSyndicat(int idSyndicat, String nouvelEmail) {
+    public static void updatePrenom(int idPersonne, String nouveauPrenom) {
         try {
-            SyndicatDao syndicatDao = new SyndicatDao();
-            syndicatDao.updateEmailSyndicat(idSyndicat, nouvelEmail);
+            PersonneDao personneDao = new PersonneDao();
+            personneDao.updatePrenom(idPersonne, nouveauPrenom);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    public static void updateNomRefSyndicat(int idSyndicat, String nouveauNomRef) {
+    public static void updateProprietaire(int idPersonne, boolean nouveauStatut) {
         try {
-            SyndicatDao syndicatDao = new SyndicatDao();
-            syndicatDao.updateNomRefSyndicat(idSyndicat, nouveauNomRef);
+            PersonneDao personneDao = new PersonneDao();
+            personneDao.updateProprietaire(idPersonne, nouveauStatut);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    
 }
