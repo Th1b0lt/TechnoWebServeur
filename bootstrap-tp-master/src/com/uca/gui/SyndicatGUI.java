@@ -6,6 +6,8 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
+import com.uca.core.*;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -38,6 +40,20 @@ public class SyndicatGUI {
 
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("users/modifsyndicat.ftl");
+        template.setOutputEncoding("UTF-8");
+        template.process(input, output);
+
+        return output.toString();
+    }
+    public static String getSyndicatById(int id) throws IOException, TemplateException {
+        Configuration configuration = _FreeMarkerInitializer.getContext();
+
+        Map<String, Object> input = new HashMap<>();
+        input.put("appartement", SyndicatCore.getSyndicatById(id));
+        
+
+        Writer output = new StringWriter();
+        Template template = configuration.getTemplate("users/syndicat_spec.ftl");
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
 

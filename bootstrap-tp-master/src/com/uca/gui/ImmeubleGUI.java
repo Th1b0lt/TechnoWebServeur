@@ -50,6 +50,7 @@ public class ImmeubleGUI {
         Map<String, Object> input = new HashMap<>();
         input.put("immeuble", ImmeubleCore.getImmeubleById(id));
         input.put("appartements",AppartementCore.getAppartementByImmeuble(id));
+       
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("users/immeuble_spec.ftl");
         template.setOutputEncoding("UTF-8");

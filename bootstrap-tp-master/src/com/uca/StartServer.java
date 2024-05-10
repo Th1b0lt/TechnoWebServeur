@@ -85,7 +85,7 @@ public class StartServer {
             return PersonneGUI.getAllPersonnes();
         });
         get("/personne/:id",(req,res)->{
-            String idPersonneStr = req.queryParams("idPersonne");
+            String idPersonneStr = req.params(":id");
             int idPersonne = 0;
             try {
                 // Tentative de conversion des chaînes en entiers
@@ -180,7 +180,7 @@ public class StartServer {
             }
         });
         get("/appartement/:id",(req,res)->{
-            String idAppartementStr = req.queryParams("idAppartement");
+            String idAppartementStr = req.params(":id");
             int idAppartement = 0;
         
         
@@ -282,7 +282,8 @@ public class StartServer {
             }
         });
         get("/immeuble/:id",(req,res)->{
-            String idImmeubleStr = req.queryParams("idImmeuble");
+            String idImmeubleStr = req.params(":id");
+
             int idImmeuble = 0;
         
         
@@ -366,18 +367,18 @@ public class StartServer {
             return SyndicatGUI.getAllSyndicat();
         });
         get("/syndicat/:id",(req,res)->{
-            String idSyndicatStr = req.queryParams("idSyndicat");
+            String idSyndicatStr = req.params(":id");
             int idSyndicat = 0;
         
         
-                    try {
-                        // Tentative de conversion des chaînes en entiers
-                        idSyndicat = Integer.parseInt(idSyndicatStr);
-                    
-                    } catch (NumberFormatException e) {
-                        return "Erreur de conversion en entier";
-                    }
-        
+            try {
+                // Tentative de conversion des chaînes en entiers
+                idSyndicat = Integer.parseInt(idSyndicatStr);
+            
+            } catch (NumberFormatException e) {
+                return "Erreur de conversion en entier";
+            }
+
             return SyndicatGUI.getSyndicatById(idSyndicat);
         });
         get("/modifsyndicat", (req, res) -> {
