@@ -9,7 +9,7 @@ public class PasswordUtil {
     public static boolean checkPassword(String password, String hashedPassword) {
         return hashPassword(password).equals(hashedPassword);
     }
-
+//l
     // Méthode pour hacher le mot de passe avec SHA256
     public static String hashPassword(String password) {
         try {
