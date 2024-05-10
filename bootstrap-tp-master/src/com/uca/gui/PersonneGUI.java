@@ -1,6 +1,7 @@
 package com.uca.gui;
 
 import com.uca.core.PersonneCore;
+import com.uca.core.AppartementCore;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -49,7 +50,7 @@ public class PersonneGUI {
 
         Map<String, Object> input = new HashMap<>();
         input.put("Personne", PersonneCore.getOnePersonne(id));
-        input.put("appartements",AppartementCore.getAppartementByPersonne(id));
+        input.put("appartements",AppartementCore.getAppartementsByPersonne(id));
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("users/personne_spec.ftl");
         template.setOutputEncoding("UTF-8");

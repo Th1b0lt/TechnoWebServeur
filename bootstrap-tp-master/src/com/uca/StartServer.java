@@ -179,6 +179,7 @@ public class StartServer {
                 return null;
             }
         });
+        /* 
         get("/appartement/:id",(req,res)->{
             String idAppartementStr = req.queryParams("idAppartement");
             int idAppartement = 0;
@@ -265,7 +266,7 @@ public class StartServer {
             }
         });
 
-
+        */
         get("/immeuble", (req, res) -> {
             return ImmeubleGUI.getAllImmeuble();
         });
@@ -365,6 +366,7 @@ public class StartServer {
         get("/syndicat", (req, res) -> {
             return SyndicatGUI.getAllSyndicat();
         });
+        /* 
         get("/syndicat/:id",(req,res)->{
             String idSyndicatStr = req.queryParams("idSyndicat");
             int idSyndicat = 0;
@@ -392,6 +394,7 @@ public class StartServer {
                 return null;
             }
         });
+        */
         post("/ajouterSyndicat", (req, res) -> {
             String token = req.cookie("token");
             if (token!=null){
