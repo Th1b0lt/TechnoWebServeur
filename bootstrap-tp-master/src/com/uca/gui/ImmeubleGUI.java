@@ -17,7 +17,7 @@ public class ImmeubleGUI {
 
         Map<String, Object> input = new HashMap<>();
 
-        input.put("immeubles", ImmeubleCore().getAllImmeuble());
+        input.put("immeubles", ImmeubleCore.getAllImmeuble());
         
 
         Writer output = new StringWriter();

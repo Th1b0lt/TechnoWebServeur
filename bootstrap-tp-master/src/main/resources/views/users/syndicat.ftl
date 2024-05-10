@@ -10,4 +10,11 @@
             <li>${syndicat.idSyndicat} - ${syndicat.name} ${syndicat.adresse} ${syndicat.personneReference} ${syndicat.numeroDeTelephone} ${syndicat.adresseEmail}</li>
         </#list>
 
-<a href="/main">Page d'accueil</a>
+        
+  
+
+<li><a href="/modifsyndicat">Modif syndicat(admin only)</a></li>
+
+<li><a href="/main">Page d'accueil</a></li>
+</ul>
+</body>

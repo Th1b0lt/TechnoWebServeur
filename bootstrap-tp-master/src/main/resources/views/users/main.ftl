@@ -11,6 +11,8 @@
         <li><a href="/immeuble">Page immeuble</a></li>
         <li><a href="/login">Page de connexion</a></li>
         <li><a href="/register">Page d'ajout d'admin</a></li>
+        <li><a href="/syndicat">Page des syndicats</a></li>
+
     </ul>
 </div>
 

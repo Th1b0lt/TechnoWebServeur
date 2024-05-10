@@ -1,20 +1,10 @@
-<#ftl encoding="utf-8">
-<link rel="stylesheet" href="style.css">
+  <#ftl encoding="utf-8">
+
 <body xmlns="http://www.w3.org/1999/html">
-
-<h1>Bienvenue sur la page gérant les immeuble affiliés à notre entreprise</h1>
-    <br>
-    <br>
-
-    <p>Liste des immeuble appartenant à notre groupe</p>
-        <#list immeubles as immeuble >
-            <li>${immeuble.idImmeuble} - ${immeuble.nom} ${immeuble.idSyndicat} ${immeuble.adresse}</li>
-        </#list>
-
-    <br>
-    <br>
-
-    <p>Ajout d'un Immeuble (seulement pour les admins)</p>
+  
+    
+     
+ <p>Ajout d'un Immeuble (seulement pour les admins)</p>
 
     <form action="/ajouterImmeuble" method="POST">
     <div id="name_container">
@@ -38,7 +28,5 @@
             <input type="text" name="id" placeholder="idImmeuble" value="">
             <input type="submit" value="Supprimer">
         </form>
-
 <a href="/main">Page d'accueil</a>
-
-
+</body>

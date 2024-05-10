@@ -11,4 +11,12 @@
             <li>${immeuble.idImmeuble} - ${immeuble.nom} ${immeuble.idSyndicat} ${immeuble.adresse}</li>
         </#list>
 
-<a href="/main">Page d'accueil</a>
+    <br>
+    <br>
+
+   
+<li><a href="/modifimmeuble">Modif immeuble(admin only)</a></li>
+
+<li><a href="/main">Page d'accueil</a></li>
+</ul>
+</body>

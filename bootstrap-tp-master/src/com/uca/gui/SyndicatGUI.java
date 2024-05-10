@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SyndicatGUI {
-  /*   public static String getAllSyndicat() throws IOException, TemplateException {
+    public static String getAllSyndicat() throws IOException, TemplateException {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
@@ -28,5 +28,5 @@ public class SyndicatGUI {
 
         return output.toString();
     }
-    */
+    
 }

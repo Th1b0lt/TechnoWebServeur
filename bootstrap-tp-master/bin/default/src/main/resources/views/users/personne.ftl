@@ -7,7 +7,6 @@
     <br>
 
     <p>Liste des personnes appartenant à notre groupe</p>
-    <ul>
         <#list personnes as personne >
             <li>${personne.idPersonne} - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
         </#list>
@@ -28,7 +27,7 @@
         <input name="num_tel" id="num_tel" class="initial" type="text" placeholder="Telephone" value="">
     </div>
     <div id="Proprio container">
-        <input name="proprio" id="proprio" class="initial" type="text" placeholder="etes vous proprietaire(oui ou non)" value="">
+        <input name="proprio" id="proprio" class="initial" type="text" placeholder="proprietaire(oui ou non)" value="">
     </div>
     <input type="submit" value="Ajouter">
 </form>
@@ -39,8 +38,12 @@
     <p>Suppression d'une personne(seulement pour les admins)</p>
 
         <form action="/supprimerPersonne" method="post">
-            <input type="text" name="id" value="">
+            <input type="text" name="id" placeholder="idPersonne" value="">
             <input type="submit" value="Supprimer">
         </form>
 
+<a href="/main">Page d'accueil</a>
+
+
 </body>
+

@@ -30,15 +30,6 @@ public class StartServer {
         get("/users", (req, res) -> {
             return UserGUI.getAllUsers();
         });
-       
-        /* 
-        get("/immeuble", (req, res) -> {
-            return ImmeubleGUI.getAllImmeuble();
-        });
-        get("/syndicat", (req, res) -> {
-            return SyndicatGUI.getAllSyndicat();
-        });
-*/
         get("/login",(req,res)->{
             return UserGUI.login();
         });
@@ -57,7 +48,14 @@ public class StartServer {
             }
          });
          get("/register",(req,res)->{
+            String token = req.cookie("token");
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
             return UserGUI.register();
+            } else {
+            res.redirect("/login");
+             res.status(401); // Bad Request
+            return null;
+        }
          });
          post("/register",(req,res)->{
             try{
@@ -73,6 +71,16 @@ public class StartServer {
             }
          });
     
+         get("/modifpersonne", (req, res) -> {
+            String token = req.cookie("token");
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
+                return PersonneGUI.modifPersonne();
+            } else {
+                res.redirect("/login");
+        res.status(401); // Bad Request
+        return null;
+            }
+        });
         get("/personne", (req, res) -> {
             return PersonneGUI.getAllPersonnes();
         });
@@ -95,7 +103,8 @@ public class StartServer {
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
                     PersonneEntity nouvellePersonne = PersonneCore.create(nom, prenom, numTel,estproprio);
                     res.redirect("/personne");
-                    return null;
+            return null;
+
                 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -104,10 +113,13 @@ public class StartServer {
                     return "Une erreur s'est produite lors de l'ajout de la personne.";
                 }
             }else{
-                   res.status(401); // Bad Request
-                   return  "Vous devez etre admin.";
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+                   
 
             }
+
         });
         post("/supprimerPersonne",(req,res)->{
             String idString = req.queryParams("id");
@@ -133,12 +145,26 @@ public class StartServer {
                 }
             } else {
                 // Gérer le cas où idString est null
+                res.redirect("/login");
                 res.status(401); // Bad Request
-                return  "Vous devez etre admin.";
+                return null;
+                
             }
         });
         get("/appartement", (req, res) -> {
             return AppartementGUI.getAllAppartement();
+        });
+        get("/modifappart", (req, res) -> {
+            String token = req.cookie("token");
+
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
+                return AppartementGUI.modifappart();
+            }
+            else{
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+            }
         });
         post("/ajouterAppartement", (req, res) -> {
             String token = req.cookie("token");
@@ -174,8 +200,10 @@ public class StartServer {
                     return "Une erreur s'est produite lors de l'ajout de l'appartement.";
                 }
             }else{
-                   res.status(401); // Bad Request
-                   return  "Vous devez etre admin.";
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+                   
 
             }
         });
@@ -202,13 +230,143 @@ public class StartServer {
                     return "Une erreur s'est produite lors de la suppression de l'appartement.";
                 }
             } else {
-                // Gérer le cas où idString est null
+                res.redirect("/login");
                 res.status(401); // Bad Request
-                return  "Vous devez etre admin.";
+                return null;
+                
             }
         });
 
 
+        get("/immeuble", (req, res) -> {
+            return ImmeubleGUI.getAllImmeuble();
+        });
+        post("/ajouterImmeuble", (req, res) -> {
+            String token = req.cookie("token");
+            if (token!=null){
+                try {
+                    // Récupérer les paramètres de la requête
+                    String nom = req.queryParams("nom");
+                    String idSyndicStr = req.queryParams("idSyndicat");
+                    String adresse = req.queryParams("adresse");
+
+                    // Déclaration des variables pour stocker les valeurs converties
+                    int idSyndicat = 0;
+
+
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        idSyndicat = Integer.parseInt(idSyndicStr);
+                    
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
+                    // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                    ImmeubleEntity nouvelleImmeuble = ImmeubleCore.create(nom,idSyndicat,adresse);
+                    res.redirect("/immeuble");
+                    return null;
+                
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de l'ajout de l'immeuble.";
+                }
+            }else{
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+
+            }
+        });
+        post("/supprimerImmeuble",(req,res)->{
+            String idString = req.queryParams("id");
+            String token = req.cookie("token");
+            if (token!=null  ){
+                try {
+                    int id = Integer.parseInt(idString);
+                    // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                    ImmeubleCore.delete(id);
+                    res.redirect("/immeuble");
+                    return null;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    // Gérer l'exception : la chaîne n'est pas un entier valide
+                    res.status(400); // Bad Request
+                    return "L'ID n'est pas un entier valide.";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de la suppression de l'immeuble.";
+                }
+            } else {
+                res.redirect("/login");
+        res.status(401); // Bad Request
+        return null;
+                
+            }
+        });
+        get("/syndicat", (req, res) -> {
+            return SyndicatGUI.getAllSyndicat();
+        });
+        post("/ajouterSyndicat", (req, res) -> {
+            String token = req.cookie("token");
+            if (token!=null){
+                try {
+                    // Récupérer les paramètres de la requête
+                    String name = req.queryParams("name");
+                    String adresse = req.queryParams("adresse");
+                    String personneReference = req.queryParams("personneReference");
+
+                    String numero = req.queryParams("numero");
+                    String email = req.queryParams("email");
+                    // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                    SyndicatEntity nouveauSyndicat = SyndicatCore.create(name,adresse,personneReference,numero,email);
+                    res.redirect("/syndicat");
+                    return null;
+                
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de l'ajout du syndicat.";
+                }
+            }else{
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+
+            }
+        });
+        post("/supprimerSyndicat",(req,res)->{
+            String idString = req.queryParams("id");
+            String token = req.cookie("token");
+            if (token!=null  ){
+                try {
+                    int id = Integer.parseInt(idString);
+                    // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                    SyndicatCore.delete(id);
+                    res.redirect("/syndicat");
+                    return null;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    // Gérer l'exception : la chaîne n'est pas un entier valide
+                    res.status(400); // Bad Request
+                    return "L'ID n'est pas un entier valide.";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de la suppression du syndicat.";
+                }
+            } else {
+                res.redirect("/login");
+        res.status(401); // Bad Request
+        return null;
+
+            }
+        });
         
     }
 
