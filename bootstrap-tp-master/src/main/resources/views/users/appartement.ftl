@@ -12,7 +12,8 @@
         </#list>
 
 <ul>
-<li><a href="/modifappar.ftl">Modif appart(admin only)</a></li>
+<li><a href="/modifappart">Modif appart(admin only)</a></li>
 
 <li><a href="/main">Page d'accueil</a></li>
 </ul>
+</body>

@@ -60,8 +60,6 @@ public class UserDAO extends _Generic<UserEntity> {
 
     @Override
     public UserEntity create(UserEntity user) {
-        // Hacher le mot de passe avant de l'ajouter à la base de données
-
         // Insérer l'utilisateur dans la base de données
         try {
             PreparedStatement statement = this.connect.prepareStatement("INSERT INTO user(username, passwordHash) VALUES (?, ?)");

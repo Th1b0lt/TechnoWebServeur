@@ -7,6 +7,11 @@ import java.util.ArrayList;
 
 public class UserCore {
     
+    public UserEntity getUserByUsername(String username){
+        return new UserDAO().getUserByUsername(username);
+    }
+
+
     public static ArrayList<UserEntity> getAllUsers() {
         return new UserDAO().getAllUsers();
     }
@@ -18,6 +23,13 @@ public class UserCore {
         }
         return false;
     }
+
+    public void updatePasswordHash(String username, String newPasswordHash){
+        String hashedPassword=new PasswordUtil().hashPassword(newPasswordHash+"pourquoi");
+        new UserDAO().updatePasswordHash(username,hashedPassword);
+    }
+
+
 
     // Méthode pour créer un nouvel utilisateur
     public void createUser(String username, String password) {

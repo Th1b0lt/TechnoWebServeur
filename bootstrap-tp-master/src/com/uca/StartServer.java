@@ -48,7 +48,14 @@ public class StartServer {
             }
          });
          get("/register",(req,res)->{
+            String token = req.cookie("token");
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
             return UserGUI.register();
+            } else {
+            res.redirect("/login");
+             res.status(401); // Bad Request
+            return null;
+        }
          });
          post("/register",(req,res)->{
             try{
@@ -64,12 +71,23 @@ public class StartServer {
             }
          });
     
+         get("/modifpersonne", (req, res) -> {
+            String token = req.cookie("token");
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
+                return PersonneGUI.modifPersonne();
+            } else {
+                res.redirect("/login");
+        res.status(401); // Bad Request
+        return null;
+            }
+        });
         get("/personne", (req, res) -> {
             return PersonneGUI.getAllPersonnes();
         });
         post("/ajouterPersonne", (req, res) -> {
             String token = req.cookie("token");
-            if (token!=null){
+           
+            if (token!=null && SessionManager.introspect(token).containsKey("sub")){
                 try {
                     // Récupérer les paramètres de la requête
                     String nom = req.queryParams("nom");
@@ -95,9 +113,9 @@ public class StartServer {
                     return "Une erreur s'est produite lors de l'ajout de la personne.";
                 }
             }else{
-                   res.status(401); // Bad Request
-                    res.redirect("/login");
-            return null;
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
                    
 
             }
@@ -106,7 +124,8 @@ public class StartServer {
         post("/supprimerPersonne",(req,res)->{
             String idString = req.queryParams("id");
             String token = req.cookie("token");
-            if (token!=null  ){
+           
+            if (token!=null && SessionManager.introspect(token).containsKey("sub") ){
                 try {
                     int id = Integer.parseInt(idString);
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
@@ -126,8 +145,8 @@ public class StartServer {
                 }
             } else {
                 // Gérer le cas où idString est null
-                res.status(401); // Bad Request
                 res.redirect("/login");
+                res.status(401); // Bad Request
                 return null;
                 
             }
@@ -135,12 +154,21 @@ public class StartServer {
         get("/appartement", (req, res) -> {
             return AppartementGUI.getAllAppartement();
         });
-        get("/appartement", (req, res) -> {
-            return AppartementGUI.getAllAppartement();
+        get("/modifappart", (req, res) -> {
+            String token = req.cookie("token");
+
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
+                return AppartementGUI.modifappart();
+            }
+            else{
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+            }
         });
         post("/ajouterAppartement", (req, res) -> {
             String token = req.cookie("token");
-            if (token!=null){
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
                 try {
                     // Récupérer les paramètres de la requête
                     String etageStr = req.queryParams("etage");
@@ -172,9 +200,9 @@ public class StartServer {
                     return "Une erreur s'est produite lors de l'ajout de l'appartement.";
                 }
             }else{
-                   res.status(401); // Bad Request
-                    res.redirect("/login");
-            return null;
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
                    
 
             }
@@ -182,7 +210,8 @@ public class StartServer {
         post("/supprimerAppartement",(req,res)->{
             String idString = req.queryParams("id");
             String token = req.cookie("token");
-            if (token!=null  ){
+            
+            if (token!=null && SessionManager.introspect(token).containsKey("sub") ){
                 try {
                     int id = Integer.parseInt(idString);
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
@@ -201,10 +230,9 @@ public class StartServer {
                     return "Une erreur s'est produite lors de la suppression de l'appartement.";
                 }
             } else {
-                // Gérer le cas où idString est null
-                res.status(401); // Bad Request
                 res.redirect("/login");
-            return null;
+                res.status(401); // Bad Request
+                return null;
                 
             }
         });
@@ -245,10 +273,9 @@ public class StartServer {
                     return "Une erreur s'est produite lors de l'ajout de l'immeuble.";
                 }
             }else{
-                   res.status(401); // Bad Request
-                    res.redirect("/login");
-            return null;
-                   
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
 
             }
         });
@@ -274,10 +301,9 @@ public class StartServer {
                     return "Une erreur s'est produite lors de la suppression de l'immeuble.";
                 }
             } else {
-                // Gérer le cas où idString est null
-                res.status(401); // Bad Request
                 res.redirect("/login");
-            return null;
+        res.status(401); // Bad Request
+        return null;
                 
             }
         });
@@ -307,10 +333,9 @@ public class StartServer {
                     return "Une erreur s'est produite lors de l'ajout du syndicat.";
                 }
             }else{
-                   res.status(401); // Bad Request
-                    res.redirect("/login");
-            return null;
-                   
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
 
             }
         });
@@ -336,10 +361,9 @@ public class StartServer {
                     return "Une erreur s'est produite lors de la suppression du syndicat.";
                 }
             } else {
-                // Gérer le cas où idString est null
-                res.status(401); // Bad Request
                 res.redirect("/login");
-            return null;
+        res.status(401); // Bad Request
+        return null;
 
             }
         });

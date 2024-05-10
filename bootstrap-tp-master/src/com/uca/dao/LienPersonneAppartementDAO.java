@@ -11,7 +11,22 @@ import java.util.ArrayList;
 
 public class LienPersonneAppartementDao extends _Generic<LienPersonneAppartementEntity> {
     
-    
+    public void deleteByPersonneId(int personneId) {
+        try (PreparedStatement statement = this.connect.prepareStatement("DELETE FROM LienPersonneAppartement WHERE ID_Personne = ?")) {
+            statement.setInt(1, personneId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+        e.printStackTrace();
+        }
+    }
+    public void deleteByAppartementId(int idAppartement) {
+        try (PreparedStatement statement = this.connect.prepareStatement("DELETE FROM LienPersonneAppartement WHERE id_appartement = ?")) {
+            statement.setInt(1, idAppartement);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     //AJouter un lien Personne appartement
     @Override
     public LienPersonneAppartementEntity create(LienPersonneAppartementEntity lienPersonneAppartementEntity){
