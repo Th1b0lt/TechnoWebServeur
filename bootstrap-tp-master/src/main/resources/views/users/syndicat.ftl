@@ -17,7 +17,11 @@
         <#else>
             (Numéro de téléphone non défini)
         </#if>
-        ${syndicat.adresseEmail}
+        <#if syndicat.adresseEmail??>
+            ${syndicat.adresseEmail}
+        <#else>
+            (Adresse e-mail non définie)
+        </#if>
     </li>
 </#list>
 

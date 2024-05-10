@@ -84,6 +84,7 @@ public class SyndicatCore {
 
     public static void updateTelephoneSyndicat(int idSyndicat, String nouveauTelephone) {
         try {
+            
             new SyndicatDao().updateTelephoneSyndicat(idSyndicat, nouveauTelephone);
         } catch (Exception e) {
             e.printStackTrace();
