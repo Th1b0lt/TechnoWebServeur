@@ -9,3 +9,6 @@
 </ul>
 
 </body>
+
+<a href="/main">Page d'accueil</a>
+

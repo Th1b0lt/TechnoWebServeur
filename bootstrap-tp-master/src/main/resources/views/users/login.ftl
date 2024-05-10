@@ -16,3 +16,4 @@
         </div>
 </form>
 
+<a href="/main">Page d'accueil</a>

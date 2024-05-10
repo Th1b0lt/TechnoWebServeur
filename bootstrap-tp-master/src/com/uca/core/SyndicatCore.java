@@ -9,14 +9,9 @@ import java.util.ArrayList;
 
 public class SyndicatCore {
 
-    public static ArrayList<SyndicatEntity> getAllSyndicat() throws Exception {
-        try{
-            return new SyndicatDao().getAllSyndicats();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
+    public static ArrayList<SyndicatEntity> getAllSyndicat() {
+        return new SyndicatDao().getAllSyndicats();
+        
     }
     
     public static SyndicatEntity create(String name,String adresse, String personne,String numero,String email) throws Exception{

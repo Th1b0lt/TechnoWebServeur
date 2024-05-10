@@ -3,6 +3,7 @@ package com.uca.security.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+
 public class PasswordUtil {
     // Méthode pour vérifier si le mot de passe fourni correspond au mot de passe haché
     public static boolean checkPassword(String password, String hashedPassword) {

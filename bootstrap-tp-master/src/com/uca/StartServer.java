@@ -2,7 +2,6 @@ package com.uca;
 
 import com.uca.dao._Initializer;
 import com.uca.gui.*;
-
 import com.uca.entity.*;
 import com.uca.core.*;
 import com.uca.security.*;
@@ -25,20 +24,21 @@ public class StartServer {
         System.out.println(a);
         System.out.println(SessionManager.introspect(a));
         */
-        //test du hachage mdp
-        String mdp="Bnsoir";
-        String faux="cacdqqda";
-        String hash =new PasswordUtil().hashPassword(mdp);
-        System.out.println("premier hachage : "+hash);
-        boolean test = new PasswordUtil().checkPassword(mdp,hash);
-        System.out.println("test" +test);
-        boolean testf = new PasswordUtil().checkPassword(faux,hash);
-        System.out.println("test" +testf);
-
-
+        get("/main", (req, res) -> {
+            return UserGUI.main();
+        });
         get("/users", (req, res) -> {
             return UserGUI.getAllUsers();
         });
+       
+        /* 
+        get("/immeuble", (req, res) -> {
+            return ImmeubleGUI.getAllImmeuble();
+        });
+        get("/syndicat", (req, res) -> {
+            return SyndicatGUI.getAllSyndicat();
+        });
+*/
         get("/login",(req,res)->{
             return UserGUI.login();
         });
@@ -78,8 +78,7 @@ public class StartServer {
         });
         post("/ajouterPersonne", (req, res) -> {
             String token = req.cookie("token");
-    
-            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")  ){
+            if (token!=null){
                 try {
                     // Récupérer les paramètres de la requête
                     String nom = req.queryParams("nom");
@@ -94,7 +93,8 @@ public class StartServer {
 
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
                     PersonneEntity nouvellePersonne = PersonneCore.create(nom, prenom, numTel,estproprio);
-                    return "Personne créé avec succés";
+                    res.redirect("/personne");
+                    return null;
                 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -103,7 +103,6 @@ public class StartServer {
                     return "Une erreur s'est produite lors de l'ajout de la personne.";
                 }
             }else{
-                   // Gérer le cas où idString est null
                    res.status(401); // Bad Request
                    return  "Vous devez etre admin.";
 
@@ -112,12 +111,12 @@ public class StartServer {
         post("/supprimerPersonne",(req,res)->{
             String idString = req.queryParams("id");
             String token = req.cookie("token");
-            Map<String, String> introspectResult = SessionManager.introspect(token);
-            if (token!=null && introspectResult.containsKey("sub") && introspectResult != null ){
+            if (token!=null  ){
                 try {
                     int id = Integer.parseInt(idString);
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
                     PersonneCore.delete(id);
+                    res.redirect("/personne");
                     return null;
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
@@ -129,6 +128,75 @@ public class StartServer {
                     // Gérer l'exception selon les besoins
                     res.status(500); // Erreur interne du serveur
                     return "Une erreur s'est produite lors de la suppression de la personne.";
+                }
+            } else {
+                // Gérer le cas où idString est null
+                res.status(401); // Bad Request
+                return  "Vous devez etre admin.";
+            }
+        });
+        get("/appartement", (req, res) -> {
+            return AppartementGUI.getAllAppartement();
+        });
+        post("/ajouterAppartement", (req, res) -> {
+            String token = req.cookie("token");
+            if (token!=null){
+                try {
+                    // Récupérer les paramètres de la requête
+                    String etageStr = req.queryParams("etage");
+                    String superficieStr = req.queryParams("superficie");
+                    String idImmeubleStr = req.queryParams("idImmeuble");
+
+                    // Déclaration des variables pour stocker les valeurs converties
+                    int etage = 0;
+                    int superficie = 0;
+                    int idImmeuble = 0;
+
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        etage = Integer.parseInt(etageStr);
+                        superficie = Integer.parseInt(superficieStr);
+                        idImmeuble = Integer.parseInt(idImmeubleStr);
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
+                    // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                    AppartementEntity nouvelleAppartement = AppartementCore.create(etage,superficie,idImmeuble);
+                    res.redirect("/appartement");
+                    return null;
+                
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de l'ajout de l'appartement.";
+                }
+            }else{
+                   res.status(401); // Bad Request
+                   return  "Vous devez etre admin.";
+
+            }
+        });
+        post("/supprimerAppartement",(req,res)->{
+            String idString = req.queryParams("id");
+            String token = req.cookie("token");
+            if (token!=null  ){
+                try {
+                    int id = Integer.parseInt(idString);
+                    // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                    AppartementCore.delete(id);
+                    res.redirect("/appartement");
+                    return null;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    // Gérer l'exception : la chaîne n'est pas un entier valide
+                    res.status(400); // Bad Request
+                    return "L'ID n'est pas un entier valide.";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de la suppression de l'appartement.";
                 }
             } else {
                 // Gérer le cas où idString est null
