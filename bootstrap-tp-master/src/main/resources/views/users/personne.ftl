@@ -27,7 +27,7 @@
         <input name="num_tel" id="num_tel" class="initial" type="text" placeholder="Telephone" value="">
     </div>
     <div id="Proprio container">
-        <input name="proprio" id="proprio" class="initial" type="text" placeholder="etes vous proprietaire(oui ou non)" value="">
+        <input name="proprio" id="proprio" class="initial" type="text" placeholder="proprietaire(oui ou non)" value="">
     </div>
     <input type="submit" value="Ajouter">
 </form>
