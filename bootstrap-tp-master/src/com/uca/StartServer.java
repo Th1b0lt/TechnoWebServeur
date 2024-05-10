@@ -78,7 +78,8 @@ public class StartServer {
         });
         post("/ajouterPersonne", (req, res) -> {
             String token = req.cookie("token");
-            if (token!=null){
+           
+            if (token!=null && SessionManager.introspect(token).containsKey("sub")){
                 try {
                     // Récupérer les paramètres de la requête
                     String nom = req.queryParams("nom");
@@ -111,7 +112,8 @@ public class StartServer {
         post("/supprimerPersonne",(req,res)->{
             String idString = req.queryParams("id");
             String token = req.cookie("token");
-            if (token!=null  ){
+           
+            if (token!=null && SessionManager.introspect(token).containsKey("sub") ){
                 try {
                     int id = Integer.parseInt(idString);
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
@@ -140,7 +142,7 @@ public class StartServer {
         });
         post("/ajouterAppartement", (req, res) -> {
             String token = req.cookie("token");
-            if (token!=null){
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
                 try {
                     // Récupérer les paramètres de la requête
                     String etageStr = req.queryParams("etage");
@@ -180,7 +182,8 @@ public class StartServer {
         post("/supprimerAppartement",(req,res)->{
             String idString = req.queryParams("id");
             String token = req.cookie("token");
-            if (token!=null  ){
+            
+            if (token!=null && SessionManager.introspect(token).containsKey("sub") ){
                 try {
                     int id = Integer.parseInt(idString);
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
