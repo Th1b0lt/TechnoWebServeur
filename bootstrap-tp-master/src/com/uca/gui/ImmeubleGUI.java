@@ -28,5 +28,20 @@ public class ImmeubleGUI {
         return output.toString();
     }
     
+    public static String modifImmeuble() throws IOException, TemplateException {
+        Configuration configuration = _FreeMarkerInitializer.getContext();
+
+        Map<String, Object> input = new HashMap<>();
+
+        
+
+        Writer output = new StringWriter();
+        Template template = configuration.getTemplate("users/modifimmeuble.ftl");
+        template.setOutputEncoding("UTF-8");
+        template.process(input, output);
+
+        return output.toString();
+    }
+    
 }
 

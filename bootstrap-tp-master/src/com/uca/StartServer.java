@@ -241,6 +241,18 @@ public class StartServer {
         get("/immeuble", (req, res) -> {
             return ImmeubleGUI.getAllImmeuble();
         });
+        get("/modifimmeuble", (req, res) -> {
+            String token = req.cookie("token");
+
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
+                return ImmeubleGUI.modifImmeuble();
+            }
+            else{
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+            }
+        });
         post("/ajouterImmeuble", (req, res) -> {
             String token = req.cookie("token");
             if (token!=null){
@@ -309,6 +321,18 @@ public class StartServer {
         });
         get("/syndicat", (req, res) -> {
             return SyndicatGUI.getAllSyndicat();
+        });
+        get("/modifsyndicat", (req, res) -> {
+            String token = req.cookie("token");
+
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
+                return SyndicatGUI.modifSyndicat();
+            }
+            else{
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+            }
         });
         post("/ajouterSyndicat", (req, res) -> {
             String token = req.cookie("token");

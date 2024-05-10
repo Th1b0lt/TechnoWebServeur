@@ -5,10 +5,21 @@
     <br>
     <br>
 
-    <p>Liste des syndicat appartenant à notre groupe</p>
-        <#list syndicats as syndicat >
-            <li>${syndicat.idSyndicat} - ${syndicat.name} ${syndicat.adresse} ${syndicat.personneReference} ${syndicat.numeroDeTelephone} ${syndicat.adresseEmail}</li>
-        </#list>
+  <#list syndicats as syndicat>
+    <li>${syndicat.idSyndicat} - ${syndicat.name} ${syndicat.adresse} 
+        <#if syndicat.personneReference??>
+            ${syndicat.personneReference}
+        <#else>
+            (Personne de référence non définie)
+        </#if>
+        <#if syndicat.numeroDeTelephone??>
+            ${syndicat.numeroDeTelephone}
+        <#else>
+            (Numéro de téléphone non défini)
+        </#if>
+        ${syndicat.adresseEmail}
+    </li>
+</#list>
 
         
   
