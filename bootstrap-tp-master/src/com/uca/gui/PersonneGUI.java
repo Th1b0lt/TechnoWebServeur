@@ -1,6 +1,7 @@
 package com.uca.gui;
 
 import com.uca.core.PersonneCore;
+import com.uca.core.AppartementCore;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
