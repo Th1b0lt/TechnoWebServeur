@@ -11,6 +11,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
+
 public class SyndicatGUI {
   /*   public static String getAllSyndicat() throws IOException, TemplateException {
         Configuration configuration = _FreeMarkerInitializer.getContext();

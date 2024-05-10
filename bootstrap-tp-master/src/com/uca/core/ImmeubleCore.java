@@ -7,14 +7,9 @@ import com.uca.entity.ImmeubleEntity;
 import java.util.ArrayList;
 
 public class ImmeubleCore {
-    public static ArrayList<ImmeubleEntity> getAllImmeuble() throws Exception{
-        try{
-            return new ImmeubleDao().getAllImmeubles();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
+    public static ArrayList<ImmeubleEntity> getAllImmeuble(){
+        return new ImmeubleDao().getAllImmeubles();
+       
     }
 
     public static ImmeubleEntity getImmeubleById (int id) throws Exception{

@@ -1,7 +1,7 @@
 package com.uca.dao;
 
 import com.uca.entity.UserEntity;
-import com.uca.Security.util.PasswordUtil;
+import com.uca.security.util.PasswordUtil;
 import java.sql.*;
 import java.util.ArrayList;
 

@@ -8,8 +8,7 @@ public class AppartementCore {
     
     public static ArrayList<AppartementEntity> getAllAppartement(){
             return new AppartementDao().getAllAppartement();
-        
-       
+    
     }
 
     public static AppartementEntity getOneAppartement(int id) throws Exception{

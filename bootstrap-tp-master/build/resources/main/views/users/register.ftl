@@ -9,7 +9,7 @@
             <input name="username" id="username" class="initial" type="text" placeholder="Username :xX_PaulB0cuseDu63_Xx" value="">
         </div>
         <div class="Password_container">
-            <input name="password" id="password" class="initial" type="text" placeholder="Password" value="">
+            <input name="password" id="password" class="initial" type="password" placeholder="Password" value="">
         </div>
         <div id="error_log"></div>
         <div class="Submit_container">
