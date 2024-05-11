@@ -304,10 +304,10 @@ public class StartServer {
                         idImmeuble = Integer.parseInt(idImmeubleStr);
                     
                     } catch (NumberFormatException e) {
-                        return "Erreur de conversion en entier";
+                        return "Erreur de conversion en entier"+idImmeubleStr;
                     }
                 switch(cas){
-                    case "nom":
+                    case "name":
                     nom = req.queryParams("nom");
 
                     ImmeubleCore.updateNomImmeuble(idImmeuble,nom);
@@ -335,6 +335,7 @@ public class StartServer {
                     break;
 
                 }
+                res.redirect("/immeuble"); //Remet sur la page d'avant jsp faire
                 return null;
             }
             else{
