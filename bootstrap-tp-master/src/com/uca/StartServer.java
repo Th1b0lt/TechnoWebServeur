@@ -184,6 +184,64 @@ public class StartServer {
                 return null;
             }
         });
+        post("/majAppartement/:id/:case", (req, res) -> {
+            String token = req.cookie("token");
+            String idAppartementStr = req.params(":id");
+            String nom;
+            String idSyndicatStr;
+            String adresse;
+
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
+                String cas = req.params(":case");
+                int idAppartement = 0;
+        
+        
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        idAppartement = Integer.parseInt(idAppartementStr);
+                    
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
+                switch(cas){
+                    case "etage":
+                    etage = req.queryParams("etage");
+
+                    AppartementCore.updateEtage(idAppartement,etage);
+
+                    break;
+                    case "idsyndicat":
+
+                    idImmeubleStr = req.queryParams("idImmeuble");
+                    int idImmeuble = 0;
+        
+        
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        idImmeuble = Integer.parseInt(idImmeubleStr);
+                    
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
+                    ImmeubleCore.updateIdSyndicatImmeuble(idAppartement,idImmeuble);
+                    break;
+                    case "superficie":
+
+                    superficie = req.queryParams("superficie");
+                    ImmeubleCore.updateAdresseImmeuble(idAppartement,superficie);
+
+                    break;
+
+                }
+                res.redirect("/appartement/");
+                return null;
+            }
+            else{
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+            }
+        });
         
         get("/appartement/:id",(req,res)->{
             String idAppartementStr = req.params(":id");
@@ -241,6 +299,35 @@ public class StartServer {
 
             }
         });
+        post("/supprimerAppartement/:id",(req,res)->{
+            String idString = req.params("id");
+            String token = req.cookie("token");
+            
+            if (token!=null && SessionManager.introspect(token).containsKey("sub") ){
+                try {
+                    int id = Integer.parseInt(idString);
+                    // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                    AppartementCore.delete(id);
+                    res.redirect("/appartement/");
+                    return null;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    // Gérer l'exception : la chaîne n'est pas un entier valide
+                    res.status(400); // Bad Request
+                    return "L'ID n'est pas un entier valide.";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de la suppression de l'appartement.";
+                }
+            } else {
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+                
+            }
+        });
         post("/supprimerAppartement",(req,res)->{
             String idString = req.queryParams("id");
             String token = req.cookie("token");
@@ -287,7 +374,7 @@ public class StartServer {
                 return null;
             }
         });
-        post("/majimmeuble/:id/:case", (req, res) -> {
+        post("/majImmeuble/:id/:case", (req, res) -> {
             String token = req.cookie("token");
             String idImmeubleStr = req.params(":id");
             String nom;
@@ -307,8 +394,8 @@ public class StartServer {
                         return "Erreur de conversion en entier";
                     }
                 switch(cas){
-                    case "nom":
-                    nom = req.queryParams("nom");
+                    case "name":
+                    nom = req.queryParams("name");
 
                     ImmeubleCore.updateNomImmeuble(idImmeuble,nom);
                     break;
