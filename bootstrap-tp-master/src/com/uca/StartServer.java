@@ -335,7 +335,9 @@ public class StartServer {
                     break;
 
                 }
-                res.redirect("/immeuble"); //Remet sur la page d'avant jsp faire
+                String redirection="/immeuble/";
+                redirection+=idImmeubleStr;
+                res.redirect(redirection); //Remet sur la page d'avant jsp faire
                 return null;
             }
             else{
@@ -382,6 +384,7 @@ public class StartServer {
                     }
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
                     ImmeubleEntity nouvelleImmeuble = ImmeubleCore.create(nom,idSyndicat,adresse);
+                
                     res.redirect("/immeuble");
                     return null;
                 
