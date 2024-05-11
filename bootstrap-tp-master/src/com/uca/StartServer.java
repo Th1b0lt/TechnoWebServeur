@@ -61,9 +61,14 @@ public class StartServer {
             try{
             String username = req.queryParams("username");
             String password = req.queryParams("password");
-            new UserCore().createUser(username, password);
-            res.redirect("/main");
-            return null;
+            if (new UserCore().createUser(username, password)){;
+                res.redirect("/main");
+                return null;
+            }
+            else{
+                //Fait un truc je sais pas quoi
+                return null;
+            }
             }
             catch(Exception e) {
                 res.status(401); // Statut non autorisé
