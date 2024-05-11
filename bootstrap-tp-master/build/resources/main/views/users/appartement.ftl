@@ -8,7 +8,7 @@
 
     <p>Liste des appartement appartenant à notre groupe</p>
         <#list appartements as appartement >
-            <li><a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a>- ${appartement.etage} ${appartement.superficie} ${appartement.idImmeuble}</li>
+            <li>Appartement numéro <a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a> - A l'étage ${appartement.etage} d'une supérficie de  ${appartement.superficie} m² dans l'immeuble numéro ${appartement.idImmeuble}</li>
         </#list>
 
 <ul>

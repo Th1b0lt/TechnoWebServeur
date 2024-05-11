@@ -44,7 +44,7 @@
 <p>Liste des appartements liés à l'immeuble</p>
 <#if appartements?has_content>
     <#list appartements as appartement>
-        <li><a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a> ${appartement.etage} ${appartement.superficie} ${appartement.idImmeuble}</li>
+        <li>Appartement n° <a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a> se trouve à l'etage ${appartement.etage}  et d'une superficie de ${appartement.superficie} m² se trouve dans l'immeuble <a href="/immeuble/${appartement.idImmeuble}">${appartement.idImmeuble}</a></li>
     </#list>
 <#else>
     <li>(Pas d'appartement)</li>

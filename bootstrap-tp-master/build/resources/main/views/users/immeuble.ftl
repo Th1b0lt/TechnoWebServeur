@@ -8,7 +8,7 @@
 
     <p>Liste des immeuble appartenant à notre groupe</p>
         <#list immeubles as immeuble >
-            <li><a href="/immeuble/${immeuble.idImmeuble}"> ${immeuble.idImmeuble}</a> - ${immeuble.nom} ${immeuble.idSyndicat} ${immeuble.adresse}</li>
+            <li>numéro d'immeuble : <a href="/immeuble/${immeuble.idImmeuble}"> ${immeuble.idImmeuble}</a> - Nom de l'immeuble ${immeuble.nom} syndicat numéro ${immeuble.idSyndicat} se trouve au ${immeuble.adresse}</li>
         </#list>
 
     <br>

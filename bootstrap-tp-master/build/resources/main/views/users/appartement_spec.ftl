@@ -58,9 +58,9 @@
 
 <p>Ajout de personne dans l'appartement (cliqué sur les personnes a ajouter)</p>
 
-<#if personne?has_content>
+<#if personnes?has_content>
     <#list personnes as personne>
-        <li><a href="/personne/ajouterLien/${appartement.idAppartement}/${personne.idPersonne}">${personne.idPersonne}</a> - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
+        <li><a href="/appartement/ajouterLien/${appartement.idAppartement}/${personne.idPersonne}">${personne.idPersonne}</a> - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
     </#list>
 <#else>
     <li>(Pas de personne)</li>

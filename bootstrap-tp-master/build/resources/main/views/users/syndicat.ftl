@@ -6,7 +6,7 @@
     <br>
 
   <#list syndicats as syndicat>
-    <li>$<a href="/syndicat/${syndicat.idSyndicat}">{syndicat.idSyndicat}</a> - ${syndicat.name} ${syndicat.adresse} 
+    <li><a href="/syndicat/${syndicat.idSyndicat}">${syndicat.idSyndicat}</a> - ${syndicat.name} ${syndicat.adresse} 
         <#if syndicat.personneReference??>
             ${syndicat.personneReference}
         <#else>

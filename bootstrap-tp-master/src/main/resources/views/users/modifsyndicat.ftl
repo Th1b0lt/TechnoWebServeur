@@ -5,31 +5,47 @@
 
   <p>Ajout d'un Syndicat (seulement pour les admins)</p>
 
-    <form action="/ajouterSyndicat" method="POST">
+    <form id="syndicat_form" action="/ajouterSyndicat" method="POST">
     <div id="name_container">
         <input name="name" id="name" class="initial" type="text" placeholder="name" value="">
     </div>
     <div id="adresse_container">
         <input name="adresse" id="adresse" class="initial" type="text" placeholder="adresse" value="">
     </div>
-    <div id="personneReference container">
+    <div id="personneReference_container">
         <input name="personneReference" id="personneReference" class="initial" type="text" placeholder="personneReference" value="">
     </div>
-    <div id="numeroDeTelephone container">
+    <div id="numeroDeTelephone_container">
         <input name="numeroDeTelephone" id="numeroDeTelephone" class="initial" type="text" placeholder="numeroDeTelephone" value="">
     </div>
-    <div id="numeroDeTelephone container">
+    <div id="adresseEmail_container">
         <input name="adresseEmail" id="adresseEmail" class="initial" type="text" placeholder="adresseEmail" value="">
     </div>
-    <input type="submit" value="Ajouter">
+    <input type="submit" value="Ajouter" onclick="return validateForm()">
 </form>
+
+<script>
+    function validateForm() {
+        var name = document.getElementById("name").value;
+        var adresse = document.getElementById("adresse").value;
+        var personneReference = document.getElementById("personneReference").value;
+        var numeroDeTelephone = document.getElementById("numeroDeTelephone").value;
+        var adresseEmail = document.getElementById("adresseEmail").value;
+
+        if (name == "" || adresse == "" || personneReference == "" || numeroDeTelephone == "" || adresseEmail == "") {
+            alert("Veuillez remplir tous les champs.");
+            return false;
+        }
+        return true;
+    }
+</script>
     <br>
     <br>
 
 
-    <p>Suppression d'une personne(seulement pour les admins)</p>
+    <p>Suppression d'un syndicat(seulement pour les admins)</p>
 
-        <form action="/supprimerPersonne" method="post">
+        <form action="/supprimerSyndicat" method="post">
             <input type="text" name="id" placeholder="idSyndicat" value="">
             <input type="submit" value="Supprimer">
         </form>

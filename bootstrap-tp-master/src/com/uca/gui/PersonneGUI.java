@@ -27,6 +27,7 @@ public class PersonneGUI {
         Template template = configuration.getTemplate("users/personne.ftl");
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
+        
 
         return output.toString();
     }

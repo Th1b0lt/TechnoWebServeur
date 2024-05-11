@@ -547,12 +547,12 @@ public class StartServer {
                         return "Erreur de conversion en entier"+idImmeubleStr;
                     }
                 switch(cas){
-                    case "nom":
+                    case "name":
                     nom = req.queryParams("nom");
 
                     ImmeubleCore.updateNomImmeuble(idImmeuble,nom);
                     break;
-                    case "idsyndicat":
+                    case "idSyndicat":
 
                     idSyndicatStr = req.queryParams("idSyndicat");
                     int idSyndicat = 0;
@@ -575,7 +575,7 @@ public class StartServer {
                     break;
 
                 }
-                String redirection="/immeuble";
+                String redirection="/immeuble/";
                 redirection+=idImmeubleStr;
                 res.redirect(redirection); //Remet sur la page d'avant jsp faire
                 return null;
@@ -721,7 +721,9 @@ public class StartServer {
                     }
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
                     AppartementEntity nouvelleAppartement = AppartementCore.create(etage,superficie,idImmeuble);
-                    res.redirect("/appartement");
+                    String redirection="/immeuble/";
+                    redirection+=idImmeubleStr;
+                    res.redirect(redirection);
                     return null;
                 
                 } catch (Exception e) {
@@ -780,8 +782,8 @@ public class StartServer {
                     String adresse = req.queryParams("adresse");
                     String personneReference = req.queryParams("personneReference");
 
-                    String numero = req.queryParams("numero");
-                    String email = req.queryParams("email");
+                    String numero = req.queryParams("numeroDeTelephone");
+                    String email = req.queryParams("adresseEmail");
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
                     SyndicatEntity nouveauSyndicat = SyndicatCore.create(name,adresse,personneReference,numero,email);
                     res.redirect("/syndicat");
@@ -822,8 +824,8 @@ public class StartServer {
                         return "Erreur de conversion en entier"+idSyndicatStr;
                     }
                 switch(cas){
-                    case "nom":
-                    nom = req.queryParams("nom");
+                    case "name":
+                    nom = req.queryParams("name");
 
                     SyndicatCore.updateNomSyndicat(idSyndicat,nom);
                     break;
@@ -850,7 +852,7 @@ public class StartServer {
 
 
                 }
-                String redirection="/syndicat";
+                String redirection="/syndicat/";
                 redirection+=idSyndicatStr;
                 res.redirect(redirection); //Remet sur la page d'avant jsp faire
                 return null;
@@ -884,8 +886,8 @@ public class StartServer {
                 }
             } else {
                 res.redirect("/login");
-        res.status(401); // Bad Request
-        return null;
+            res.status(401); // Bad Request
+            return null;
 
             }
         });
