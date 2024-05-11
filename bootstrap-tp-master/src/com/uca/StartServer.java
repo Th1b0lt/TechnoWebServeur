@@ -102,6 +102,55 @@ public class StartServer {
 
             return PersonneGUI.getPersonneById(idPersonne);
         });
+        post("/majPersonne/:id/:case", (req, res) -> {
+            String token = req.cookie("token");
+            String idPersonneStr = req.params(":id");
+            String nom;
+            String numeroDeTelephone;
+            String prenom;
+
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
+                String cas = req.params(":case");
+                int idPersonne = 0;
+        
+        
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        idPersonne = Integer.parseInt(idPersonneStr);
+                    
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier"+idPersonneStr;
+                    }
+                switch(cas){
+                    case "nom":
+                    nom = req.queryParams("nom");
+
+                    PersonneCore.updateNom(idPersonne,nom);
+                    break;
+                    case "numeroDeTelephone":
+
+                    numeroDeTelephone = req.queryParams("numeroDeTelephone");
+                    PersonneCore.updateNumeroTelephone(idPersonne,numeroDeTelephone);
+                    break;
+                    case "prenom":
+
+                    prenom = req.queryParams("prenom");
+                    PersonneCore.updatePrenom(idPersonne,prenom);
+
+                    break;
+
+                }
+                String redirection="/personne";
+                redirection+=idPersonneStr;
+                res.redirect(redirection); //Remet sur la page d'avant jsp faire
+                return null;
+            }
+            else{
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+            }
+        });
         post("/ajouterPersonne", (req, res) -> {
             String token = req.cookie("token");
            
@@ -169,6 +218,36 @@ public class StartServer {
                 
             }
         });
+        post("/supprimerPersonne/:id",(req,res)->{
+            String idString = req.params("id");
+            String token = req.cookie("token");
+           
+            if (token!=null && SessionManager.introspect(token).containsKey("sub") ){
+                try {
+                    int id = Integer.parseInt(idString);
+                    // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                    PersonneCore.delete(id);
+                    res.redirect("/personne");
+                    return null;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    // Gérer l'exception : la chaîne n'est pas un entier valide
+                    res.status(400); // Bad Request
+                    return "L'ID n'est pas un entier valide.";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de la suppression de la personne.";
+                }
+            } else {
+                // Gérer le cas où idString est null
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+                
+            }
+        });
         get("/appartement", (req, res) -> {
             return AppartementGUI.getAllAppartement();
         });
@@ -187,10 +266,12 @@ public class StartServer {
         post("/majAppartement/:id/:case", (req, res) -> {
             String token = req.cookie("token");
             String idAppartementStr = req.params(":id");
-            String nom;
-            String idSyndicatStr;
-            String adresse;
-
+            String etageStr;
+            String idImmeubleStr;
+            String superficieStr;
+            int etage = 0;
+            int superficie = 0;
+            int idImmeuble = 0;
             if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
                 String cas = req.params(":case");
                 int idAppartement = 0;
@@ -205,15 +286,20 @@ public class StartServer {
                     }
                 switch(cas){
                     case "etage":
-                    etage = req.queryParams("etage");
-
+                    etageStr = req.queryParams("etage");
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        etage = Integer.parseInt(etageStr);
+                    
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
                     AppartementCore.updateEtage(idAppartement,etage);
 
                     break;
                     case "idsyndicat":
 
                     idImmeubleStr = req.queryParams("idImmeuble");
-                    int idImmeuble = 0;
         
         
                     try {
@@ -223,17 +309,26 @@ public class StartServer {
                     } catch (NumberFormatException e) {
                         return "Erreur de conversion en entier";
                     }
-                    ImmeubleCore.updateIdSyndicatImmeuble(idAppartement,idImmeuble);
+                    AppartementCore.updateIdImmeuble(idAppartement,idImmeuble);
                     break;
                     case "superficie":
 
-                    superficie = req.queryParams("superficie");
-                    ImmeubleCore.updateAdresseImmeuble(idAppartement,superficie);
+                    superficieStr = req.queryParams("superficie");
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        superficie = Integer.parseInt(superficieStr);
+                    
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
+                    AppartementCore.updateSuperficie(idAppartement,superficie);
 
                     break;
 
                 }
-                res.redirect("/appartement/");
+                String redirection="/appartement";
+                redirection+=idAppartementStr;
+                res.redirect(redirection); //Remet sur la page d'avant jsp faire
                 return null;
             }
             else{
@@ -257,6 +352,42 @@ public class StartServer {
                     }
         
             return AppartementGUI.getAppartementById(idAppartement);
+        });
+        post("/appartement/ajouterLien/:id/:id2",(req,res)->{
+            String token = req.cookie("token");
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
+                try {
+            String idAppartementStr = req.params(":id");
+            String idPersonneStr = req.params(":id2");
+
+            int idAppartement = 0;
+            int idPersonne = 0;
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        idAppartement = Integer.parseInt(idAppartementStr);
+                        idPersonne = Integer.parseInt(idPersonneStr);
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
+        
+                LienPersonneAppartementEntity newLien =LienPersonneAppartementCore.create(idPersonne,idAppartement);
+                String redirection="/appartement";
+                redirection+=idAppartementStr;
+                res.redirect(redirection); //Remet sur la page d'avant jsp faire
+                return null;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de l'ajout du lien.";
+                }
+            }else{
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+                
+
+            }
         });
         post("/ajouterAppartement", (req, res) -> {
             String token = req.cookie("token");
@@ -308,7 +439,7 @@ public class StartServer {
                     int id = Integer.parseInt(idString);
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
                     AppartementCore.delete(id);
-                    res.redirect("/appartement/");
+                    res.redirect("/appartement");
                     return null;
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
@@ -391,11 +522,11 @@ public class StartServer {
                         idImmeuble = Integer.parseInt(idImmeubleStr);
                     
                     } catch (NumberFormatException e) {
-                        return "Erreur de conversion en entier";
+                        return "Erreur de conversion en entier"+idImmeubleStr;
                     }
                 switch(cas){
-                    case "name":
-                    nom = req.queryParams("name");
+                    case "nom":
+                    nom = req.queryParams("nom");
 
                     ImmeubleCore.updateNomImmeuble(idImmeuble,nom);
                     break;
@@ -422,6 +553,9 @@ public class StartServer {
                     break;
 
                 }
+                String redirection="/immeuble";
+                redirection+=idImmeubleStr;
+                res.redirect(redirection); //Remet sur la page d'avant jsp faire
                 return null;
             }
             else{
@@ -468,6 +602,7 @@ public class StartServer {
                     }
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
                     ImmeubleEntity nouvelleImmeuble = ImmeubleCore.create(nom,idSyndicat,adresse);
+                
                     res.redirect("/immeuble");
                     return null;
                 
@@ -581,6 +716,7 @@ public class StartServer {
 
             }
         });
+        
         get("/syndicat", (req, res) -> {
             return SyndicatGUI.getAllSyndicat();
         });
@@ -642,8 +778,97 @@ public class StartServer {
 
             }
         });
+        post("/majSyndicat/:id/:case", (req, res) -> {
+            String token = req.cookie("token");
+            String idSyndicatStr = req.params(":id");
+            String nom;
+            String personneReference;
+            String adresse;
+            String numeroDeTelephone;
+            String adresseEmail;
+
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
+                String cas = req.params(":case");
+                int idSyndicat = 0;
+        
+        
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        idSyndicat = Integer.parseInt(idSyndicatStr);
+                    
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier"+idSyndicatStr;
+                    }
+                switch(cas){
+                    case "nom":
+                    nom = req.queryParams("nom");
+
+                    SyndicatCore.updateNomSyndicat(idSyndicat,nom);
+                    break;
+                    case "personneReference":
+
+                    personneReference = req.queryParams("personneReference");
+                    SyndicatCore.updateNomRefSyndicat(idSyndicat,personneReference);
+                    break;
+                    case "adresse":
+
+                    adresse = req.queryParams("adresse");
+                    SyndicatCore.updateAdresseSyndicat(idSyndicat,adresse);
+
+                    break;
+                    case "numeroDeTelephone":
+                    numeroDeTelephone = req.queryParams("numeroDeTelephone");
+                    SyndicatCore.updateTelephoneSyndicat(idSyndicat,numeroDeTelephone);
+                    break;
+
+                    case "adresseEmail":
+                    adresseEmail = req.queryParams("adresseEmail");
+                    SyndicatCore.updateEmailSyndicat(idSyndicat,adresseEmail);
+                    break;
+
+
+                }
+                String redirection="/syndicat";
+                redirection+=idSyndicatStr;
+                res.redirect(redirection); //Remet sur la page d'avant jsp faire
+                return null;
+            }
+            else{
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+            }
+        });
         post("/supprimerSyndicat",(req,res)->{
             String idString = req.queryParams("id");
+            String token = req.cookie("token");
+            if (token!=null  ){
+                try {
+                    int id = Integer.parseInt(idString);
+                    // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                    SyndicatCore.delete(id);
+                    res.redirect("/syndicat");
+                    return null;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    // Gérer l'exception : la chaîne n'est pas un entier valide
+                    res.status(400); // Bad Request
+                    return "L'ID n'est pas un entier valide.";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de la suppression du syndicat.";
+                }
+            } else {
+                res.redirect("/login");
+        res.status(401); // Bad Request
+        return null;
+
+            }
+        });
+        post("/supprimerSyndicat/:id",(req,res)->{
+            String idString = req.params("id");
             String token = req.cookie("token");
             if (token!=null  ){
                 try {

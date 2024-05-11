@@ -6,11 +6,63 @@
 <h1>Page representative de l'syndicat ${syndicat.idSyndicat}</h1>
            
 <p>Donnée syndicat :  ${syndicat.name} ${syndicat.adresse} ${syndicat.personneReference}  ${syndicat.numeroDeTelephone} ${syndicat.adresseEmail}</p>
+<p>Mettre a jour votre syndicat</p>
+<form action="/majSyndicat/${syndicat.idSyndicat}/name" method="POST">
+    <div id="name_containe">
+        <input name="name" id="name" class="initial" type="text" placeholder="name" value="">
+    </div>
+    <input type="submit" value="Modfier">
 
+</form>
+<form action="/majSyndicat/${syndicat.idSyndicat}/adresse" method="POST">
+    <div id="adresse_container">
+        <input name="adresse" id="adresse" class="initial" type="text" placeholder="adresse" value="">
+    </div>
+    <input type="submit" value="Modfier">
+
+</form>
+
+<form action="/majSyndicat/${syndicat.idSyndicat}/personneReference" method="POST">
+
+    <div id="personneReference container">
+        <input name="personneReference" id="personneReference" class="initial" type="text" placeholder="personneReference" value="">
+    </div>
+    <input type="submit" value="Modfier">
+</form>
+
+<form action="/majSyndicat/${syndicat.idSyndicat}/numeroDeTelephone" method="POST">
+
+    <div id="numeroDeTelephone container">
+        <input name="numeroDeTelephone" id="numeroDeTelephone" class="initial" type="text" placeholder="numeroDeTelephone" value="">
+    </div>
+    <input type="submit" value="Modfier">
+</form>
+
+<form action="/majSyndicat/${syndicat.idSyndicat}/adresseEmail" method="POST">
+
+    <div id="adresseEmail container">
+        <input name="adresseEmail" id="adresseEmail" class="initial" type="text" placeholder="adresseEmail" value="">
+    </div>
+    <input type="submit" value="Modfier">
+</form>
+    <br>
+    <br>
+
+
+    <p>Suppression de l'syndicat(seulement pour les admins)</p>
+
+        <form action="/supprimerSyndicat/ ${syndicat.idSyndicat}" method="post">
+            <input type="submit" value="Supprimer">
+        </form>
 <p>Liste des immeuble liés au syndicat</p>
- <#list immeubles as immeuble >
-            <li><a href="/immeuble/${syndicat.idSyndicat}">${immeuble.idImmeuble}</a> - ${immeuble.nom} ${immeuble.idSyndicat} ${immeuble.adresse}</li>
-        </#list>
+<#if immeubles?has_content>
+    <#list immeubles as immeuble>
+        <li><a href="/immeuble/${immeuble.idImmeuble}">${immeuble.idImmeuble}</a> - ${immeuble.nom} ${immeuble.idSyndicat} ${immeuble.adresse}</li>
+    </#list>
+<#else>
+    <li>(Pas d'immeuble)</li>
+</#if>
+
 
 
 

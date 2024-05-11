@@ -42,10 +42,13 @@
 
 
 <p>Liste des appartements liés à l'immeuble</p>
- <#list appartements as appartement >
-            <li><a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a> ${appartement.etage} ${appartement.superficie} ${appartement.idImmeuble}</li>
-        </#list>
-
+<#if appartements?has_content>
+    <#list appartements as appartement>
+        <li><a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a> ${appartement.etage} ${appartement.superficie} ${appartement.idImmeuble}</li>
+    </#list>
+<#else>
+    <li>(Pas d'appartement)</li>
+</#if>
 <p>Ajouter un appartement à cette immeuble</p>
   <p>Ajout d'un appartement (seulement pour les admins)</p>
 

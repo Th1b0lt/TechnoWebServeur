@@ -8,7 +8,7 @@
 
     <p>Liste des personnes appartenant à notre groupe</p>
         <#list personnes as personne >
-            <li>${personne.idPersonne} - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
+            <li><a href="/personne/${personne.idPersonne}">${personne.idPersonne}</a> - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
         </#list>
 
     <br>

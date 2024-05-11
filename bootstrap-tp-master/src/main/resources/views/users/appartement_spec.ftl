@@ -4,7 +4,7 @@
 
 
 <h1>Page representative de l'appartement ${appartement.idAppartement}</h1>
-<p>Donnée appartement :  ${appartement.etage} ${appartement.superficie} ${appartement.idImmeuble}</p>
+<p>Donnée appartement :  ${appartement.etage} ${appartement.superficie} Relié à l'immeuble ${appartement.idImmeuble}</p>
 
 <p>Mettre a jour votre appartement</p>
 <form action="/majAppartement/${appartement.idAppartement}/etage" method="POST">
@@ -14,7 +14,7 @@
     <input type="submit" value="Modfier">
 
 </form>
-<form action="/majImmeuble/${appartement.idAppartement}/superficie" method="POST">
+<form action="/majAppartement/${appartement.idAppartement}/superficie" method="POST">
     <div id="superficie_container">
         <input name="superficie" id="superficie" class="initial" type="text" placeholder="superficie" value="">
     </div>
@@ -22,7 +22,7 @@
 
 </form>
 
-<form action="/majImmeuble/${appartement.idAppartement}/idImmeuble" method="POST">
+<form action="/majAppartement/${appartement.idAppartement}/idImmeuble" method="POST">
 
     <div id="idImmeuble container">
         <input name="idImmeuble" id="idImmeuble" class="initial" type="text" placeholder="idImmeuble" value="">
@@ -56,6 +56,15 @@
 </#if>
 
 
+<p>Ajout de personne dans l'appartement (cliqué sur les personnes a ajouter)</p>
+
+<#if personne?has_content>
+    <#list personnes as personne>
+        <li><a href="/personne/ajouterLien/${appartement.idAppartement}/${personne.idPersonne}">${personne.idPersonne}</a> - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
+    </#list>
+<#else>
+    <li>(Pas de personne)</li>
+</#if>
 
 <ul>
 <li><a href="/appartement">Main appartement</a></li>

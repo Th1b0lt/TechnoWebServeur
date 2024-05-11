@@ -47,6 +47,8 @@ public class AppartementGUI {
         input.put("appartement", AppartementCore.getOneAppartement(id));
         input.put("locataires",PersonneCore.getLocatairesByAppartement(id));
         input.put("propriaitaires",PersonneCore.getProprietairesByAppartement(id));
+        input.put("personnes",PersonneCore.getAllPersonnes());
+
 
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("users/appartement_spec.ftl");
