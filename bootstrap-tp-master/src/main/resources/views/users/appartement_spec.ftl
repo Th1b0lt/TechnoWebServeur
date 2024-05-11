@@ -41,7 +41,7 @@
 <p>Liste des locataires liés à l'appartement</p>
 <#if locataires?has_content>
     <#list locataires as locataire>
-        <li><a href="/personne/${personne.idPersonne}">${personne.idPersonne}</a> - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
+        <li><a href="/personne/${locataire.idPersonne}">${locataire.idPersonne}</a> - ${locataire.numeroDeTelephone} ${locataire.nom} ${locataire.prenom}</li>
     </#list>
 <#else>
     <li>(Pas de locataire)</li>
@@ -49,7 +49,7 @@
 <p>Liste des proprietaire liés à l'appartement</p>
 <#if proprietaires?has_content>
     <#list proprietaires as proprietaire>
-        <li><a href="/personne/${personne.idPersonne}">${personne.idPersonne}</a> - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
+        <li><a href="/personne/${proprietaire.idPersonne}">${proprietaire.idPersonne}</a> - ${proprietaire.numeroDeTelephone} ${proprietaire.nom} ${proprietaire.prenom}</li>
     </#list>
 <#else>
     <li>(Pas de propriétaire)</li>
@@ -60,7 +60,12 @@
 
 <#if personnes?has_content>
     <#list personnes as personne>
-        <li><a href="/appartement/ajouterLien/${appartement.idAppartement}/${personne.idPersonne}">${personne.idPersonne}</a> - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
+        <form id="postForm_${personne.idPersonne}" action="/appartement/ajouterLien/${appartement.idAppartement}/${personne.idPersonne}" method="POST">
+            <li>
+                ${personne.idPersonne} - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}
+                <button type="submit" form="postForm_${personne.idPersonne}">Ajouter</button>
+            </li>
+        </form>
     </#list>
 <#else>
     <li>(Pas de personne)</li>
@@ -69,21 +74,31 @@
 <p>Suppression d'une personne dans l'appartement</p>
 <#if locataires?has_content>
     <#list locataires as locataire>
-        <li><a href="/supprimeLien/${appartement.idAppartement}/${personne.idPersonne}">${personne.idPersonne}</a> - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
+        <form id="deleteForm_locataire_${locataire.idPersonne}" action="/supprimeLien/${appartement.idAppartement}/${locataire.idPersonne}" method="POST">
+            <li>
+                ${locataire.idPersonne} - ${locataire.numeroDeTelephone} ${locataire.nom} ${locataire.prenom}
+                <button type="submit" form="deleteForm_locataire_${locataire.idPersonne}">Supprimer</button>
+            </li>
+        </form>
     </#list>
 <#else>
     <li>(Pas de locataire)</li>
 </#if>
 <#if proprietaires?has_content>
     <#list proprietaires as proprietaire>
-        <li><a href="/supprimeLien/${appartement.idAppartement}/${personne.idPersonne}">${personne.idPersonne}</a> - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
+        <form id="deleteForm_proprietaire_${proprietaire.idPersonne}" action="/supprimeLien/${appartement.idAppartement}/${proprietaire.idPersonne}" method="POST" >
+            <li>
+                ${proprietaire.idPersonne} - ${proprietaire.numeroDeTelephone} ${proprietaire.nom} ${proprietaire.prenom}
+                <button type="submit" form="deleteForm_proprietaire_${proprietaire.idPersonne}">Supprimer</button>
+            </li>
+        </form>
     </#list>
 <#else>
     <li>(Pas de propriétaire)</li>
 </#if>
 <ul>
-<li><a href="/appartement">Main appartement</a></li>
-
-<li><a href="/main">Page d'accueil</a></li>
+    <li><a href="/appartement">Main appartement</a></li>
+    <li><a href="/main">Page d'accueil</a></li>
 </ul>
+
 </body>

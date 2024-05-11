@@ -6,14 +6,14 @@
 <h1>Page representative de la personne ${personne.idPersonne}</h1>
 <p>Donnée personne :  ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</p>
 <p>Mettre a jour votre personne</p>
-<form action="/majpPersonne/${personne.idPersonne}/numeroDeTelephone" method="POST">
+<form action="/majPersonne/${personne.idPersonne}/numeroDeTelephone" method="POST">
     <div id="numeroDeTelephone_container">
         <input name="numeroDeTelephone" id="numeroDeTelephone" class="initial" type="text" placeholder="numeroDeTelephone" value="">
     </div>
     <input type="submit" value="Modfier">
 
 </form>
-<form action="/majPersonne/${personne.idpersonne}/nom" method="POST">
+<form action="/majPersonne/${personne.idPersonne}/nom" method="POST">
     <div id="nom_container">
         <input name="nom" id="nom" class="initial" type="text" placeholder="nom" value="">
     </div>
@@ -52,7 +52,7 @@
 <p>Liste des appartements liés à la personne</p>
 <#if appartements?has_content>
     <#list appartements as appartement>
-        <li><a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a>  - ${appartement.etage} ${appartement.superficie} ${appartement.idpersonne}</li>
+        <li><a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a>  - ${appartement.etage} ${appartement.superficie} ${appartement.idImmeuble}</li>
     </#list>
 <#else>
     <li>(Pas d'appartement)</li>

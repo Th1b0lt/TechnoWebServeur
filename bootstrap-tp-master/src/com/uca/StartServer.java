@@ -140,7 +140,7 @@ public class StartServer {
                     break;
 
                 }
-                String redirection="/personne";
+                String redirection="/personne/";
                 redirection+=idPersonneStr;
                 res.redirect(redirection); //Remet sur la page d'avant jsp faire
                 return null;
@@ -370,7 +370,7 @@ public class StartServer {
                         return "Erreur de conversion en entier";
                     }
                     LienPersonneAppartementCore.deleteByPersonneId(idPersonne);
-                    String redirection="/appartement";
+                    String redirection="/appartement/";
                     redirection+=idAppartementStr;
                     res.redirect(redirection); //Remet sur la page d'avant jsp faire
                     return null;
@@ -393,7 +393,7 @@ public class StartServer {
                     }
         
                 LienPersonneAppartementEntity newLien =LienPersonneAppartementCore.create(idPersonne,idAppartement);
-                String redirection="/appartement";
+                String redirection="/appartement/";
                 redirection+=idAppartementStr;
                 res.redirect(redirection); //Remet sur la page d'avant jsp faire
                 return null;
