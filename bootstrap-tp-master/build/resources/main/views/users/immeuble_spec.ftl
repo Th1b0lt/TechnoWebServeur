@@ -43,7 +43,7 @@
 
 <p>Liste des appartements liés à l'immeuble</p>
  <#list appartements as appartement >
-            <li><a href="/appartement/${appartement.idAppartement}">{appartement.idAppartement}</a> ${appartement.etage} ${appartement.superficie} ${appartement.idImmeuble}</li>
+            <li><a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a> ${appartement.etage} ${appartement.superficie} ${appartement.idImmeuble}</li>
         </#list>
 
 <p>Ajouter un appartement à cette immeuble</p>
