@@ -66,6 +66,21 @@
     <li>(Pas de personne)</li>
 </#if>
 
+<p>Suppression d'une personne dans l'appartement</p>
+<#if locataires?has_content>
+    <#list locataires as locataire>
+        <li><a href="/supprimeLien/${appartement.idAppartement}/${personne.idPersonne}">${personne.idPersonne}</a> - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
+    </#list>
+<#else>
+    <li>(Pas de locataire)</li>
+</#if>
+<#if proprietaires?has_content>
+    <#list proprietaires as proprietaire>
+        <li><a href="/supprimeLien/${appartement.idAppartement}/${personne.idPersonne}">${personne.idPersonne}</a> - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
+    </#list>
+<#else>
+    <li>(Pas de propriétaire)</li>
+</#if>
 <ul>
 <li><a href="/appartement">Main appartement</a></li>
 

@@ -353,6 +353,28 @@ public class StartServer {
         
             return AppartementGUI.getAppartementById(idAppartement);
         });
+        post("/supprimeLien/:id/:id2",(req,res)->{
+            String idPersonneStr = req.params(":id2");
+            String idAppartementStr = req.params(":id");
+            int idAppartement = 0;
+            int idPersonne = 0;
+        
+        
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        idPersonne = Integer.parseInt(idPersonneStr);
+                        idAppartement = Integer.parseInt(idAppartementStr);
+
+                    
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
+                    LienPersonneAppartementCore.deleteByPersonneId(idPersonne);
+                    String redirection="/appartement";
+                    redirection+=idAppartementStr;
+                    res.redirect(redirection); //Remet sur la page d'avant jsp faire
+                    return null;
+        });
         post("/appartement/ajouterLien/:id/:id2",(req,res)->{
             String token = req.cookie("token");
             if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
