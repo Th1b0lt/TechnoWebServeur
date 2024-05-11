@@ -287,7 +287,7 @@ public class StartServer {
                 return null;
             }
         });
-        post("/majimmeuble/:case/:id", (req, res) -> {
+        post("/majimmeuble/:id/:case", (req, res) -> {
             String token = req.cookie("token");
             String idImmeubleStr = req.params(":id");
             String nom;
