@@ -68,6 +68,15 @@ public class ImmeubleCore {
         }
     }
 
+    public static ArrayList<ImmeubleEntity> getImmeublesBySyndicatId(int syndicatId) {
+        try {
+            return new ImmeubleDao().getImmeublesBySyndicatId(syndicatId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
+
     public static ImmeubleEntity create(String Nom,int idSyndicat,String adresse) {
         try{
             ImmeubleEntity newImmeuble= new ImmeubleEntity();
