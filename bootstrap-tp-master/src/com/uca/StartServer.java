@@ -61,9 +61,14 @@ public class StartServer {
             try{
             String username = req.queryParams("username");
             String password = req.queryParams("password");
-            new UserCore().createUser(username, password);
-            res.redirect("/main");
-            return null;
+            if (new UserCore().createUser(username, password)){;
+                res.redirect("/main");
+                return null;
+            }
+            else{
+                //Fait un truc je sais pas quoi
+                return null;
+            }
             }
             catch(Exception e) {
                 res.status(401); // Statut non autorisé
@@ -282,10 +287,66 @@ public class StartServer {
                 return null;
             }
         });
+        get("/majimmeuble/:case/:id", (req, res) -> {
+            String token = req.cookie("token");
+            String idImmeubleStr = req.params(":id");
+            String nom;
+            String idSyndicatStr;
+            String adresse;
+
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
+                String cas = req.params(":case");
+                int idImmeuble = 0;
+        
+        
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        idImmeuble = Integer.parseInt(idImmeubleStr);
+                    
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
+                switch(cas){
+                    case "nom":
+                    nom = req.queryParams("nom");
+
+                    ImmeubleCore.updateNomImmeuble(idImmeuble,nom);
+                    break;
+                    case "idsyndicat":
+
+                    idSyndicatStr = req.queryParams("idSyndicat");
+                    int idSyndicat = 0;
+        
+        
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        idSyndicat = Integer.parseInt(idSyndicatStr);
+                    
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
+                    ImmeubleCore.updateIdSyndicatImmeuble(idImmeuble,idSyndicat);
+                    break;
+                    case "adresse":
+
+                    adresse = req.queryParams("adresse");
+                    ImmeubleCore.updateAdresseImmeuble(idImmeuble,adresse);
+
+                    break;
+
+                }
+                return null;
+            }
+            else{
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+            }
+        });
         get("/immeuble/:id",(req,res)->{
             String idImmeubleStr = req.params(":id");
 
-            int idImmeuble = 0;
+          int idImmeuble = 0;
         
         
                     try {
@@ -362,6 +423,75 @@ public class StartServer {
         res.status(401); // Bad Request
         return null;
                 
+            }
+        });
+        post("/supprimerImmeuble/:id",(req,res)->{
+            String idString = req.params(":id");
+            String token = req.cookie("token");
+            if (token!=null  ){
+                try {
+                    int id = Integer.parseInt(idString);
+                    // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                    ImmeubleCore.delete(id);
+                    res.redirect("/immeuble");
+                    return null;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    // Gérer l'exception : la chaîne n'est pas un entier valide
+                    res.status(400); // Bad Request
+                    return "L'ID n'est pas un entier valide.";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de la suppression de l'immeuble.";
+                }
+            } else {
+                res.redirect("/login");
+        res.status(401); // Bad Request
+        return null;
+                
+            }
+        });
+        post("/ajouterAppartement/:id", (req, res) -> {
+            String token = req.cookie("token");
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
+                try {
+                    // Récupérer les paramètres de la requête
+                    String etageStr = req.queryParams("etage");
+                    String superficieStr = req.queryParams("superficie");
+                    String idImmeubleStr = req.params(":id");
+
+                    // Déclaration des variables pour stocker les valeurs converties
+                    int etage = 0;
+                    int superficie = 0;
+                    int idImmeuble = 0;
+
+                    try {
+                        // Tentative de conversion des chaînes en entiers
+                        etage = Integer.parseInt(etageStr);
+                        superficie = Integer.parseInt(superficieStr);
+                        idImmeuble = Integer.parseInt(idImmeubleStr);
+                    } catch (NumberFormatException e) {
+                        return "Erreur de conversion en entier";
+                    }
+                    // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
+                    AppartementEntity nouvelleAppartement = AppartementCore.create(etage,superficie,idImmeuble);
+                    res.redirect("/appartement");
+                    return null;
+                
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Gérer l'exception selon les besoins
+                    res.status(500); // Erreur interne du serveur
+                    return "Une erreur s'est produite lors de l'ajout de l'appartement.";
+                }
+            }else{
+                res.redirect("/login");
+                res.status(401); // Bad Request
+                return null;
+                   
+
             }
         });
         get("/syndicat", (req, res) -> {

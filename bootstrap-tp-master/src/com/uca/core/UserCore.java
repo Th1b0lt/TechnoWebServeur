@@ -35,13 +35,17 @@ public class UserCore {
 
 
     // Méthode pour créer un nouvel utilisateur
-    public void createUser(String username, String password) {
+    public boolean createUser(String username, String password) {
+        if (new UserDAO().getUserByUsername(username)!=null){
+            return false;
+        }
         // Hacher le mot de passe avant de l'ajouter à la base de données
         String hashedPassword = new PasswordUtil().hashPassword(password + "pourquoi");
         UserEntity user = new UserEntity();
         user.setUsername(username);
         user.setPasswordHash(hashedPassword);
         new UserDAO().create(user);
+        return true;
     }
 
     // Méthode pour supprimer un utilisateur

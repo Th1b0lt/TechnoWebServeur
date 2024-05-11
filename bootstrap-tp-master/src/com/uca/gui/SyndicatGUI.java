@@ -49,7 +49,9 @@ public class SyndicatGUI {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
-        input.put("appartement", SyndicatCore.getSyndicatById(id));
+        input.put("syndicat", SyndicatCore.getSyndicatById(id));
+        input.put("immeubles", ImmeubleCore.getImmeublesBySyndicatId(id));
+
         
 
         Writer output = new StringWriter();

@@ -179,6 +179,26 @@ public class ImmeubleDao extends _Generic<ImmeubleEntity> {
         }
     }
 
+    public ArrayList<ImmeubleEntity> getImmeublesBySyndicatId(int syndicatId) {
+        ArrayList<ImmeubleEntity> entities = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT * FROM immeuble WHERE id_syndicat = ?");
+            preparedStatement.setInt(1, syndicatId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                ImmeubleEntity entity = new ImmeubleEntity();
+                entity.setIdImmeuble(resultSet.getInt("id_immeuble"));
+                entity.setNom(resultSet.getString("nom_immeuble"));
+                entity.setAdresse(resultSet.getString("adr_immeuble"));
+                entity.setIdSyndicat(resultSet.getInt("id_syndicat"));
+                entities.add(entity);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return entities;
+    }
+
 
     @Override
     public ImmeubleEntity create(ImmeubleEntity obj) {
