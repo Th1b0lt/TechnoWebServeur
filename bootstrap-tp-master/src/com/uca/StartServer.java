@@ -390,6 +390,7 @@ public class StartServer {
         
             return AppartementGUI.getAppartementById(idAppartement,role);
         });
+        
         post("/supprimeLien/:id/:id2",(req,res)->{
             String token = req.cookie("token");
             if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){

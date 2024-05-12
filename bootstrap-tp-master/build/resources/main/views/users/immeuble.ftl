@@ -21,8 +21,4 @@
 </#if>
 <li><a href="/main">Page d'accueil</a></li>
 </ul>
-<<<<<<< HEAD
 </body>
-=======
-
->>>>>>> 9ac8514d3184223be114e49722cd06cc6a0754a8
