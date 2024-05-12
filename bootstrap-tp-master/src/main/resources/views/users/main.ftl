@@ -10,7 +10,9 @@
         <li><a href="/appartement">Page appartement</a></li>
         <li><a href="/immeuble">Page immeuble</a></li>
         <li><a href="/login">Page de connexion</a></li>
+        <#if role == 1>
         <li><a href="/register">Page d'ajout d'admin</a></li>
+        </#if>
         <li><a href="/syndicat">Page des syndicats</a></li>
 
     </ul>

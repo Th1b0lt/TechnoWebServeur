@@ -30,10 +30,14 @@ public class StartServer {
             return spark.Spark.class.getResourceAsStream("/static/style.css");
         });
         get("/main", (req, res) -> {
-            return UserGUI.main();
+            String token = req.cookie("token");
+            int role=0;
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
+                role=1;}
+            return UserGUI.main(role);
         });
         get("/users", (req, res) -> {
-            String token = req.cookie("token");
+             String token = req.cookie("token");
             if (token != null && SessionManager.introspect(token).containsKey("sub")) {
             return UserGUI.getAllUsers();
         } else {
@@ -62,7 +66,7 @@ public class StartServer {
             String token = req.cookie("token");
             if (token != null && SessionManager.introspect(token).containsKey("sub")) {
             return UserGUI.register();
-            } else {
+             } else {
             res.redirect("/login");
              res.status(401); // Bad Request
             return null;

@@ -28,10 +28,12 @@ public class UserGUI {
         return output.toString();
     }
 
-    public static String main() throws IOException, TemplateException {
+    public static String main(int role) throws IOException, TemplateException {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
+        input.put("role",role);
+
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("users/main.ftl");
         template.setOutputEncoding("UTF-8");

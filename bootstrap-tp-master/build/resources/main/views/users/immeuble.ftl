@@ -14,7 +14,6 @@
         <br>
         <br>
 
-<<<<<<< HEAD
 <ul> 
 <#if role == 1>
 
@@ -23,10 +22,3 @@
 <li><a href="/main">Page d'accueil</a></li>
 </ul>
 </body>
-=======
-    <ul> 
-    <li><a href="/modifimmeuble">Modif immeuble(admin only)</a></li>
-
-    <li><a href="/main">Page d'accueil</a></li>
-    </ul>
->>>>>>> d857ec1f2b2ed28509513372a98a6ba18bf2c1e9
