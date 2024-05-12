@@ -120,6 +120,45 @@ public class PersonneDao extends _Generic<PersonneEntity> {
         }
         return locataires;
     }
+    public ArrayList<PersonneEntity> getLocatairesByProprietaire(int idPersonne) {
+        ArrayList<PersonneEntity> locataires = new ArrayList<>();
+        String sqlCheckProprietaire = "SELECT proprietaire FROM Personne WHERE id_personne = ?";
+        boolean estProprietaire = false;
+        try (PreparedStatement statementCheck = this.connect.prepareStatement(sqlCheckProprietaire)) {
+            statementCheck.setInt(1, idPersonne);
+            ResultSet resultSetCheck = statementCheck.executeQuery();
+            if (resultSetCheck.next()) {
+                estProprietaire = resultSetCheck.getBoolean("proprietaire");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        if (estProprietaire) {
+            String sql = "SELECT DISTINCT p.* FROM Personne p " +
+                         "INNER JOIN LienPersonneAppartement l ON p.id_personne = l.id_personne " +
+                         "INNER JOIN Appartement a ON l.id_appartement = a.id_appartement " +
+                         "INNER JOIN LienPersonneAppartement l2 ON a.id_appartement = l2.id_appartement " +
+                         "WHERE l2.id_personne = ? AND p.proprietaire = FALSE";
+            try (PreparedStatement statement = this.connect.prepareStatement(sql)) {
+                statement.setInt(1, idPersonne);
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    PersonneEntity locataire = new PersonneEntity();
+                    locataire.setIdPersonne(resultSet.getInt("id_personne"));
+                    locataire.setNom(resultSet.getString("nom_pers"));
+                    locataire.setNumeroDeTelephone(resultSet.getString("num_tel_pers"));
+                    locataire.setPrenom(resultSet.getString("prenom_pers"));
+                    locataire.setEstPropriétaire(resultSet.getBoolean("proprietaire"));
+                    locataires.add(locataire);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } 
+        return locataires;
+    }
+    
 
    
 

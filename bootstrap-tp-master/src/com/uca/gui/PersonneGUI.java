@@ -53,6 +53,9 @@ public class PersonneGUI {
         Map<String, Object> input = new HashMap<>();
         input.put("personne", PersonneCore.getOnePersonne(id));
         input.put("appartements",AppartementCore.getAppartementsByPersonne(id));
+        input.put("locataires",PersonneCore.getLocatairesByProprietaire(id));
+        input.put("statglobal",ImmeubleCore.pourcentageAppartementsLouesEtNonLouesPourPersonne(id));
+        input.put("statLocal",ImmeubleCore.pourcentageAppartementsLouesEtNonLouesPourPersonneEtImmeuble(id));
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("users/personne_spec.ftl");
         template.setOutputEncoding("UTF-8");

@@ -4,6 +4,9 @@ import com.uca.entity.ImmeubleEntity;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Set;
 public class ImmeubleDao extends _Generic<ImmeubleEntity> {
 
     public ArrayList<ImmeubleEntity> getAllImmeubles() {
@@ -73,62 +76,134 @@ public class ImmeubleDao extends _Generic<ImmeubleEntity> {
         }
         return immeuble;
     }
-
-    public double[] getPourcentageLogementsLouesEtVacantsPourUtilisateurEtImmeuble(int idUtilisateur, int idImmeuble) {
-        double[] pourcentage = new double[2]; // pourcentage[0] pour les logements loués, pourcentage[1] pour les logements vacants
+    public int nombreAppartementsOccupesPourPersonne(int idPersonne) {
+        int nombreAppartementsOccupes = 0;
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT COUNT(*) FROM LienAppartementPersonne lap JOIN Appartement a ON lap.id_appartement = a.id_appartement WHERE lap.id_personne = ? AND a.id_immeuble = ?");
-            preparedStatement.setInt(1, idUtilisateur);
+            // Récupérer tous les appartements liés à la personne spécifiée
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT id_appartement FROM LienPersonneAppartement WHERE id_personne = ?");
+            preparedStatement.setInt(1, idPersonne);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Set<Integer> appartementsPersonne = new HashSet<>();
+            while (resultSet.next()) {
+                appartementsPersonne.add(resultSet.getInt("id_appartement"));
+            }
+            // Pour chaque appartement lié à la personne spécifiée, vérifier s'il existe un autre lien avec une personne non propriétaire
+            for (int appartementId : appartementsPersonne) {
+                preparedStatement = this.connect.prepareStatement("SELECT COUNT(*) AS autres_personnes FROM LienPersonneAppartement WHERE id_appartement = ? AND id_personne != ? AND id_personne NOT IN (SELECT id_personne FROM personne WHERE proprietaire = TRUE)");
+                preparedStatement.setInt(1, appartementId);
+                preparedStatement.setInt(2, idPersonne);
+                resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    int autresPersonnes = resultSet.getInt("autres_personnes");
+                    if (autresPersonnes > 0) {
+                        nombreAppartementsOccupes++;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nombreAppartementsOccupes;
+    }
+    public int nombreAppartementsOccupesPourPersonneEtImmeuble(int idPersonne,int idImmeuble) {
+        int nombreAppartementsOccupes = 0;
+        try {
+            // Récupérer tous les appartements liés à la personne spécifiée
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT ap.id_appartement FROM LienPersonneAppartement JOIN appartement as ap WHERE id_personne = ? AND ap.id_immeuble=?");
+            preparedStatement.setInt(1, idPersonne);
             preparedStatement.setInt(2, idImmeuble);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                int totalLogements = resultSet.getInt(1);
-                
-                // Compter le nombre de logements loués et vacants
-                preparedStatement = this.connect.prepareStatement("SELECT COUNT(*) FROM LienAppartementPersonne lap JOIN Appartement a ON lap.id_appartement = a.id_appartement WHERE lap.id_personne = ? AND a.id_immeuble = ? AND lap.est_proprietaire = true");
-                preparedStatement.setInt(1, idUtilisateur);
-                preparedStatement.setInt(2, idImmeuble);
+            Set<Integer> appartementsPersonne = new HashSet<>();
+            while (resultSet.next()) {
+                appartementsPersonne.add(resultSet.getInt("id_appartement"));
+            }
+            // Pour chaque appartement lié à la personne spécifiée, vérifier s'il existe un autre lien avec une personne non propriétaire
+            for (int appartementId : appartementsPersonne) {
+                preparedStatement = this.connect.prepareStatement("SELECT COUNT(*) AS autres_personnes FROM LienPersonneAppartement WHERE id_appartement = ? AND id_personne != ? AND id_personne NOT IN (SELECT id_personne FROM personne WHERE proprietaire = TRUE)");
+                preparedStatement.setInt(1, appartementId);
+                preparedStatement.setInt(2, idPersonne);
                 resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
-                    int logementsLoues = resultSet.getInt(1);
-                    int logementsVacants = totalLogements - logementsLoues;
-                    
-                    // Calculer les pourcentages
-                    pourcentage[0] = ((double) logementsLoues / totalLogements) * 100;
-                    pourcentage[1] = ((double) logementsVacants / totalLogements) * 100;
+                    int autresPersonnes = resultSet.getInt("autres_personnes");
+                    if (autresPersonnes > 0) {
+                        nombreAppartementsOccupes++;
+                    }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return pourcentage;
+        return nombreAppartementsOccupes;
     }
-    public double[] getPourcentageLogementsLouesEtVacantsPourUtilisateur(int idUtilisateur) {
-        double[] pourcentage = new double[2]; // pourcentage[0] pour les logements loués, pourcentage[1] pour les logements vacants
+    
+    public double[] pourcentageAppartementsLouesEtNonLouesPourPersonne(int idPersonne) {
+        double[] pourcentages = new double[2]; // Index 0: Pourcentage d'appartements loués, Index 1: Pourcentage d'appartements non loués
         try {
-            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT COUNT(*) FROM LienAppartementPersonne lap JOIN Appartement a ON lap.id_appartement = a.id_appartement WHERE lap.id_personne = ?");
-            preparedStatement.setInt(1, idUtilisateur);
+            // Récupérer le nombre total d'appartements liés à la personne spécifiée
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT COUNT(DISTINCT id_appartement) AS total_appartements FROM LienPersonneAppartement WHERE id_personne = ?");
+            preparedStatement.setInt(1, idPersonne);
             ResultSet resultSet = preparedStatement.executeQuery();
+            int totalAppartements = 0;
             if (resultSet.next()) {
-                int totalLogements = resultSet.getInt(1);
-                
-                // Compter le nombre de logements loués et vacants
-                preparedStatement = this.connect.prepareStatement("SELECT COUNT(*) FROM LienAppartementPersonne lap JOIN Appartement a ON lap.id_appartement = a.id_appartement WHERE lap.id_personne = ? AND lap.est_proprietaire = true");
-                preparedStatement.setInt(1, idUtilisateur);
-                resultSet = preparedStatement.executeQuery();
-                if (resultSet.next()) {
-                    int logementsLoues = resultSet.getInt(1);
-                    int logementsVacants = totalLogements - logementsLoues;
-                    
-                    // Calculer les pourcentages
-                    pourcentage[0] = ((double) logementsLoues / totalLogements) * 100;
-                    pourcentage[1] = ((double) logementsVacants / totalLogements) * 100;
-                }
+                totalAppartements = resultSet.getInt("total_appartements");
+            }
+            
+            // Récupérer le nombre d'appartements occupés par la personne
+            int nombreAppartementsOccupes = nombreAppartementsOccupesPourPersonne(idPersonne);
+            
+            // Calculer le pourcentage d'appartements loués et non loués
+            if (totalAppartements > 0) {
+                pourcentages[0] = (double) nombreAppartementsOccupes / totalAppartements * 100.0; // Pourcentage d'appartements loués
+                pourcentages[1] = 100.0 - pourcentages[0]; // Pourcentage d'appartements non loués
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return pourcentage;
+        return pourcentages;
+    }
+    public double[] pourcentageAppartementsLouesEtNonLouesPourPersonneEtImmeuble(int idPersonne,int idImmeuble) {
+        double[] pourcentages = new double[3]; // Index 0: Pourcentage d'appartements loués, Index 1: Pourcentage d'appartements non loués
+        try {
+            // Récupérer le nombre total d'appartements liés à la personne spécifiée
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT COUNT(DISTINCT ap.id_appartement) AS total_appartements FROM LienPersonneAppartement JOIN appartement as ap WHERE id_personne = ? AND ap.id_immeuble=?");
+            preparedStatement.setInt(1, idPersonne);
+            preparedStatement.setInt(2, idImmeuble);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            int totalAppartements = 0;
+            if (resultSet.next()) {
+                totalAppartements = resultSet.getInt("total_appartements");
+            }
+            
+            // Récupérer le nombre d'appartements occupés par la personne
+            int nombreAppartementsOccupes = nombreAppartementsOccupesPourPersonneEtImmeuble(idPersonne,idImmeuble);
+            
+            // Calculer le pourcentage d'appartements loués et non loués
+            if (totalAppartements > 0) {
+                pourcentages[0] = (double) nombreAppartementsOccupes / totalAppartements * 100.0; // Pourcentage d'appartements loués
+                pourcentages[1] = 100.0 - pourcentages[0]; // Pourcentage d'appartements non loués
+                pourcentages[2]=(double)idImmeuble;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pourcentages;
+    }
+    public ArrayList<double[]> pourcentageAppartementsLouesEtNonLouesPourPersonneEtImmeuble(int idPersonne) {
+        ArrayList<double[]> pourcentagesParImmeuble = new ArrayList<>();
+        try {
+            // Récupérer tous les immeubles
+            PreparedStatement preparedStatement = this.connect.prepareStatement("SELECT id_immeuble FROM immeuble");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+             
+                int idImmeuble = resultSet.getInt("id_immeuble");
+                pourcentagesParImmeuble.add(pourcentageAppartementsLouesEtNonLouesPourPersonneEtImmeuble( idPersonne,idImmeuble));
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return pourcentagesParImmeuble;
     }
 
     public void updateNomImmeuble(int idImmeuble, String nouveauNom) {
