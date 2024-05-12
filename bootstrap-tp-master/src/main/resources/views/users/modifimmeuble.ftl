@@ -1,5 +1,5 @@
-  <#ftl encoding="utf-8">
-
+<#ftl encoding="utf-8">
+<link rel="stylesheet" href="style.css">
 <body xmlns="http://www.w3.org/1999/html">
   
     
@@ -29,4 +29,3 @@
             <input type="submit" value="Supprimer">
         </form>
 <a href="/main">Page d'accueil</a>
-</body>

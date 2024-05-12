@@ -28,6 +28,7 @@ public class PersonneGUI {
         Template template = configuration.getTemplate("users/personne.ftl");
         template.setOutputEncoding("UTF-8");
         template.process(input, output);
+        
 
         return output.toString();
     }
@@ -51,7 +52,7 @@ public class PersonneGUI {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
-        input.put("Personne", PersonneCore.getOnePersonne(id));
+        input.put("personne", PersonneCore.getOnePersonne(id));
         input.put("appartements",AppartementCore.getAppartementsByPersonne(id));
         input.put("role",role);
 

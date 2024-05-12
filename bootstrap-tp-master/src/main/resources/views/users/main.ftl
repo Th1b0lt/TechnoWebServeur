@@ -4,7 +4,7 @@
 
 <h1>Accueil</h1>
 <div class="container">
-    <h2>BIENVENUE VOUS POUVEZ NAVIGUER D'ICI</h1>
+    <h2>BIENVENUE VOUS POUVEZ NAVIGUER DEPUIS ICI</h1>
     <ul>
         <li><a href="/personne">Page personne</a></li>
         <li><a href="/appartement">Page appartement</a></li>

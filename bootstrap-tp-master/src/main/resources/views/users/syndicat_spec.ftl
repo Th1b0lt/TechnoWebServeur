@@ -3,9 +3,19 @@
 <body xmlns="http://www.w3.org/1999/html">
 
 
-<h1>Page representative de l'syndicat ${syndicat.idSyndicat}</h1>
+<h1>Page representative du syndicat n° ${syndicat.idSyndicat}</h1>
            
-<p>Donnée syndicat : ${syndicat.name} ${syndicat.adresse} 
+<p>Donnée syndicat :  
+        <#if syndicat.name??>
+            ${syndicat.name}
+        <#else>
+            (Personne de référence non définie)
+        </#if>
+         <#if syndicat.adresse??>
+            ${syndicat.adresse}
+        <#else>
+            (Personne de référence non définie)
+        </#if>
         <#if syndicat.personneReference??>
             ${syndicat.personneReference}
         <#else>
@@ -21,9 +31,13 @@
         <#else>
             (Adresse e-mail non définie)
         </#if></p>
+<<<<<<< HEAD
 <#if role == 1>
 
 <p>Mettre a jour votre syndicat</p>
+=======
+<p>Mettre a jour votre syndicat(seulement pour les admins)</p>
+>>>>>>> d857ec1f2b2ed28509513372a98a6ba18bf2c1e9
 <form action="/majSyndicat/${syndicat.idSyndicat}/name" method="POST">
     <div id="name_containe">
         <input name="name" id="name" class="initial" type="text" placeholder="name" value="">
@@ -66,9 +80,9 @@
     <br>
 
 
-    <p>Suppression de l'syndicat(seulement pour les admins)</p>
+    <p>Suppression du syndicat(seulement pour les admins)</p>
 
-        <form action="/supprimerSyndicat/ ${syndicat.idSyndicat}" method="post">
+        <form action="/supprimerSyndicat/${syndicat.idSyndicat}" method="post">
             <input type="submit" value="Supprimer">
         </form>
 </#if>
@@ -91,4 +105,3 @@
 </#if>
 <li><a href="/main">Page d'accueil</a></li>
 </ul>
-</body>

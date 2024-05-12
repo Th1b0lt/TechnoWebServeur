@@ -3,18 +3,17 @@
 <body xmlns="http://www.w3.org/1999/html">
 
 
-<h1>Page representative de la personne ${personne.idPersonne}</h1>
-<p>Donnée personne :  ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</p>
-<#if role == 1>
-<p>Mettre a jour votre personne</p>
-<form action="/majpPersonne/${personne.idPersonne}/numeroDeTelephone" method="POST">
+<h1>Page representative de la personne n°${personne.idPersonne}</h1>
+<p>Données personne : Numéro de téléphone : ${personne.numeroDeTelephone} - Nom : ${personne.nom} - Prenom : ${personne.prenom}</p>
+<p>Mettre à jour votre personne (seulement pour les admins) </p>
+<form action="/majPersonne/${personne.idPersonne}/numeroDeTelephone" method="POST">
     <div id="numeroDeTelephone_container">
         <input name="numeroDeTelephone" id="numeroDeTelephone" class="initial" type="text" placeholder="numeroDeTelephone" value="">
     </div>
     <input type="submit" value="Modfier">
 
 </form>
-<form action="/majPersonne/${personne.idpersonne}/nom" method="POST">
+<form action="/majPersonne/${personne.idPersonne}/nom" method="POST">
     <div id="nom_container">
         <input name="nom" id="nom" class="initial" type="text" placeholder="nom" value="">
     </div>
@@ -46,7 +45,7 @@
 <p>Liste des appartements liés à la personne</p>
 <#if appartements?has_content>
     <#list appartements as appartement>
-        <li><a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a>  - ${appartement.etage} ${appartement.superficie} ${appartement.idpersonne}</li>
+        <li><a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a>  - ${appartement.etage} ${appartement.superficie} ${appartement.idImmeuble}</li>
     </#list>
 <#else>
     <li>(Pas d'appartement)</li>
@@ -57,4 +56,3 @@
 
 <li><a href="/main">Page d'accueil</a></li>
 </ul>
-</body>

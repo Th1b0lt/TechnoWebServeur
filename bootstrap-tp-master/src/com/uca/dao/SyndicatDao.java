@@ -97,7 +97,7 @@ public class SyndicatDao extends _Generic<SyndicatEntity>{
 
     public void updateAdresseSyndicat(int idSyndicat, String nouvelleAdresse) {
         try {
-            PreparedStatement statement = this.connect.prepareStatement("UPDATE syndicat SET adr_syndicat = ? WHERE id_syndicat = ?");
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE syndicat SET adresse_syndicat = ? WHERE id_syndicat = ?");
             statement.setString(1, nouvelleAdresse);
             statement.setInt(2, idSyndicat);
             int rowsAffected = statement.executeUpdate();
@@ -113,7 +113,7 @@ public class SyndicatDao extends _Generic<SyndicatEntity>{
 
     public void updateTelephoneSyndicat(int idSyndicat, String nouveauTelephone) {
         try {
-            PreparedStatement statement = this.connect.prepareStatement("UPDATE syndicat SET tel_syndicat = ? WHERE id_syndicat = ?");
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE syndicat SET num_tel_syndicat = ? WHERE id_syndicat = ?");
             statement.setString(1, nouveauTelephone);
             statement.setInt(2, idSyndicat);
             int rowsAffected = statement.executeUpdate();
@@ -129,7 +129,7 @@ public class SyndicatDao extends _Generic<SyndicatEntity>{
 
     public void updateEmailSyndicat(int idSyndicat, String nouvelEmail) {
         try {
-            PreparedStatement statement = this.connect.prepareStatement("UPDATE syndicat SET email_syndicat = ? WHERE id_syndicat = ?");
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE syndicat SET adr_mail_syndicat = ? WHERE id_syndicat = ?");
             statement.setString(1, nouvelEmail);
             statement.setInt(2, idSyndicat);
             int rowsAffected = statement.executeUpdate();
@@ -144,7 +144,7 @@ public class SyndicatDao extends _Generic<SyndicatEntity>{
     }
     public void updateNomRefSyndicat(int idSyndicat, String nouveauNomRef) {
         try {
-            PreparedStatement statement = this.connect.prepareStatement("UPDATE syndicat SET nom_ref = ? WHERE id_syndicat = ?");
+            PreparedStatement statement = this.connect.prepareStatement("UPDATE syndicat SET nom_ref_syndicat = ? WHERE id_syndicat = ?");
             statement.setString(1, nouveauNomRef);
             statement.setInt(2, idSyndicat);
             int rowsAffected = statement.executeUpdate();

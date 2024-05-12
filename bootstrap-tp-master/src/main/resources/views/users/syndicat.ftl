@@ -1,12 +1,12 @@
 <#ftl encoding="utf-8">
 <link rel="stylesheet" href="style.css">
 <body xmlns="http://www.w3.org/1999/html">
-<h1>Bienvenue sur la page gérant les syndicat affiliés à notre entreprise</h1>
+<h1>Bienvenue sur la page gérant les syndicats affiliés à notre entreprise</h1>
     <br>
     <br>
 
   <#list syndicats as syndicat>
-    <li>$<a href="/syndicat/${syndicat.idSyndicat}">{syndicat.idSyndicat}</a> - ${syndicat.name} ${syndicat.adresse} 
+    <li><a href="/syndicat/${syndicat.idSyndicat}">${syndicat.idSyndicat}</a> - ${syndicat.name} ${syndicat.adresse} 
         <#if syndicat.personneReference??>
             ${syndicat.personneReference}
         <#else>
@@ -34,4 +34,3 @@
 </#if>
 <li><a href="/main">Page d'accueil</a></li>
 </ul>
-</body>

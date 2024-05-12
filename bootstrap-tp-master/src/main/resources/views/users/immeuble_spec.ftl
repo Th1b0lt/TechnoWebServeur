@@ -3,43 +3,49 @@
 <body xmlns="http://www.w3.org/1999/html">
 
 
+<<<<<<< HEAD
 <h1>Page representative de l'immeuble ${immeuble.idImmeuble}</h1>
 <p>Donnée immeuble :  ${immeuble.nom} ${immeuble.adresse}</p>
 <p>Il est rattaché au Syndicat : <a href="/syndicat/${immeuble.idSyndicat}"> ${immeuble.idSyndicat} </a></p>
 <#if role == 1>
+=======
+    <h1>Page representative de l'immeuble n° ${immeuble.idImmeuble}</h1>
+    <p>Donnée immeuble :  ${immeuble.nom} se trouve au ${immeuble.adresse}</p>
+    <p>Il est rattaché au Syndicat : <a href="/syndicat/${immeuble.idSyndicat}"> ${immeuble.idSyndicat} </a></p>
+>>>>>>> d857ec1f2b2ed28509513372a98a6ba18bf2c1e9
 
-<p>Mettre a jour votre immeuble</p>
-<form action="/majImmeuble/${immeuble.idImmeuble}/name" method="POST">
-    <div id="name_container">
-        <input name="nom" id="nom" class="initial" type="text" placeholder="nom" value="">
-    </div>
-    <input type="submit" value="Modfier">
+    <p>Mettre à jour votre immeuble (seulement pour les admins)</p>
+    <form action="/majImmeuble/${immeuble.idImmeuble}/name" method="POST">
+        <div id="name_container">
+            <input name="nom" id="nom" class="initial" type="text" placeholder="nom" value="">
+        </div>
+        <input type="submit" value="Modfier">
 
-</form>
-<form action="/majImmeuble/${immeuble.idImmeuble}/idSyndicat" method="POST">
-    <div id="idSyndicat_container">
-        <input name="idSyndicat" id="idSyndicat" class="initial" type="text" placeholder="idSyndicat" value="">
-    </div>
-    <input type="submit" value="Modfier">
+    </form>
+    <form action="/majImmeuble/${immeuble.idImmeuble}/idSyndicat" method="POST">
+        <div id="idSyndicat_container">
+            <input name="idSyndicat" id="idSyndicat" class="initial" type="text" placeholder="idSyndicat" value="">
+        </div>
+        <input type="submit" value="Modfier">
 
-</form>
+    </form>
 
-<form action="/majImmeuble/${immeuble.idImmeuble}/adresse" method="POST">
+    <form action="/majImmeuble/${immeuble.idImmeuble}/adresse" method="POST">
 
-    <div id="adresse container">
-        <input name="adresse" id="adresse" class="initial" type="text" placeholder="adresse" value="">
-    </div>
-    <input type="submit" value="Modfier">
-</form>
-    <br>
-    <br>
+        <div id="adresse container">
+            <input name="adresse" id="adresse" class="initial" type="text" placeholder="adresse" value="">
+        </div>
+        <input type="submit" value="Modfier">
+    </form>
+        <br>
+        <br>
 
 
-    <p>Suppression de l'Immeuble(seulement pour les admins)</p>
+        <p>Suppression de l'Immeuble(seulement pour les admins)</p>
 
-        <form action="/supprimerImmeuble/${immeuble.idImmeuble}" method="post">
-            <input type="submit" value="Supprimer">
-        </form>
+            <form action="/supprimerImmeuble/${immeuble.idImmeuble}" method="post">
+                <input type="submit" value="Supprimer">
+            </form>
 
 </#if>
 <p>Liste des appartements liés à l'immeuble</p>
@@ -69,6 +75,5 @@
 <ul>
 <li><a href="/immeuble">Main Immeuble</a></li>
 
-<li><a href="/main">Page d'accueil</a></li>
-</ul>
-</body>
+    <li><a href="/main">Page d'accueil</a></li>
+    </ul>

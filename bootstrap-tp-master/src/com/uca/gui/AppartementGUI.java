@@ -47,7 +47,7 @@ public class AppartementGUI {
         Map<String, Object> input = new HashMap<>();
         input.put("appartement", AppartementCore.getOneAppartement(id));
         input.put("locataires",PersonneCore.getLocatairesByAppartement(id));
-        input.put("propriaitaires",PersonneCore.getProprietairesByAppartement(id));
+        input.put("proprietaires",PersonneCore.getProprietairesByAppartement(id));
         input.put("personnes",PersonneCore.getAllPersonnes());
         input.put("role",role);
 

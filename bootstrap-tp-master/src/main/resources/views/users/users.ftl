@@ -4,11 +4,11 @@
 <h1>Liste des users</h1>
 <ul>
     <#list users as user>
-        <li>${user.username} ${user.passwordHash}</li>
+        <li>${user.username} </li>
     </#list>
 </ul>
 
-</body>
+
 
 <a href="/main">Page d'accueil</a>
 

@@ -1,8 +1,8 @@
 <#ftl encoding="utf-8">
+<link rel="stylesheet" href="style.css">
+<body xmlns="http://www.w3.org/1999/html">
 
-<body x<link rel="stylesheet" href="style.css">mlns="http://www.w3.org/1999/html">
-
-    <h1>Bienvenue sur la page gérant les personnes affiliés à notre entreprise</h1>
+    <h1>Bienvenue sur la page gérant les personnes affiliées à notre entreprise</h1>
     <br>
     <br>
 
@@ -23,5 +23,4 @@
 <li><a href="/main">Page d'accueil</a></li>
 </ul>
 
-</body>
 
