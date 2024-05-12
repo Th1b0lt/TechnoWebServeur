@@ -24,6 +24,11 @@ public class StartServer {
         System.out.println(a);
         System.out.println(SessionManager.introspect(a));
         */
+
+        get("/*/style.css", (req, res) -> {
+            
+            return spark.Spark.class.getResourceAsStream("/static/style.css");
+        });
         get("/main", (req, res) -> {
             return UserGUI.main();
         });
@@ -97,7 +102,7 @@ public class StartServer {
                 idPersonne = Integer.parseInt(idPersonneStr);
             
             } catch (NumberFormatException e) {
-                return "Erreur de conversion en entier";
+                return("j'ai chié sur ça"+idPersonneStr);
             }
 
             return PersonneGUI.getPersonneById(idPersonne);

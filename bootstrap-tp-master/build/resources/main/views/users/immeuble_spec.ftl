@@ -3,11 +3,11 @@
 <body xmlns="http://www.w3.org/1999/html">
 
 
-    <h1>Page representative de l'immeuble ${immeuble.idImmeuble}</h1>
-    <p>Donnée immeuble :  ${immeuble.nom} ${immeuble.adresse}</p>
+    <h1>Page representative de l'immeuble n° ${immeuble.idImmeuble}</h1>
+    <p>Donnée immeuble :  ${immeuble.nom} se trouve au ${immeuble.adresse}</p>
     <p>Il est rattaché au Syndicat : <a href="/syndicat/${immeuble.idSyndicat}"> ${immeuble.idSyndicat} </a></p>
 
-    <p>Mettre a jour votre immeuble</p>
+    <p>Mettre à jour votre immeuble (seulement pour les admins)</p>
     <form action="/majImmeuble/${immeuble.idImmeuble}/name" method="POST">
         <div id="name_container">
             <input name="nom" id="nom" class="initial" type="text" placeholder="nom" value="">

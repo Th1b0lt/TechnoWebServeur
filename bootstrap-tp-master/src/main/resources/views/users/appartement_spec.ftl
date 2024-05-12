@@ -1,12 +1,10 @@
 <#ftl encoding="utf-8">
 <link rel="stylesheet" href="style.css">
 <body xmlns="http://www.w3.org/1999/html">
+    <h1>Page représentative de l'appartement ${appartement.idAppartement}</h1>
+    <p>Données appartement :  se trouve à l'étage ${appartement.etage} est d'une superficie de ${appartement.superficie} m² et est relié à l'immeuble ${appartement.idImmeuble}</p>
 
-
-    <h1>Page representative de l'appartement ${appartement.idAppartement}</h1>
-    <p>Donnée appartement :  ${appartement.etage} ${appartement.superficie} Relié à l'immeuble ${appartement.idImmeuble}</p>
-
-    <p>Mettre a jour votre appartement</p>
+    <p>Mettre à jour votre appartement (seulement pour les admins)</p>
     <form action="/majAppartement/${appartement.idAppartement}/etage" method="POST">
         <div id="etage_containe">
             <input name="etage" id="etage" class="initial" type="text" placeholder="etage" value="">
@@ -56,7 +54,7 @@
     </#if>
 
 
-    <p>Ajout de personne dans l'appartement (cliqué sur les personnes a ajouter)</p>
+    <p>Ajout de personne dans l'appartement (cliquez sur les personnes à ajouter)</p>
 
     <#if personnes?has_content>
         <#list personnes as personne>

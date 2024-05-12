@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="style.css">
 <body xmlns="http://www.w3.org/1999/html">
 
-<h1>CREE UN COMPTE</h1>
+<h1>CREER UN COMPTE (seulement pour les admins)</h1>
 
  <form action="/register" method="POST">
        <div class="Username_container">

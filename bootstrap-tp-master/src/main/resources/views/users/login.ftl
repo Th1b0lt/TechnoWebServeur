@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="style.css">
 <body xmlns="http://www.w3.org/1999/html">
 
-    <h1>CONNECTE VOUS !</h1>
+    <h1>CONNECTEZ VOUS !</h1>
     <form action="/login" method="POST">
             <div class="Username_container">
                 <input name="username" id="username" class="initial" type="text" placeholder="Username :xX_PaulB0cuseDu63_Xx" value="">
