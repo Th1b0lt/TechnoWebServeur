@@ -6,7 +6,7 @@
     <h1>Page representative de l'immeuble n° ${immeuble.idImmeuble}</h1>
     <p>Donnée immeuble :  ${immeuble.nom} se trouve au ${immeuble.adresse}</p>
     <p>Il est rattaché au Syndicat : <a href="/syndicat/${immeuble.idSyndicat}"> ${immeuble.idSyndicat} </a></p>
-
+    <#if role ==1>
     <p>Mettre à jour votre immeuble (seulement pour les admins)</p>
     <form action="/majImmeuble/${immeuble.idImmeuble}/name" method="POST">
         <div id="name_container">
@@ -40,31 +40,33 @@
                 <input type="submit" value="Supprimer">
             </form>
 
+</#if>
+<p>Liste des appartements liés à l'immeuble</p>
+<#if appartements?has_content>
+    <#list appartements as appartement>
+        <li><a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a> ${appartement.etage} ${appartement.superficie} ${appartement.idImmeuble}</li>
+    </#list>
+<#else>
+    <li>(Pas d'appartement)</li>
+</#if>
+<#if role == 1>
 
-    <p>Liste des appartements liés à l'immeuble</p>
-    <#if appartements?has_content>
-        <#list appartements as appartement>
-            <li>Appartement n° <a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a> se trouve à l'etage ${appartement.etage}  et d'une superficie de ${appartement.superficie} m² se trouve dans l'immeuble <a href="/immeuble/${appartement.idImmeuble}">${appartement.idImmeuble}</a></li>
-        </#list>
-    <#else>
-        <li>(Pas d'appartement)</li>
-    </#if>
-    <p>Ajouter un appartement à cette immeuble</p>
-    <p>Ajout d'un appartement (seulement pour les admins)</p>
+<p>Ajouter un appartement à cette immeuble</p>
+  
 
-        <form action="/ajouterAppartement/${immeuble.idImmeuble}" method="POST">
-        <div id="etage_container">
-            <input name="etage" id="nom" class="etage" type="text" placeholder="etage" value="">
-        </div>
-        <div id="superficie_container">
-            <input name="superficie" id="superficie" class="initial" type="text" placeholder="superficie" value="">
-        </div>
-    
-        <input type="submit" value="Ajouter">
-    </form>
-
-    <ul>
-    <li><a href="/immeuble">Main Immeuble</a></li>
+    <form action="/ajouterAppartement/${immeuble.idImmeuble}" method="POST">
+    <div id="etage_container">
+        <input name="etage" id="nom" class="etage" type="text" placeholder="etage" value="">
+    </div>
+    <div id="superficie_container">
+        <input name="superficie" id="superficie" class="initial" type="text" placeholder="superficie" value="">
+    </div>
+   
+    <input type="submit" value="Ajouter">
+</form>
+</#if>
+<ul>
+<li><a href="/immeuble">Main Immeuble</a></li>
 
     <li><a href="/main">Page d'accueil</a></li>
     </ul>

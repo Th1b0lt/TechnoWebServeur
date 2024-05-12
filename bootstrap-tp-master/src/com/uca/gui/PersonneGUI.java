@@ -15,12 +15,13 @@ import java.util.Map;
 
 public class PersonneGUI {
 
-    public static String getAllPersonnes() throws IOException, TemplateException {
+    public static String getAllPersonnes(int role) throws IOException, TemplateException {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
 
         input.put("personnes", PersonneCore.getAllPersonnes());
+        input.put("role",role);
         
 
         Writer output = new StringWriter();
@@ -47,7 +48,7 @@ public class PersonneGUI {
 
         return output.toString();
     }
-    public static String getPersonneById(int id) throws IOException, TemplateException {
+    public static String getPersonneById(int id,int role) throws IOException, TemplateException {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
@@ -56,6 +57,8 @@ public class PersonneGUI {
         input.put("locataires",PersonneCore.getLocatairesByProprietaire(id));
         input.put("statglobal",ImmeubleCore.pourcentageAppartementsLouesEtNonLouesPourPersonne(id));
         input.put("statLocal",ImmeubleCore.pourcentageAppartementsLouesEtNonLouesPourPersonneEtImmeuble(id));
+        input.put("role",role);
+
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("users/personne_spec.ftl");
         template.setOutputEncoding("UTF-8");

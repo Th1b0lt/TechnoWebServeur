@@ -11,8 +11,10 @@
                 <li>Appartement numéro <a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a> - A l'étage ${appartement.etage} d'une supérficie de  ${appartement.superficie} m² dans l'immeuble numéro ${appartement.idImmeuble}</li>
             </#list>
 
-    <ul>
-    <li><a href="/modifappart">Modif appart(admin only)</a></li>
+<ul>
+<#if role==1>
+<li><a href="/modifappart">Modif appart(admin only)</a></li>
+</#if>
 
     <li><a href="/main">Page d'accueil</a></li>
     </ul>

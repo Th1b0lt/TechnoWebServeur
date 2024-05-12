@@ -13,12 +13,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ImmeubleGUI {
-    public static String getAllImmeuble() throws IOException, TemplateException {
+    public static String getAllImmeuble(int role) throws IOException, TemplateException {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
 
         input.put("immeubles", ImmeubleCore.getAllImmeuble());
+        input.put("role",role);
         
 
         Writer output = new StringWriter();
@@ -44,12 +45,13 @@ public class ImmeubleGUI {
         return output.toString();
     }
 
-    public static String getImmeubleById(int id) throws IOException, TemplateException {
+    public static String getImmeubleById(int id,int role) throws IOException, TemplateException {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
         input.put("immeuble", ImmeubleCore.getImmeubleById(id));
         input.put("appartements",AppartementCore.getAppartementByImmeuble(id));
+        input.put("role",role);
        
         Writer output = new StringWriter();
         Template template = configuration.getTemplate("users/immeuble_spec.ftl");

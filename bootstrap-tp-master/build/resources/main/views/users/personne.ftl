@@ -15,11 +15,12 @@
     <br>
 
 
-    <ul>
-    <li><a class="modif-link" href="/modifpersonne">Modif personne(admin only)</a></li>
+<ul>
+<#if role == 1>
 
-    <li><a href="/main">Page d'accueil</a></li>
-    </ul>
-
+<li><a href="/modifpersonne">Modif personne(admin only)</a></li>
+</#if>
+<li><a href="/main">Page d'accueil</a></li>
+</ul>
 
 

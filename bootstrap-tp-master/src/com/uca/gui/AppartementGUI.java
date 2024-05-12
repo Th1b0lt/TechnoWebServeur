@@ -13,12 +13,13 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 public class AppartementGUI {
-    public static String getAllAppartement() throws IOException, TemplateException {
+    public static String getAllAppartement(int role) throws IOException, TemplateException {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
 
         input.put("appartements", AppartementCore.getAllAppartement());
+        input.put("role",role);
         
 
         Writer output = new StringWriter();
@@ -40,7 +41,7 @@ public class AppartementGUI {
     
         return output.toString();
     }
-    public static String getAppartementById(int id) throws IOException, TemplateException {
+    public static String getAppartementById(int id,int role) throws IOException, TemplateException {
         Configuration configuration = _FreeMarkerInitializer.getContext();
 
         Map<String, Object> input = new HashMap<>();
@@ -48,6 +49,7 @@ public class AppartementGUI {
         input.put("locataires",PersonneCore.getLocatairesByAppartement(id));
         input.put("proprietaires",PersonneCore.getProprietairesByAppartement(id));
         input.put("personnes",PersonneCore.getAllPersonnes());
+        input.put("role",role);
 
 
         Writer output = new StringWriter();
