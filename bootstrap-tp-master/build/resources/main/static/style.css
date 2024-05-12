@@ -3,28 +3,49 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
     background-color: #655d88; /* Couleur de fond */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    
     min-height: 100vh; /* Pour prendre toute la hauteur de la fenêtre */
-}
-
-
-.container {
-    width: 700px;
-    height: 90vh;
-    background-color: #b8b0da; /* Couleur du rectangle */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1); /* Ombre légère */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    text-align: center; /* Aligner le texte au centre */
 }
 
 h1 {
-    text-align: center;
-    color: #333; /* Couleur du titre */
+    font-size: 24px;
+    color: #333;
+    margin-top: 20px;
 }
 
+p {
+    font-size: 18px;
+    color: #a58cd2;
+    border: 2px solid #a58cd2; 
+    padding: 10px;
+    margin-top: 10px;
+}
 
+/* Style des liens */
+a {
+    color: #007bff; /* Couleur bleue par défaut */
+    text-decoration: none; /* Supprimer le soulignement par défaut */
+}
+
+a:hover {
+    text-decoration: underline; /* Soulignement lors du survol */
+}
+
+/* Style des listes */
+ul {
+    list-style-type: none; /* Suppression des puces */
+    margin-top: 20px;
+    padding-left: 0;
+}
+
+li {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Style du lien de modification des personnes */
+li.modif-link {
+    color: #dc3545; /* Couleur rouge pour les liens de modification */
+}

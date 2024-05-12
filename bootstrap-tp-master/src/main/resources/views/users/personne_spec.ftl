@@ -63,4 +63,3 @@
 
 <li><a href="/main">Page d'accueil</a></li>
 </ul>
-</body>

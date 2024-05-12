@@ -1,6 +1,6 @@
 <#ftl encoding="utf-8">
-
-<body x<link rel="stylesheet" href="style.css">mlns="http://www.w3.org/1999/html">
+<link rel="stylesheet" href="style.css">
+<body xmlns="http://www.w3.org/1999/html">
 
     <h1>Bienvenue sur la page gérant les personnes affiliés à notre entreprise</h1>
     <br>
@@ -15,11 +15,11 @@
     <br>
 
 
-<ul>
-<li><a href="/modifpersonne">Modif personne(admin only)</a></li>
+    <ul>
+    <li><a class="modif-link" href="/modifpersonne">Modif personne(admin only)</a></li>
 
-<li><a href="/main">Page d'accueil</a></li>
-</ul>
+    <li><a href="/main">Page d'accueil</a></li>
+    </ul>
 
-</body>
+
 
