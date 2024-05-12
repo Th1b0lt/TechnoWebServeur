@@ -21,6 +21,8 @@
         <#else>
             (Adresse e-mail non définie)
         </#if></p>
+<#if role == 1>
+
 <p>Mettre a jour votre syndicat</p>
 <form action="/majSyndicat/${syndicat.idSyndicat}/name" method="POST">
     <div id="name_containe">
@@ -69,6 +71,7 @@
         <form action="/supprimerSyndicat/ ${syndicat.idSyndicat}" method="post">
             <input type="submit" value="Supprimer">
         </form>
+</#if>
 <p>Liste des immeuble liés au syndicat</p>
 <#if immeubles?has_content>
     <#list immeubles as immeuble>
@@ -82,8 +85,10 @@
 
 
 <ul>
-<li><a href="/syndicat">Main syndicat</a></li>
+<#if role == 1>
 
+<li><a href="/syndicat">Main syndicat</a></li>
+</#if>
 <li><a href="/main">Page d'accueil</a></li>
 </ul>
 </body>

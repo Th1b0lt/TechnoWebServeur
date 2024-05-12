@@ -27,9 +27,11 @@
 
         
   
+<ul>
+<#if role == 1>
 
 <li><a href="/modifsyndicat">Modif syndicat(admin only)</a></li>
-
+</#if>
 <li><a href="/main">Page d'accueil</a></li>
 </ul>
 </body>

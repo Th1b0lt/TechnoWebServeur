@@ -5,7 +5,24 @@
 
 <h1>Page representative de l'syndicat ${syndicat.idSyndicat}</h1>
            
-<p>Donnée syndicat :  ${syndicat.name} ${syndicat.adresse} ${syndicat.personneReference}  ${syndicat.numeroDeTelephone} ${syndicat.adresseEmail}</p>
+<p>Donnée syndicat : ${syndicat.name} ${syndicat.adresse} 
+        <#if syndicat.personneReference??>
+            ${syndicat.personneReference}
+        <#else>
+            (Personne de référence non définie)
+        </#if>
+        <#if syndicat.numeroDeTelephone??>
+            ${syndicat.numeroDeTelephone}
+        <#else>
+            (Numéro de téléphone non défini)
+        </#if>
+        <#if syndicat.adresseEmail??>
+            ${syndicat.adresseEmail}
+        <#else>
+            (Adresse e-mail non définie)
+        </#if></p>
+<#if role == 1>
+
 <p>Mettre a jour votre syndicat</p>
 <form action="/majSyndicat/${syndicat.idSyndicat}/name" method="POST">
     <div id="name_containe">
@@ -54,6 +71,7 @@
         <form action="/supprimerSyndicat/ ${syndicat.idSyndicat}" method="post">
             <input type="submit" value="Supprimer">
         </form>
+</#if>
 <p>Liste des immeuble liés au syndicat</p>
 <#if immeubles?has_content>
     <#list immeubles as immeuble>
@@ -67,8 +85,10 @@
 
 
 <ul>
-<li><a href="/syndicat">Main syndicat</a></li>
+<#if role == 1>
 
+<li><a href="/syndicat">Main syndicat</a></li>
+</#if>
 <li><a href="/main">Page d'accueil</a></li>
 </ul>
 </body>

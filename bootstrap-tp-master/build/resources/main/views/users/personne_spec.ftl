@@ -5,6 +5,7 @@
 
 <h1>Page representative de la personne ${personne.idPersonne}</h1>
 <p>Donnée personne :  ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</p>
+<#if role == 1>
 <p>Mettre a jour votre personne</p>
 <form action="/majpPersonne/${personne.idPersonne}/numeroDeTelephone" method="POST">
     <div id="numeroDeTelephone_container">
@@ -40,13 +41,6 @@
 <br>
 <br>
 
-<p>Liste des locataires liés à la personne</p>
-<#if locataires?has_content>
-    <#list locataires as locataire>
-        <li><a href="/personne/${personne.idPersonne}">${personne.idPersonne}</a> - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
-    </#list>
-<#else>
-    <li>(Pas de locataire)</li>
 </#if>
 
 <p>Liste des appartements liés à la personne</p>

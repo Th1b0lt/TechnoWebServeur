@@ -16,8 +16,10 @@
 
 
 <ul>
-<li><a href="/modifpersonne">Modif personne(admin only)</a></li>
+<#if role == 1>
 
+<li><a href="/modifpersonne">Modif personne(admin only)</a></li>
+</#if>
 <li><a href="/main">Page d'accueil</a></li>
 </ul>
 

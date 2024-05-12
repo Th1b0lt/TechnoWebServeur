@@ -5,7 +5,7 @@
 
 <h1>Page representative de l'appartement ${appartement.idAppartement}</h1>
 <p>Donnée appartement :  ${appartement.etage} ${appartement.superficie} Relié à l'immeuble ${appartement.idImmeuble}</p>
-
+<#if role == 1>
 <p>Mettre a jour votre appartement</p>
 <form action="/majAppartement/${appartement.idAppartement}/etage" method="POST">
     <div id="etage_containe">
@@ -38,6 +38,8 @@
         <form action="/supprimerAppartement/ ${appartement.idAppartement}" method="post">
             <input type="submit" value="Supprimer">
         </form>
+</#if>
+
 <p>Liste des locataires liés à l'appartement</p>
 <#if locataires?has_content>
     <#list locataires as locataire>
@@ -55,10 +57,10 @@
     <li>(Pas de propriétaire)</li>
 </#if>
 
-
+<#if role == 1>
 <p>Ajout de personne dans l'appartement (cliqué sur les personnes a ajouter)</p>
 
-<#if personne?has_content>
+<#if personne?has_content >
     <#list personnes as personne>
         <li><a href="/personne/ajouterLien/${appartement.idAppartement}/${personne.idPersonne}">${personne.idPersonne}</a> - ${personne.numeroDeTelephone} ${personne.nom} ${personne.prenom}</li>
     </#list>
@@ -80,6 +82,7 @@
     </#list>
 <#else>
     <li>(Pas de propriétaire)</li>
+</#if>
 </#if>
 <ul>
 <li><a href="/appartement">Main appartement</a></li>

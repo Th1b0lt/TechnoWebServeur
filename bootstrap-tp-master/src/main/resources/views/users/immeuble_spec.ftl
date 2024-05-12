@@ -6,6 +6,7 @@
 <h1>Page representative de l'immeuble ${immeuble.idImmeuble}</h1>
 <p>Donnée immeuble :  ${immeuble.nom} ${immeuble.adresse}</p>
 <p>Il est rattaché au Syndicat : <a href="/syndicat/${immeuble.idSyndicat}"> ${immeuble.idSyndicat} </a></p>
+<#if role == 1>
 
 <p>Mettre a jour votre immeuble</p>
 <form action="/majImmeuble/${immeuble.idImmeuble}/name" method="POST">
@@ -40,7 +41,7 @@
             <input type="submit" value="Supprimer">
         </form>
 
-
+</#if>
 <p>Liste des appartements liés à l'immeuble</p>
 <#if appartements?has_content>
     <#list appartements as appartement>
@@ -49,6 +50,8 @@
 <#else>
     <li>(Pas d'appartement)</li>
 </#if>
+<#if role == 1>
+
 <p>Ajouter un appartement à cette immeuble</p>
   <p>Ajout d'un appartement (seulement pour les admins)</p>
 
@@ -62,7 +65,7 @@
    
     <input type="submit" value="Ajouter">
 </form>
-
+</#if>
 <ul>
 <li><a href="/immeuble">Main Immeuble</a></li>
 

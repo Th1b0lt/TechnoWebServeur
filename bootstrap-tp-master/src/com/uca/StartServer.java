@@ -28,8 +28,14 @@ public class StartServer {
             return UserGUI.main();
         });
         get("/users", (req, res) -> {
+            String token = req.cookie("token");
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
             return UserGUI.getAllUsers();
-        });
+        } else {
+            res.redirect("/login");
+             res.status(401); // Bad Request
+            return null;
+        }});
         get("/login",(req,res)->{
             return UserGUI.login();
         });
@@ -87,10 +93,18 @@ public class StartServer {
             }
         });
         get("/personne", (req, res) -> {
-            return PersonneGUI.getAllPersonnes();
+            String token = req.cookie("token");
+            int role=0;
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
+                role=1;}
+            return PersonneGUI.getAllPersonnes(role);
         });
         get("/personne/:id",(req,res)->{
             String idPersonneStr = req.params(":id");
+            String token = req.cookie("token");
+            int role=0;
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
+                role=1;}
             int idPersonne = 0;
             try {
                 // Tentative de conversion des chaînes en entiers
@@ -100,7 +114,7 @@ public class StartServer {
                 return "Erreur de conversion en entier";
             }
 
-            return PersonneGUI.getPersonneById(idPersonne);
+            return PersonneGUI.getPersonneById(idPersonne,role);
         });
         post("/majPersonne/:id/:case", (req, res) -> {
             String token = req.cookie("token");
@@ -249,7 +263,11 @@ public class StartServer {
             }
         });
         get("/appartement", (req, res) -> {
-            return AppartementGUI.getAllAppartement();
+            String token = req.cookie("token");
+            int role=0;
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
+                role=1;}
+            return AppartementGUI.getAllAppartement(role);
         });
         get("/modifappart", (req, res) -> {
             String token = req.cookie("token");
@@ -340,7 +358,12 @@ public class StartServer {
         
         get("/appartement/:id",(req,res)->{
             String idAppartementStr = req.params(":id");
+            String token = req.cookie("token");
+
             int idAppartement = 0;
+            int role=0;
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
+                role=1;}
         
         
                     try {
@@ -351,9 +374,11 @@ public class StartServer {
                         return "Erreur de conversion en entier";
                     }
         
-            return AppartementGUI.getAppartementById(idAppartement);
+            return AppartementGUI.getAppartementById(idAppartement,role);
         });
         post("/supprimeLien/:id/:id2",(req,res)->{
+            String token = req.cookie("token");
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
             String idPersonneStr = req.params(":id2");
             String idAppartementStr = req.params(":id");
             int idAppartement = 0;
@@ -373,7 +398,14 @@ public class StartServer {
                     String redirection="/appartement";
                     redirection+=idAppartementStr;
                     res.redirect(redirection); //Remet sur la page d'avant jsp faire
-                    return null;
+                    return null;}
+                    else{
+                        res.redirect("/login");
+                        res.status(401); // Bad Request
+                        return null;
+                        
+        
+                    }
         });
         post("/appartement/ajouterLien/:id/:id2",(req,res)->{
             String token = req.cookie("token");
@@ -455,7 +487,6 @@ public class StartServer {
         post("/supprimerAppartement/:id",(req,res)->{
             String idString = req.params("id");
             String token = req.cookie("token");
-            
             if (token!=null && SessionManager.introspect(token).containsKey("sub") ){
                 try {
                     int id = Integer.parseInt(idString);
@@ -513,7 +544,11 @@ public class StartServer {
 
         
         get("/immeuble", (req, res) -> {
-            return ImmeubleGUI.getAllImmeuble();
+            String token = req.cookie("token");
+            int role=0;
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
+                role=1;}
+            return ImmeubleGUI.getAllImmeuble(role);
         });
         get("/modifimmeuble", (req, res) -> {
             String token = req.cookie("token");
@@ -588,6 +623,10 @@ public class StartServer {
         });
         get("/immeuble/:id",(req,res)->{
             String idImmeubleStr = req.params(":id");
+            String token = req.cookie("token");
+            int role=0;
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
+                role=1;}
 
           int idImmeuble = 0;
         
@@ -600,7 +639,7 @@ public class StartServer {
                         return "Erreur de conversion en entier";
                     }
         
-            return ImmeubleGUI.getImmeubleById(idImmeuble);
+            return ImmeubleGUI.getImmeubleById(idImmeuble,role);
         });
         post("/ajouterImmeuble", (req, res) -> {
             String token = req.cookie("token");
@@ -740,14 +779,20 @@ public class StartServer {
         });
         
         get("/syndicat", (req, res) -> {
-            return SyndicatGUI.getAllSyndicat();
+            String token = req.cookie("token");
+            int role=0;
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
+                role=1;}
+            return SyndicatGUI.getAllSyndicat(role);
         });
         
         get("/syndicat/:id",(req,res)->{
             String idSyndicatStr = req.params(":id");
+            String token = req.cookie("token");
+            int role=0;
+            if (token != null && SessionManager.introspect(token).containsKey("sub")) {
+                role=1;}
             int idSyndicat = 0;
-        
-        
             try {
                 // Tentative de conversion des chaînes en entiers
                 idSyndicat = Integer.parseInt(idSyndicatStr);
@@ -755,8 +800,7 @@ public class StartServer {
             } catch (NumberFormatException e) {
                 return "Erreur de conversion en entier";
             }
-
-            return SyndicatGUI.getSyndicatById(idSyndicat);
+            return SyndicatGUI.getSyndicatById(idSyndicat,role);
         });
         get("/modifsyndicat", (req, res) -> {
             String token = req.cookie("token");
@@ -773,7 +817,8 @@ public class StartServer {
         
         post("/ajouterSyndicat", (req, res) -> {
             String token = req.cookie("token");
-            if (token!=null){
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
+            
                 try {
                     // Récupérer les paramètres de la requête
                     String name = req.queryParams("name");
@@ -864,7 +909,8 @@ public class StartServer {
         post("/supprimerSyndicat",(req,res)->{
             String idString = req.queryParams("id");
             String token = req.cookie("token");
-            if (token!=null  ){
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
+
                 try {
                     int id = Integer.parseInt(idString);
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
@@ -892,7 +938,8 @@ public class StartServer {
         post("/supprimerSyndicat/:id",(req,res)->{
             String idString = req.params("id");
             String token = req.cookie("token");
-            if (token!=null  ){
+            if (token!=null &&  SessionManager.introspect(token).containsKey("sub")){
+
                 try {
                     int id = Integer.parseInt(idString);
                     // Appeler la méthode create de PersonneCore pour créer une nouvelle personne
