@@ -24,7 +24,11 @@ public class StartServer {
         System.out.println(a);
         System.out.println(SessionManager.introspect(a));
         */
-
+        //Utilisateur admin à l'origin (perte de la base de données en exportant)
+        if (UserCore.getAllUsers().isEmpty()) {
+            new UserCore().createUser("admin", "MotDePasseAdmin!1234");
+            System.out.println("\n\nPremier compte utilisateur username admin mot de passe : MotDePasseAdmin!1234") ;
+        }
         get("/*/style.css", (req, res) -> {
             
             return spark.Spark.class.getResourceAsStream("/static/style.css");
@@ -120,7 +124,8 @@ public class StartServer {
                 idPersonne = Integer.parseInt(idPersonneStr);
             
             } catch (NumberFormatException e) {
-                return("j'ai chié sur ça"+idPersonneStr);
+                res.status(401);
+                
             }
 
             return PersonneGUI.getPersonneById(idPersonne,role);

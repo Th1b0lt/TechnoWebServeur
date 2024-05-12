@@ -31,13 +31,9 @@
         <#else>
             (Adresse e-mail non définie)
         </#if></p>
-<<<<<<< HEAD
 <#if role == 1>
 
 <p>Mettre a jour votre syndicat</p>
-=======
-<p>Mettre a jour votre syndicat(seulement pour les admins)</p>
->>>>>>> d857ec1f2b2ed28509513372a98a6ba18bf2c1e9
 <form action="/majSyndicat/${syndicat.idSyndicat}/name" method="POST">
     <div id="name_containe">
         <input name="name" id="name" class="initial" type="text" placeholder="name" value="">

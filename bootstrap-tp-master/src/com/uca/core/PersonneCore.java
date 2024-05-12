@@ -132,6 +132,15 @@ public class PersonneCore {
         }
         return locataires;
     }
+    public static ArrayList<PersonneEntity> getLocatairesByProprietaire(int idPersonne) {
+        try {
+            // Appel de la méthode du DAO
+            return new PersonneDao().getLocatairesByProprietaire(idPersonne);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
     public static void updateNumeroTelephone(int idPersonne, String nouveauNumero) {
         try {
             PersonneDao personneDao = new PersonneDao();

@@ -49,8 +49,20 @@
     </#list>
 <#else>
     <li>(Pas d'appartement)</li>
-</#if>
 
+<p>Statistiques globales :</p>
+Pourcentage de logements occupés : ${statglobal[0]?string("0.00")} %
+Pourcentage de logements vacants : ${statglobal[1]?string("0.00")} %
+
+<p>Statistiques locales :</p>
+<#if stalLocal?has_content>
+<#list statLocal as stat>
+    <p> Logement numéro ${stat[2]?string("0.00")}. </p>
+    Pourcentage de logements occupés : ${stat[0]?string("0.00")} %
+    Pourcentage de logements vacants : ${stat[1]?string("0.00")} %
+</#list>
+</#if>
+</#if>
 <ul>
 <li><a href="/personne">Main personne</a></li>
 

@@ -6,6 +6,7 @@ import com.uca.entity.ImmeubleEntity;
 import com.uca.entity.AppartementEntity;
 import com.uca.core.AppartementCore;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ImmeubleCore {
     public static ArrayList<ImmeubleEntity> getAllImmeuble(){
@@ -26,22 +27,21 @@ public class ImmeubleCore {
         return null;
     }
     
-    public static double[] getPourcentageLogementsLouesEtVacantsPourUtilisateurEtImmeuble(int idUtilisateur, int idImmeuble) {
+    public static double[] pourcentageAppartementsLouesEtNonLouesPourPersonne(int idPersonne) {
         try {
-            return new ImmeubleDao().getPourcentageLogementsLouesEtVacantsPourUtilisateurEtImmeuble(idUtilisateur, idImmeuble);
+            return new ImmeubleDao().pourcentageAppartementsLouesEtNonLouesPourPersonne(idPersonne);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new double[2];
+        return new double[]{0.0, 0.0}; // Retourne un tableau avec des valeurs par défaut si une exception se produit
     }
-    
-    public static double[] getPourcentageLogementsLouesEtVacantsPourUtilisateur(int idUtilisateur) {
+    public static ArrayList<double[]> pourcentageAppartementsLouesEtNonLouesPourPersonneEtImmeuble(int idPersonne){
         try {
-            return new ImmeubleDao().getPourcentageLogementsLouesEtVacantsPourUtilisateur(idUtilisateur);
+            return new ImmeubleDao().pourcentageAppartementsLouesEtNonLouesPourPersonneEtImmeuble(idPersonne);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new double[2];
+        return new ArrayList<>();
     }
     
     public static void updateNomImmeuble(int idImmeuble, String nouveauNom) {

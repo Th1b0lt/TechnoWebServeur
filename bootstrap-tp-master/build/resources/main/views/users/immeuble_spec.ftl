@@ -3,17 +3,10 @@
 <body xmlns="http://www.w3.org/1999/html">
 
 
-<<<<<<< HEAD
-<h1>Page representative de l'immeuble ${immeuble.idImmeuble}</h1>
-<p>Donnée immeuble :  ${immeuble.nom} ${immeuble.adresse}</p>
-<p>Il est rattaché au Syndicat : <a href="/syndicat/${immeuble.idSyndicat}"> ${immeuble.idSyndicat} </a></p>
-<#if role == 1>
-=======
     <h1>Page representative de l'immeuble n° ${immeuble.idImmeuble}</h1>
     <p>Donnée immeuble :  ${immeuble.nom} se trouve au ${immeuble.adresse}</p>
     <p>Il est rattaché au Syndicat : <a href="/syndicat/${immeuble.idSyndicat}"> ${immeuble.idSyndicat} </a></p>
->>>>>>> d857ec1f2b2ed28509513372a98a6ba18bf2c1e9
-
+    <#if role ==1>
     <p>Mettre à jour votre immeuble (seulement pour les admins)</p>
     <form action="/majImmeuble/${immeuble.idImmeuble}/name" method="POST">
         <div id="name_container">
@@ -59,7 +52,7 @@
 <#if role == 1>
 
 <p>Ajouter un appartement à cette immeuble</p>
-  <p>Ajout d'un appartement (seulement pour les admins)</p>
+  
 
     <form action="/ajouterAppartement/${immeuble.idImmeuble}" method="POST">
     <div id="etage_container">
