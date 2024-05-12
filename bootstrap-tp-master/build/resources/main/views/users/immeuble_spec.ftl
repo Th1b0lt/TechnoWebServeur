@@ -47,7 +47,6 @@
                 <input type="submit" value="Supprimer">
             </form>
 
-<<<<<<< HEAD
 </#if>
 <p>Liste des appartements liés à l'immeuble</p>
 <#if appartements?has_content>
@@ -75,33 +74,6 @@
 </#if>
 <ul>
 <li><a href="/immeuble">Main Immeuble</a></li>
-=======
-
-    <p>Liste des appartements liés à l'immeuble</p>
-    <#if appartements?has_content>
-        <#list appartements as appartement>
-            <li>Appartement n° <a href="/appartement/${appartement.idAppartement}">${appartement.idAppartement}</a> se trouve à l'etage ${appartement.etage}  et d'une superficie de ${appartement.superficie} m² se trouve dans l'immeuble <a href="/immeuble/${appartement.idImmeuble}">${appartement.idImmeuble}</a></li>
-        </#list>
-    <#else>
-        <li>(Pas d'appartement)</li>
-    </#if>
-    <p>Ajouter un appartement à cette immeuble</p>
-    <p>Ajout d'un appartement (seulement pour les admins)</p>
-
-        <form action="/ajouterAppartement/${immeuble.idImmeuble}" method="POST">
-        <div id="etage_container">
-            <input name="etage" id="nom" class="etage" type="text" placeholder="etage" value="">
-        </div>
-        <div id="superficie_container">
-            <input name="superficie" id="superficie" class="initial" type="text" placeholder="superficie" value="">
-        </div>
-    
-        <input type="submit" value="Ajouter">
-    </form>
-
-    <ul>
-    <li><a href="/immeuble">Main Immeuble</a></li>
->>>>>>> d857ec1f2b2ed28509513372a98a6ba18bf2c1e9
 
     <li><a href="/main">Page d'accueil</a></li>
     </ul>

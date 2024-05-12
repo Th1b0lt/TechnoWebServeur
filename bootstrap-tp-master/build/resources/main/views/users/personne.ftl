@@ -15,7 +15,6 @@
     <br>
 
 
-<<<<<<< HEAD
 <ul>
 <#if role == 1>
 
@@ -23,13 +22,5 @@
 </#if>
 <li><a href="/main">Page d'accueil</a></li>
 </ul>
-=======
-    <ul>
-    <li><a class="modif-link" href="/modifpersonne">Modif personne(admin only)</a></li>
-
-    <li><a href="/main">Page d'accueil</a></li>
-    </ul>
-
->>>>>>> d857ec1f2b2ed28509513372a98a6ba18bf2c1e9
 
 

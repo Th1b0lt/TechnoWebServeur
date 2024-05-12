@@ -5,9 +5,6 @@
 
 <h1>Page representative du syndicat n° ${syndicat.idSyndicat}</h1>
            
-<<<<<<< HEAD
-<p>Donnée syndicat : ${syndicat.name} ${syndicat.adresse} 
-=======
 <p>Donnée syndicat :  
         <#if syndicat.name??>
             ${syndicat.name}
@@ -19,7 +16,6 @@
         <#else>
             (Personne de référence non définie)
         </#if>
->>>>>>> d857ec1f2b2ed28509513372a98a6ba18bf2c1e9
         <#if syndicat.personneReference??>
             ${syndicat.personneReference}
         <#else>
